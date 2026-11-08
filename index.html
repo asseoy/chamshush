@@ -169,6 +169,9 @@ html.touch #phUI,html.touch #waT{zoom:var(--z)}
 
 #menu{translate:none;transform:translate(-50%,-50%)}
 
+/* XL cans instead of eggs */
+html.xl #eggs i{width:15px;height:28px;border-radius:3px;background:linear-gradient(#e8eef4 0 16%,#16224f 16% 84%,#e8eef4 84%)}html.xl #eggs i.x{background:#4a4a4a;opacity:.45}
+
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head><body>
@@ -260,12 +263,12 @@ for(let v of ROADS)for(let p=-EDGE+8;p<EDGE;p+=30){if(ROADS.some(c=>Math.abs(c-p
 inst(new THREE.SphereGeometry(.2,8,6),new THREE.MeshBasicMaterial({color:0xffdf9a,fog:false}),bulbs,{cast:false});
 // trees and the forest round the edge
 const nearP={t:[],a:[],b:[],c:[]},farP={t:[],a:[],b:[],c:[]},round=[],rtr=[];
-function pine(x,z,s=1,col=true){if(x>-152&&x<-88&&z>-214&&z<-138)return;const y=r(0,6),q=col?nearP:farP;if(!col&&(z>=148?x>-6&&x<126&&z<246:x>38&&x<82&&z>134))return;if(!col&&x>140&&x<286&&z>-132&&z<12)return;q.t.push([x,.8*s,z,y,s]);q.a.push([x,2.1*s,z,y,s]);q.b.push([x,3.3*s,z,y,s]);q.c.push([x,4.35*s,z,y,s]);if(col)solid(x,z,.55*s)}
+function pine(x,z,s=1,col=true){if(x>-152&&x<-88&&z>-214&&z<-138)return;if(x>118&&x<158&&z>148&&z<214)return;const y=r(0,6),q=col?nearP:farP;if(!col&&(z>=148?x>-6&&x<126&&z<246:x>38&&x<82&&z>134))return;if(!col&&x>140&&x<286&&z>-132&&z<12)return;q.t.push([x,.8*s,z,y,s]);q.a.push([x,2.1*s,z,y,s]);q.b.push([x,3.3*s,z,y,s]);q.c.push([x,4.35*s,z,y,s]);if(col)solid(x,z,.55*s)}
 function tree(x,z,s=1){rtr.push([x,1.1*s,z,0,s]);round.push([x,2.9*s,z,r(0,6),s*1.5,s*1.3]);solid(x,z,.45*s)}
 for(let i=0;i<340;i++){const a=r(0,6.283),d=r(EDGE+6,EDGE+74);pine(Math.cos(a)*d,Math.sin(a)*d,r(1.5,3.2),false)}
 {for(let i=0;i<90;i++){const s=[r(-EDGE,EDGE),EDGE+r(-4,5)],sw=i%4;const x=sw<2?s[0]:(sw==2?s[1]:-s[1]),z=sw==0?s[1]:(sw==1?-s[1]:s[0]);pine(x,z,r(1.3,2.4),false)}}
 // walls of the world
-wall(-62,EDGE+6,208,8);wall(122,EDGE+6,88,8);wall(-147,-EDGE-6,38,8);wall(27,-EDGE-6,278,8);wall(EDGE+6,-119,8,94);wall(EDGE+6,59,8,214);wall(-EDGE-6,0,8,EDGE*2+40);
+wall(-62,EDGE+6,208,8);wall(103,EDGE+6,50,8);wall(155,EDGE+6,22,8);wall(-147,-EDGE-6,38,8);wall(27,-EDGE-6,278,8);wall(EDGE+6,-119,8,94);wall(EDGE+6,59,8,214);wall(-EDGE-6,0,8,EDGE*2+40);
 // apartment blocks: window sheet with lit rooms, balconies, a solar water heater on every roof
 function sheet(lit_){const draw=emit=>(g,w,h)=>{g.fillStyle=emit?'#000':'#fff';g.fillRect(0,0,w,h);const n=8;if(!emit){for(let i=0;i<24000;i++){const q=r(0,1);g.fillStyle=q<.5?`rgba(60,50,40,${r(.02,.09)})`:`rgba(255,250,235,${r(.03,.12)})`;g.fillRect(r(0,w),r(0,h),r(1,3),r(1,3))}}for(let i=0;i<n;i++)for(let j=0;j<n;j++){const x=i*w/n,y=j*h/n,cw=w/n,ch=h/n,on=lit_[i+j*n];if(!emit){const st_=g.createLinearGradient(0,y+ch*.76,0,y+ch*1.06);st_.addColorStop(0,`rgba(70,58,44,${.1+((i*3+j*5)%5)*.05})`);st_.addColorStop(1,'rgba(70,58,44,0)');g.fillStyle=st_;g.fillRect(x+cw*.2,y+ch*.76,cw*.6,ch*.3);g.fillStyle='#8f877a';g.fillRect(x+cw*.15,y+ch*.73,cw*.7,ch*.045);g.fillStyle='#d4ccbd';g.fillRect(x+cw*.15,y+ch*.17,cw*.7,ch*.56);g.fillStyle='rgba(60,50,40,.55)';g.fillRect(x+cw*.15,y+ch*.17,cw*.7,ch*.022)}g.fillStyle=emit?(on?'#ffc26a':'#000'):(on?'#ffc779':'#2f333f');g.fillRect(x+cw*.2,y+ch*.22,cw*.6,ch*.48);if(!emit){if(!on){g.fillStyle='rgba(120,150,190,.25)';g.fillRect(x+cw*.2,y+ch*.22,cw*.28,ch*.48)}const sh=on?.22+((i+j)%3)*.08:.5+((i*7+j*3)%4)*.12;g.fillStyle='#a0978a';g.fillRect(x+cw*.2,y+ch*.22,cw*.6,ch*.48*sh);g.fillStyle='rgba(50,44,36,.42)';const rows=Math.floor(ch*.48*sh/5);for(let k=0;k<rows;k++)g.fillRect(x+cw*.2,y+ch*.22+k*5,cw*.6,1.4);g.fillStyle='#3a342c';g.fillRect(x+cw*.495,y+ch*.22,cw*.012,ch*.48);if(on&&(i+j)%2===0){g.fillStyle='rgba(180,70,50,.5)';g.fillRect(x+cw*.2,y+ch*.22,cw*.14,ch*.48);g.fillRect(x+cw*.66,y+ch*.22,cw*.14,ch*.48)}}}};return[draw(false),draw(true)]}
 const litA=Array.from({length:64},()=>r()<.34),[wa,we]=sheet(litA);
@@ -358,7 +361,7 @@ const puff=tex(128,128,(g,W,H)=>{const q=g.createRadialGradient(64,64,3,64,64,62
 const NP=70,pPos=new Float32Array(NP*3).fill(-999),parts=[];for(let i=0;i<NP;i++)parts.push({x:0,y:-999,z:0,vx:0,vy:0,vz:0,l:0});const pGeo=new THREE.BufferGeometry();pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));const pMat=new THREE.PointsMaterial({map:puff,color:0xe9cfa4,size:1.5,transparent:true,depthWrite:false,opacity:.3});const pts=new THREE.Points(pGeo,pMat);pts.frustumCulled=false;scene.add(pts);let pi=0;
 function dust(x,y,z,n=1,force=1){for(let k=0;k<n;k++){const p=parts[pi++%NP];p.x=x+r(-.2,.2);p.y=y+.15;p.z=z+r(-.2,.2);p.vx=r(-1,1)*force;p.vy=r(.4,1.6)*force;p.vz=r(-1,1)*force;p.l=1}}
 // minimap
-const mc=$('#map').getContext('2d'),MS=380/462;const mx=x=>190-(x-60)*MS,my=z=>190-(z-42)*MS;const mapBase=document.createElement('canvas');mapBase.width=mapBase.height=380;{const g=mapBase.getContext('2d');g.fillStyle='#2b1d17';g.fillRect(0,0,380,380);g.fillStyle='#b08a52';g.fillRect(mx(118),my(238),116*MS,92*MS);g.fillStyle='#7c1420';g.fillRect(mx(276),my(-2),120*MS,116*MS);g.fillStyle='#161012';g.fillRect(mx(228),my(-80),44*MS,26*MS);g.fillRect(mx(241),my(-10),80*MS,8*MS);g.fillStyle='#3f7a3a';g.fillRect(mx(272),my(-50),32*MS,62*MS);g.fillStyle='#17131a';g.fillRect(mx(270),my(-21),28*MS,16*MS);g.fillStyle='#d4cdbf';g.fillRect(mx(190),my(-54),40*MS,12*MS);g.fillStyle='#d4cdbf';g.fillRect(mx(60)-2,my(186),4,40*MS);g.fillStyle='#FD1D1D';g.fillRect(mx(60)-9,my(192)-7,18,14);g.fillStyle='#F3E03B';g.beginPath();g.moveTo(mx(60),my(192)-5);g.lineTo(mx(60)+6,my(192)+5);g.lineTo(mx(60)-6,my(192)+5);g.closePath();g.fill();PLAN.forEach((row,j)=>[...row].forEach((c,i)=>{g.fillStyle={A:'#4a3a31',P:'#3f6b34',K:'#6b6865',S:'#a8121b',C:'#2d6a58',T:'#8C6B45',D:'#e8862e',G:'#f3b81c'}[c];const x=blockC(i),z=blockC(j);g.fillRect(mx(x)-24*MS-0,my(z)-24*MS,48*MS,48*MS)}));g.fillStyle='#d4cdbf';ROADS.forEach(v=>{g.fillRect(mx(v)-6*MS,my(EDGE),12*MS,(EDGE*2)*MS);g.fillRect(mx(EDGE),my(v)-6*MS,(EDGE*2)*MS,12*MS)});g.direction='rtl';g.textAlign='center';g.textBaseline='middle';g.font='700 30px Karantina';g.lineWidth=7;g.strokeStyle='#000';g.fillStyle='#fff';[['עלמה',-120,-168],['זולה',60,212],['יודה',-30,30],['סודוך',30,90],['GDB',90,30],['שבט',216,-60]].forEach(([q,a,b])=>{g.strokeText(q,mx(a),my(b));g.fillText(q,mx(a),my(b))})}
+const mc=$('#map').getContext('2d'),MS=380/462;const mx=x=>190-(x-60)*MS,my=z=>190-(z-42)*MS;const mapBase=document.createElement('canvas');mapBase.width=mapBase.height=380;{const g=mapBase.getContext('2d');g.fillStyle='#2b1d17';g.fillRect(0,0,380,380);g.fillStyle='#b08a52';g.fillRect(mx(118),my(238),116*MS,92*MS);g.fillStyle='#7c1420';g.fillRect(mx(276),my(-2),120*MS,116*MS);g.fillStyle='#161012';g.fillRect(mx(228),my(-80),44*MS,26*MS);g.fillRect(mx(241),my(-10),80*MS,8*MS);g.fillStyle='#3f7a3a';g.fillRect(mx(272),my(-50),32*MS,62*MS);g.fillStyle='#17131a';g.fillRect(mx(270),my(-21),28*MS,16*MS);g.fillStyle='#d4cdbf';g.fillRect(mx(190),my(-54),40*MS,12*MS);g.fillStyle='#d4cdbf';g.fillRect(mx(60)-2,my(186),4,40*MS);g.fillStyle='#FD1D1D';g.fillRect(mx(60)-9,my(192)-7,18,14);g.fillStyle='#F3E03B';g.beginPath();g.moveTo(mx(60),my(192)-5);g.lineTo(mx(60)+6,my(192)+5);g.lineTo(mx(60)-6,my(192)+5);g.closePath();g.fill();PLAN.forEach((row,j)=>[...row].forEach((c,i)=>{g.fillStyle={A:'#4a3a31',P:'#3f6b34',K:'#6b6865',S:'#a8121b',C:'#2d6a58',T:'#8C6B45',D:'#e8862e',G:'#f3b81c'}[c];const x=blockC(i),z=blockC(j);g.fillRect(mx(x)-24*MS-0,my(z)-24*MS,48*MS,48*MS)}));g.fillStyle='#d4cdbf';ROADS.forEach(v=>{g.fillRect(mx(v)-6*MS,my(EDGE),12*MS,(EDGE*2)*MS);g.fillRect(mx(EDGE),my(v)-6*MS,(EDGE*2)*MS,12*MS)});g.direction='rtl';g.textAlign='center';g.textBaseline='middle';g.font='700 30px Karantina';g.lineWidth=7;g.strokeStyle='#000';g.fillStyle='#fff';[['ילו',-120,-168],['ענתות 33',136,174],['זולה',60,212],['יודה',-30,30],['סודוך',30,90],['GDB',90,30],['שבט',216,-60]].forEach(([q,a,b])=>{g.strokeText(q,mx(a),my(b));g.fillText(q,mx(a),my(b))})}
 function drawMap(){mc.drawImage(mapBase,0,0);starG.forEach(s=>{if(s.userData.got)return;mc.drawImage(LOGO,mx(s.position.x)-10,my(s.position.z)-8,20,16)});mc.save();mc.translate(mx(st.x),my(st.z));mc.rotate(-st.h);mc.fillStyle='#FD1D1D';mc.strokeStyle='#fff';mc.lineWidth=3;mc.beginPath();mc.moveTo(0,-14);mc.lineTo(9,10);mc.lineTo(0,5);mc.lineTo(-9,10);mc.closePath();mc.fill();mc.stroke();mc.restore();window.__net&&__net.mapDots(mc,mx,my);window.PH&&PH.map(mc,mx,my)}
 // sound: wind and freewheel follow the speed, everything else is short hits
 let ac=null,wind=null,windF=null,muted=false,mg=null;
@@ -450,7 +453,7 @@ const SW=[];const swall=(x,z,w,d)=>SW.push({x0:x-w/2,x1:x+w/2,z0:z-d/2,z1:z+d/2}
 const SHOPW=17,SHOPD=12,SHOPH=4.6;
 const SKUS=[
  {k:'bamba',n:'במבוש',s:'קלאסי',t:'bag',c:'#f2c21c',c2:'#c8211f',p:5,sec:'a1'},{k:'bamba2',n:'במבוש ענק',s:'שקית משפחתית',t:'bag',c:'#ff8c1a',c2:'#7c0d13',p:12,sec:'a1',big:1},{k:'chips',n:'תפוצ׳יפס',s:'מלח ים',t:'bag',c:'#e73838',c2:'#fff',p:9,sec:'a1'},{k:'wafer',n:'ופל שוקו',s:'חמישייה',t:'box',c:'#6b3a1e',c2:'#f3e03b',p:7,sec:'a1'},{k:'cookie',n:'עוגיות סבתא',s:'כמו פעם',t:'box',c:'#d89b4a',c2:'#5a2c10',p:11,sec:'a1'},{k:'gum',n:'מסטיק מחנה',s:'טעם של פעולה',t:'box',c:'#2a9c8c',c2:'#fff',p:3,sec:'a1',small:1},
- {k:'cola',n:'קולה של השכונה',s:'1.5 ליטר',t:'bottle',c:'#2a120a',c2:'#d9141e',p:8,sec:'a2'},{k:'cola2',n:'קולה אמיתית מאוד',s:'מהדורת הנהגה',t:'bottle',c:'#180a06',c2:'#f3e03b',p:13,sec:'a2'},{k:'juice',n:'מיץ ענבים',s:'לקידוש ולפעולה',t:'bottle',c:'#5a1a5e',c2:'#f1efeb',p:12,sec:'a2'},{k:'water',n:'מי המחסן',s:'שישייה',t:'bottle',c:'#9fd2ea',c2:'#1d5e9c',p:6,sec:'a2'},{k:'soda',n:'סודה',s:'בועות חזקות',t:'can',c:'#d7e8ef',c2:'#1d5e9c',p:3,sec:'a2'},{k:'tea',n:'תה קר',s:'אפרסק',t:'can',c:'#e38b2b',c2:'#fff',p:5,sec:'a2'},
+ {k:'cola',n:'קולה של השכונה',s:'1.5 ליטר',t:'bottle',c:'#2a120a',c2:'#d9141e',p:8,sec:'a2'},{k:'cola2',n:'קולה אמיתית מאוד',s:'מהדורת הנהגה',t:'bottle',c:'#180a06',c2:'#f3e03b',p:13,sec:'a2'},{k:'juice',n:'מיץ ענבים',s:'לקידוש ולפעולה',t:'bottle',c:'#5a1a5e',c2:'#f1efeb',p:12,sec:'a2'},{k:'water',n:'מי המחסן',s:'שישייה',t:'bottle',c:'#9fd2ea',c2:'#1d5e9c',p:6,sec:'a2'},{k:'soda',n:'סודה',s:'בועות חזקות',t:'can',c:'#d7e8ef',c2:'#1d5e9c',p:3,sec:'a2'},{k:'tea',n:'תה קר',s:'אפרסק',t:'can',c:'#e38b2b',c2:'#fff',p:5,sec:'a2'},{k:'xl',n:'אקסל',s:'אנרגיה',t:'can',c:'#16224f',c2:'#e8eef4',p:9,sec:'a2'},
  {k:'pasta',n:'פסטה',s:'פוזילי',t:'box',c:'#1d5e9c',c2:'#f3e03b',p:7,sec:'a3'},{k:'rice',n:'אורז פרסי',s:'קילו',t:'bag',c:'#e9dfc8',c2:'#2e7a3c',p:10,sec:'a3'},{k:'tuna',n:'טונה',s:'בשמן',t:'can',c:'#2e6ca8',c2:'#fff',p:6,sec:'a3',small:1},{k:'oil',n:'שמן',s:'קנולה',t:'bottle',c:'#d9b83a',c2:'#2e7a3c',p:15,sec:'a3'},{k:'tahini',n:'טחינה',s:'גולמית',t:'tub',c:'#e6d4a6',c2:'#7c0d13',p:14,sec:'a3'},{k:'pickle',n:'מלפפון חמוץ',s:'במלח',t:'can',c:'#4c8a3a',c2:'#f3e03b',p:9,sec:'a3'},{k:'coffee',n:'נס של מדריך',s:'חזק מדי',t:'tub',c:'#2a1a12',c2:'#f1efeb',p:22,sec:'a3'},
  {k:'tp',n:'נייר טואלט',s:'שמונה גלילים',t:'box',c:'#f4f1ea',c2:'#3a7bc8',p:18,sec:'a4',big:1},{k:'soft',n:'מרכך כביסה',s:'ריח של חאקי',t:'bottle',c:'#7aa8e8',c2:'#fff',p:19,sec:'a4'},{k:'soap',n:'סבון כלים',s:'לימון',t:'bottle',c:'#f0dc32',c2:'#2e7a3c',p:8,sec:'a4'},{k:'sponge',n:'ספוגים',s:'חמישייה',t:'box',c:'#f4a62a',c2:'#2e7a3c',p:6,sec:'a4',small:1},{k:'sham',n:'שמפו',s:'אחרי מחנה',t:'bottle',c:'#c84a8c',c2:'#fff',p:17,sec:'a4'},
  {k:'cereal',n:'קורנפלקס',s:'בוקר של פנאט',t:'box',c:'#f2a71c',c2:'#c8211f',p:16,sec:'o',big:1},{k:'flour',n:'קמח',s:'קילו',t:'bag',c:'#f1efeb',c2:'#a8121b',p:6,sec:'o'},
@@ -460,7 +463,7 @@ const SKU=Object.fromEntries(SKUS.map(s=>[s.k,s]));
 // packaging: every label is drawn per product, gloss is painted so it costs nothing to render
 const shade=(c,f)=>{const n=parseInt(c.slice(1),16),q=v=>Math.round(clamp(f<0?v*(1+f):v+(255-v)*f,0,255));return `rgb(${q(n>>16)},${q(n>>8&255)},${q(n&255)})`};
 const lumOf=c=>{const n=parseInt(c.slice(1),16);return(n>>16)*.3+(n>>8&255)*.59+(n&255)*.11},inkOn=c=>lumOf(c)<140?'#fff':'#141414';
-const ART_OF={bamba:'puff',bamba2:'puff',chips:'wave',wafer:'stripes',cookie:'dots',gum:'stars',cola:'bubbles',cola2:'bubbles',juice:'grapes',water:'drops',soda:'bubbles',tea:'leaf',pasta:'spiral',rice:'grain',tuna:'fish',oil:'drops',tahini:'swirl',pickle:'leaf',coffee:'beans',tp:'rolls',soft:'bubbles',soap:'lemon',sponge:'dots',sham:'drops',cereal:'sun',flour:'grain',milk:'splash',milk2:'splash',shoko:'swirl',hummus:'swirl',hummus2:'grain',cottage:'dots',yogurt:'grapes',pita:'sun',pita2:'sun',bread:'grain',bagel:'dots'};
+const ART_OF={bamba:'puff',bamba2:'puff',chips:'wave',wafer:'stripes',cookie:'dots',gum:'stars',cola:'bubbles',cola2:'bubbles',juice:'grapes',water:'drops',soda:'bubbles',tea:'leaf',xl:'stars',pasta:'spiral',rice:'grain',tuna:'fish',oil:'drops',tahini:'swirl',pickle:'leaf',coffee:'beans',tp:'rolls',soft:'bubbles',soap:'lemon',sponge:'dots',sham:'drops',cereal:'sun',flour:'grain',milk:'splash',milk2:'splash',shoko:'swirl',hummus:'swirl',hummus2:'grain',cottage:'dots',yogurt:'grapes',pita:'sun',pita2:'sun',bread:'grain',bagel:'dots'};
 const WARN=new Set(['bamba','bamba2','chips','wafer','cookie','cola','cola2','juice','cereal','shoko','tea']);
 function art(g,a,x,y,R,c1,c2){const h=i=>{const v=Math.sin(i*12.9898+a.length*7.1)*43758.5;return v-Math.floor(v)};g.save();g.translate(x,y);g.fillStyle=c1;g.strokeStyle=c2;g.lineWidth=R*.09;const dot=(px,py,q,fill=c1)=>{g.fillStyle=fill;g.beginPath();g.arc(px,py,q,0,6.3);g.fill()},ell=(px,py,w,t,rot,fill=c1)=>{g.fillStyle=fill;g.beginPath();g.ellipse(px,py,w,t,rot,0,6.3);g.fill()};
  switch(a){case'bubbles':for(let i=0;i<9;i++){g.beginPath();g.arc((h(i)-.5)*R*1.7,(h(i+20)-.5)*R*1.7,R*(.1+h(i+40)*.2),0,6.3);g.fillStyle=c1;g.globalAlpha=.35;g.fill();g.globalAlpha=1;g.stroke()}break;
@@ -602,7 +605,7 @@ const arrow=new THREE.Group();{const sh=new THREE.Shape();sh.moveTo(0,.62);sh.li
 const bag=G(steer,[0,.15,.1]);{const g=pillow(.36,.42,.26);g.translate(0,-.21,0);const m=M(g,toon(0xf4f3ee),bag,{ol:OLs});const bl=new THREE.Mesh(new THREE.PlaneGeometry(.17,.14),new THREE.MeshBasicMaterial({map:logoT,transparent:true,alphaTest:.4}));bl.position.set(0,-.2,.115);bag.add(bl);[-.08,.08].forEach(s=>{const t=new THREE.TorusGeometry(.055,.008,5,12);const h=new THREE.Mesh(t,toon(0xf4f3ee));h.position.set(s,.02,0);h.rotation.y=Math.PI/2;bag.add(h)})}bag.visible=false;bag.scale.setScalar(.82);
 // ===== mission state =====
 let mode='ride';const job={state:'idle',list:[],time:0,limit:210,cart:[],bought:[],wallet:50,change:0,eggs:0,broken:0,wrong:[],n:0,ringT:0,best:0};
-const NAMES={milk:'חלב',eggs:'ביצים',pita:'פיתות',bamba:'במבוש',cola:'קולה',hummus:'חומוס'},GROUP={milk:['milk','milk2'],eggs:['eggs','eggs2'],pita:['pita','pita2'],bamba:['bamba','bamba2'],cola:['cola','cola2'],hummus:['hummus','hummus2']};
+const NAMES={milk:'חלב',eggs:'ביצים',pita:'פיתות',bamba:'במבוש',cola:'קולה',hummus:'חומוס',xl:'שישיית אקסל'},GROUP={xl:['xl'],milk:['milk','milk2'],eggs:['eggs','eggs2'],pita:['pita','pita2'],bamba:['bamba','bamba2'],cola:['cola','cola2'],hummus:['hummus','hummus2']};
 const uiC={},ui=s=>uiC[s]||(uiC[s]=document.querySelector(s)),setText=(e,v)=>{if(e._v!==v){e._v=v;e.textContent=v}},setVis=(e,v)=>{if(e._vis!==v){e._vis=v;e.style.visibility=v}};let line=null;
 function playVoice(pitch){tone(pitch+Math.random()*50,.045,'square',.018)}
 function typeText(txt,who,done,speed=.03){const box=ui('#sub');box.style.visibility='visible';ui('#subW').textContent=who;const t=ui('#subT');t.textContent='';let i=0;line&&line.kill();const pitch=who==='השביעסט'?170:who==='המוכרת'?360:260,sp_=who==='השביעסט'?boss:who==='המוכרת'?cashier:null;if(sp_)sp_.talk=true;line=gsap.to({v:0},{v:txt.length,duration:txt.length*speed,ease:'none',onUpdate(){const n=Math.floor(this.targets()[0].v);if(n>i){i=n;t.textContent=txt.slice(0,i);if(i%2)playVoice(pitch)}},onComplete(){t.textContent=txt;if(sp_)sp_.talk=false;done&&gsap.delayedCall(1.05,done)}})}
@@ -619,14 +622,14 @@ function jobClock(dt){if(!['toStore','inStore','toBoss','checkout','out'].includ
 // outdoors tick
 function rideJob(dt){walkPose(boss,0,dt,true);faceTick(boss,dt);{const dx=st.x-boss.root.position.x,dz=st.z-boss.root.position.z,tg=Math.hypot(dx,dz)<34?clamp(Math.atan2(dx,dz),-1.05,1.05):0;boss.head.rotation.y=damp(boss.head.rotation.y,tg,5,dt);if(!job.bossFx){boss.arms[0].up.rotation.x=damp(boss.arms[0].up.rotation.x,boss.talk?-.9+Math.sin(st.time*7)*.4:-.12,8,dt);boss.arms[1].up.rotation.x=damp(boss.arms[1].up.rotation.x,boss.talk?-.5+Math.sin(st.time*5)*.3:-.12,8,dt);boss.legs[0].lo.rotation.x=job.state==='toBoss'?Math.max(0,Math.sin(st.time*7))*.16:0}}job.ringT+=dt;if(job.state==='idle'&&st.started&&job.ringT>job.next&&!FT.charge&&!BB.held&&!SOC.dr)ring();if(job.state==='ring'){job.ringFor=(job.ringFor||0)+dt;if(job.ringFor>16)decline(true)}jobClock(dt);if((job.state==='out'||job.state==='go')&&job.m&&job.m.tick)job.m.tick(dt);
  if(goalP){const dx=goalP.x-st.x,dz=goalP.z-st.z,d=Math.hypot(dx,dz);arrow.position.set(st.x,st.y+3.1+Math.sin(st.time*4)*.1,st.z);arrow.rotation.y=Math.atan2(dx,dz);goalRing.rotation.z=st.time*.6;ringM.opacity=.65+Math.sin(st.time*5)*.25;setText(ui('#goalD'),Math.round(d)+' מ׳');setText(ui('#goalT'),goalP.t);arrow.visible=d>4;
-  if(d<3.2&&Math.abs(st.v)<14&&(job.state==='toStore'||job.state==='toBoss')){prompt_(job.state==='toStore'?'<b>E</b> להיכנס ל'+SNAME():'<b>E</b> לתת לשביעסט את הקניות')}else prompt_(zPrompt())}else prompt_(job.state==='ring'?'<b>E</b> לענות <b>Q</b> לא לענות':nearBoard()&&!FT.sit?'<b>E</b> ללוח החימשושים':zPrompt());if(['end','report','go','talk'].includes(job.state))prompt_('');
+  if(d<3.2&&Math.abs(st.v)<14&&(job.state==='toStore'||job.state==='toBoss')){prompt_(job.state==='toStore'?'<b>E</b> להיכנס ל'+SNAME():(job.m&&job.m.arriveT)||'<b>E</b> לתת לשביעסט את הקניות')}else prompt_(zPrompt())}else prompt_(job.state==='ring'?'<b>E</b> לענות <b>Q</b> לא לענות':nearBoard()&&!FT.sit?'<b>E</b> ללוח החימשושים':zPrompt());if(['end','report','go','talk'].includes(job.state))prompt_('');
  bag.visible=!st.onFoot&&(job.state==='toBoss'||!!job.carry);if(bag.visible){bag.rotation.z=clamp(st.lean*1.6+Math.sin(st.time*(3+Math.abs(st.v)*.6))*(.04+Math.abs(st.v)*.012),-.8,.8);bag.rotation.x=clamp(-st.v*.012+Math.sin(st.time*5)*.05,-.5,.4)+(st.air?-.4:0)}}
-function onCrash(hit){if(job.state==='out'&&hit>=4.5&&job.m&&job.m.bump){job.m.bump();if(job.parcel||job.pack||job.load)return}if(job.carry&&hit>=5){job.heat=Math.max(0,job.heat-18);pop((job.food||'הטוסט')+'!','#FD1D1D',86);tone(420,.1,'sawtooth',.05,160);return}if(job.state!=='toBoss'||job.eggs<=0||job.broken>=job.eggs||hit<5)return;job.broken++;window.PH&&PH.ev('egg');pop('הביצים!','#FD1D1D',96);tone(1900,.06,'sawtooth',.06,500);tone(700,.1,'square',.05,120,.05);renderEggs()}
+function onCrash(hit){if(job.state==='out'&&hit>=4.5&&job.m&&job.m.bump){job.m.bump();if(job.parcel||job.pack||job.load)return}if(job.carry&&hit>=5){job.heat=Math.max(0,job.heat-18);pop((job.food||'הטוסט')+'!','#FD1D1D',86);tone(420,.1,'sawtooth',.05,160);return}if(job.state!=='toBoss'||job.eggs<=0||job.broken>=job.eggs||hit<5)return;job.broken++;window.PH&&PH.ev('egg');pop(job.m&&job.m.id==='xl'?'אקסל התפוצץ!':'הביצים!','#FD1D1D',96);tone(1900,.06,'sawtooth',.06,500);tone(700,.1,'square',.05,120,.05);renderEggs()}
 function renderEggs(){const e=ui('#eggs');if(job.eggs<=0){e.innerHTML='';return}let h='';for(let i=0;i<job.eggs;i++)h+=`<i class="${i<job.eggs-job.broken?'':'x'}"></i>`;e.innerHTML=h}
 function wipe(done){const w=ui('#wipe');gsap.timeline().set(w,{visibility:'visible',scaleX:0,transformOrigin:'right'}).to(w,{scaleX:1,duration:.26,ease:'power3.in'}).call(()=>{done();}).set(w,{transformOrigin:'left'}).to(w,{scaleX:0,duration:.3,ease:'power3.out',delay:.08}).set(w,{visibility:'hidden'})}
 // ===== inside =====
 const K={x:STARTP.x,z:STARTP.z,h:0,v:0,pitch:-.1,near:null,wob:0},EYE=1.52;
-function enterStore(){if(job.state==='inStore')return;job.state='inStore';lockMouse();tone(520,.12,'sine',.05);tone(780,.14,'sine',.05,null,.12);wipe(()=>{mode='store';clearGoal();Object.assign(K,STARTP,{v:0,pitch:-.1,z:-11.5,cy:0,auto:.75});scam.fov=66;scam.updateProjectionMatrix();handsG.visible=true;cartG.clear&&0;clearCartVisual();ui('#map').dataset.m='s';prompt_('');muzak(true);storeCam(1);setMap();if(job.alma)pop('ברוכים הבאים לעלמה מרקט','#F3E03B',58)})}
+function enterStore(){if(job.state==='inStore')return;job.state='inStore';lockMouse();tone(520,.12,'sine',.05);tone(780,.14,'sine',.05,null,.12);wipe(()=>{mode='store';clearGoal();Object.assign(K,STARTP,{v:0,pitch:-.1,z:-11.5,cy:0,auto:.75});scam.fov=66;scam.updateProjectionMatrix();handsG.visible=true;cartG.clear&&0;clearCartVisual();ui('#map').dataset.m='s';prompt_('');muzak(true);storeCam(1);setMap();window.PH&&PH.skin(job.alma);if(job.alma)pop('ברוכים הבאים לילו','#F3E03B',58)})}
 function clearCartVisual(){[...cartG.children].filter(c=>c.userData.item).forEach(c=>cartG.remove(c))}
 function setMap(){const v=mode==='ride'?'visible':'hidden';ui('#dqH').style.visibility=v;ui('#cash').style.visibility=v;if(mode==='ride'){setVis(ui('#aim'),'hidden');setVis(ui('#shopKeys'),'hidden')}ui('#spd').style.visibility=v;ui('#stars').style.visibility=v;ui('#keys').style.visibility=v}
 function cartSlot(i){const col=i%3,row=Math.floor(i/3)%3,lay=Math.floor(i/9);return[-.17+col*.17,.53+lay*.2,-.27+row*.27]}
@@ -685,14 +688,14 @@ ui('#pay').addEventListener('click',e=>{const b=e.target.closest('button');if(!b
  if(b.dataset.i!=null&&job.sum<=job.wallet){const n=job.notes[+b.dataset.i];if(n.used)return;n.used=true;job.handed+=n.v;n.v>=20?(noise_(.14),tone(300,.03,'square',.012)):tone(2600+n.v*130,.09,'triangle',.05);const r0=b.getBoundingClientRect(),fly=b.cloneNode(true);fly.style.cssText=`position:fixed;left:${r0.left}px;top:${r0.top}px;margin:0;z-index:30;pointer-events:none`;document.body.append(fly);gsap.to(fly,{x:innerWidth*.62-r0.left,y:innerHeight*.28-r0.top,rotation:r(-30,30),scale:.5,opacity:0,duration:.38,ease:'power2.in',onComplete:()=>fly.remove()});renderPay();if(job.handed>=job.sum)paid()}});
 function noise_(t){if(!ac)return;const n=ac.currentTime,b=ac.createBuffer(1,ac.sampleRate*t,ac.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length);const s=ac.createBufferSource(),l=ac.createBiquadFilter(),g=ac.createGain();s.buffer=b;l.type='highpass';l.frequency.value=2000;g.gain.value=.05;s.connect(l).connect(g).connect(mg);s.start(n)}
 function paid(){const ch=job.handed-job.sum;job.change=ch;gsap.timeline().to(drawer.position,{x:.62,duration:.13,ease:'power3.out'}).call(()=>{tone(1568,.14,'sine',.07);tone(2093,.22,'sine',.05,null,.09)}).to(drawer.position,{x:1,duration:.22,ease:'power2.in',delay:1.25});for(let i=0,n=Math.min(ch,5);i<n;i++){const c=document.createElement('div');c.className='coin c1';c.style.cssText='position:fixed;left:62%;top:30%;z-index:30;pointer-events:none';document.body.append(c);gsap.to(c,{left:'22%',top:'108%',rotation:360+i*80,duration:.55,delay:.5+i*.11,ease:'power2.in',onStart:()=>tone(2700+i*110,.08,'triangle',.05),onComplete:()=>c.remove()})}job.wallet=(job.budget||50)-job.sum;ui('#pay').style.visibility='hidden';tone(1046,.12,'square',.04);tone(1568,.18,'square',.04,null,.1);disp(ch?'עודף ₪'+ch:'תודה!');
- const li=job.cart.map(c=>`<tr><td>${SKU[c.k].n}</td><td>₪${SKU[c.k].p}</td></tr>`).join('');const stamp=new Date(),hhmm=String(stamp.getHours()).padStart(2,'0')+':'+String(stamp.getMinutes()).padStart(2,'0');ui('#rcpt').innerHTML=`<h4>יודה</h4><p>קופה 2 · המוכרת: רינה · ${hhmm}</p><table>${li}</table><hr><dl><dt>סה״כ</dt><dd>₪${job.sum}</dd><dt>שולם</dt><dd>₪${job.handed}</dd><dt>עודף</dt><dd>₪${ch}</dd></dl><p class="t">תודה שקניתם. אדום עולה.</p><div class="bars"></div>`;const rc=ui('#rcpt');gsap.set(rc,{visibility:'visible',y:-rc.offsetHeight-20});ui('#till').style.visibility='hidden';
+ const li=job.cart.map(c=>`<tr><td>${SKU[c.k].n}</td><td>₪${SKU[c.k].p}</td></tr>`).join('');const stamp=new Date(),hhmm=String(stamp.getHours()).padStart(2,'0')+':'+String(stamp.getMinutes()).padStart(2,'0');ui('#rcpt').innerHTML=`<h4>${SNAME()}</h4><p>${job.alma?'קופה 1 · משמרת לילה':'קופה 2 · המוכרת: רינה'} · ${hhmm}</p><table>${li}</table><hr><dl><dt>סה״כ</dt><dd>₪${job.sum}</dd><dt>שולם</dt><dd>₪${job.handed}</dd><dt>עודף</dt><dd>₪${ch}</dd></dl><p class="t">תודה שקניתם. אדום עולה.</p><div class="bars"></div>`;const rc=ui('#rcpt');gsap.set(rc,{visibility:'visible',y:-rc.offsetHeight-20});ui('#till').style.visibility='hidden';
  const tl=gsap.timeline();for(let i=0;i<7;i++)tl.call(()=>tone(3100+Math.random()*300,.05,'sawtooth',.008),null,i*.11);tl.to(rc,{y:0,duration:.8,ease:'none'},0);tl.call(()=>typeText(ch?`הנה העודף, ${ch} שקל. שמור על הביצים!`:'בדיוק! איזה אלוף. תשמור על הביצים!','המוכרת',leave),null,.85);
  job.eggs=job.cart.filter(c=>c.k==='eggs'||c.k==='eggs2').length?3:0;job.broken=0;gsap.to(sack.scale,{x:1,y:1,z:1,duration:.3,ease:'back.out(2)'});beltItems.forEach((m,i)=>{tl.to(m.position,{x:sack.position.x,y:1.2,z:sack.position.z,duration:.24,ease:'power2.in'},.25+i*.16).to(m.scale,{x:.1,y:.1,z:.1,duration:.08},.41+i*.16).call(()=>{m.visible=false;noise_(.07)},null,.49+i*.16)})}
-function leave(){hideSub();wipe(()=>{ui('#rcpt').style.visibility='hidden';beltItems.forEach(m=>shop.remove(m));beltItems=[];sack.scale.setScalar(0);muzak(false);mode='ride';job.state='toBoss';ui('#note').style.visibility='visible';ui('#goal').style.visibility='visible';st.x=SDOOR().x;st.z=SDOOR().z+(SDOOR().oz||-1);st.h=SDOOR().h??Math.PI;st.v=0;st.y=groundH(st.x,st.z);st._py=st.y;cam.x=st.x;cam.z=st.z+5;cam.y=st.y+2.2;setGoal(bossPos.x,bossPos.z,'לשביעסט');renderEggs();renderListAfter();setMap();disp('שלום')})}
+function leave(){hideSub();wipe(()=>{ui('#rcpt').style.visibility='hidden';beltItems.forEach(m=>shop.remove(m));beltItems=[];sack.scale.setScalar(0);muzak(false);mode='ride';job.state='toBoss';ui('#note').style.visibility='visible';ui('#goal').style.visibility='visible';st.x=SDOOR().x;st.z=SDOOR().z+(SDOOR().oz||-1);st.h=SDOOR().h??Math.PI;st.v=0;st.y=groundH(st.x,st.z);st._py=st.y;cam.x=st.x;cam.z=st.z+5;cam.y=st.y+2.2;if(job.m&&job.m.afterShop)job.m.afterShop();if(job.m&&job.m.dest)setGoal(job.m.dest.x,job.m.dest.z,job.m.dest.t);else setGoal(bossPos.x,bossPos.z,'לשביעסט');renderEggs();renderListAfter();setMap();disp('שלום')})}
 function renderListAfter(){ui('#listB').textContent=`עודף בכיס ₪${job.wallet}`;ui('#listB').className=''}
 // ===== delivery =====
 function bossStage(stars){Object.assign(st,{x:bossPos.x,z:bossPos.z-.45,h:Math.PI,v:0,lean:0,steer:0,vy:0,air:false,y:groundH(bossPos.x,bossPos.z-.45)});st._py=st.y;cam.x=bossPos.x+3.5;cam.z=bossPos.z+1.9;cam.y=2.05;cam.tx=bossPos.x;cam.ty=1.72;cam.tz=bossPos.z-1.3;st.fov=44;job.bossFx=true;boss.mood=stars>=2?'smile':'yell';gsap.to(boss.arms[0].up.rotation,{x:-1.25,duration:.3,ease:'back.out(1.6)'});{const bg=new THREE.Mesh(pillow(.36,.42,.26),toon(0xf4f3ee));bg.add(new THREE.Mesh(bg.geometry,OLs));scene.add(bg);job.handed3d=bg;bg.position.set(st.x,1.5,st.z-.75);const hp=new THREE.Vector3(),q={a:0},p0=bg.position.clone();gsap.to(q,{a:1,duration:.5,ease:'power1.inOut',onUpdate(){boss.arms[0].lo.updateWorldMatrix(true,false);boss.arms[0].lo.localToWorld(hp.set(0,-.34,.05));bg.position.lerpVectors(p0,hp,q.a);bg.position.y+=Math.sin(q.a*Math.PI)*.35;bg.position.y-=q.a*.26;bg.rotation.z=q.a*.4},onComplete(){tone(240,.06,'sine',.1);noise_(.1)}})}gsap.to(boss.arms[1].up.rotation,{x:stars>=2?-2.7:-1.55,duration:.28,delay:.45,ease:'back.out(2)'});if(stars>=2){gsap.fromTo(boss.root.position,{y:.08},{y:.5,duration:.2,delay:.9,ease:'power2.out',yoyo:true,repeat:3})}else gsap.fromTo(boss.torso.rotation,{x:0},{x:.22,duration:.13,delay:.9,yoyo:true,repeat:5});}
-function deliver(){job.state='end';clearGoal();prompt_('');const missing=job.list.filter(i=>!i.got),left=job.limit-job.time,inTime=left>0,eggsOK=(job.eggs||job.teamEggs)&&job.broken===0;let stars=1;if(!missing.length&&inTime)stars++;if(!missing.length&&eggsOK&&!job.wrong.length)stars++;if(missing.length)stars=Math.max(0,stars-1);
+function deliver(){if(job.m&&job.m.arrive)return job.m.arrive();job.state='end';clearGoal();prompt_('');const missing=job.list.filter(i=>!i.got),left=job.limit-job.time,inTime=left>0,eggsOK=(job.eggs||job.teamEggs)&&job.broken===0;let stars=1;if(!missing.length&&inTime)stars++;if(!missing.length&&eggsOK&&!job.wrong.length)stars++;if(missing.length)stars=Math.max(0,stars-1);
  const name=missing.length?`איפה ${missing.map(i=>i.n).join(' ו')}?!`:job.broken>=3?'כל הביצים שבורות! למחסן, עכשיו!':job.broken?`שברת ${job.broken===1?'ביצה':job.broken+' ביצים'}? מזל שאני במצב רוח טוב.`:job.wrong.length?`מי ביקש ממך ${SKU[job.wrong[0]].n}?! אבל בסדר.`:job.wallet>22?'לא רע, חמשוש. וגם נשאר עודף!':'לא רע, חמשוש.';
  bossStage(stars);
  tone(170,.2,'square',.04);typeText(name,'השביעסט',()=>{hideSub();summary(stars,left,missing.length===0)})}
@@ -752,7 +755,7 @@ const missRace={id:'race',n:'מירוץ נגד הרכז',d:'עשרה שערים 
  place(dt,sp=0){let i=1;while(i<routeLen.length-1&&routeLen[i]<RIV.s)i++;const a=ROUTE[i-1],b=ROUTE[i],L=routeLen[i]-routeLen[i-1],t=clamp((RIV.s-routeLen[i-1])/L,0,1),dx=b[0]-a[0],dz=b[1]-a[1],tgt=Math.atan2(dx,dz);let dy=tgt-RIV.yaw;dy=Math.atan2(Math.sin(dy),Math.cos(dy));RIV.yaw+=dy*(1-Math.exp(-6*dt));RIV.lean=damp(RIV.lean,-clamp(dy*.9,-.45,.45),8,dt);const off=2;RIV.g.position.set(lerp(a[0],b[0],t)+Math.cos(tgt)*off,0,lerp(a[1],b[1],t)-Math.sin(tgt)*off);RIV.g.rotation.y=RIV.yaw;RIV.l.rotation.z=RIV.lean;RIV.wa.rotation.x+=sp/.29*dt;RIV.wb.rotation.x+=sp/.29*dt;const ph=st.time*sp*.85;RIV.p.legs[0].up.rotation.x=-.95+Math.sin(ph)*.5;RIV.p.legs[1].up.rotation.x=-.95-Math.sin(ph)*.5;RIV.p.legs[0].lo.rotation.x=1.25-Math.sin(ph)*.45;RIV.p.legs[1].lo.rotation.x=1.25+Math.sin(ph)*.45},
  clean(){RIV.g.visible=false}};
 // ===== shopping missions, the supermarket flow stays as it was =====
-function shopStart(){job.alma=!!job.almaForce||isNight();job.almaForce=false;if(job.alma)job.limit+=70;job.state='toStore';pad('לקנות ב'+SNAME());showHud();renderList();setGoal(SDOOR().x,SDOOR().z,'ל'+SNAME());if(job.alma)pop('יודה סגור בלילה · עלמה מרקט','#F3E03B',54)}
+function shopStart(){job.alma=!!job.almaForce||isNight();job.almaForce=false;if(job.alma)job.limit+=70;job.state='toStore';pad('לקנות ב'+SNAME());showHud();renderList();setGoal(SDOOR().x,SDOOR().z,'ל'+SNAME());if(job.alma)pop('יודה סגור בלילה · ילו פתוח','#F3E03B',54)}
 function shopSet(keys_,budget){job.list=keys_.map(k=>({k,n:NAMES[k],got:null}));Object.assign(job,{teamEggs:0,cart:[],bought:[],wrong:[],broken:0,eggs:0,change:0,wallet:budget,budget,notes:null})}
 const said=()=>{const n=job.list.map(i=>i.n);return n.slice(0,-1).join(', ')+' ו'+n[n.length-1]};
 const missShop={id:'shop',n:'קניות לשביעסט',d:'רשימה, 50 שקל וביצים שלמות',limit:175,pay:[0,15,25,40],say(){shopSet(['eggs',...shuf(['milk','pita','bamba','cola','hummus']).slice(0,3)],50);return[`חמשוש! בוא הנה! אני צריך ${said()} מיודה.`,'הנה חמישים שקל, ואני רוצה את העודף בחזרה.','ואם אתה שובר לי את הביצים, אתה מנקה את המחסן לבד!']},start:shopStart};
@@ -1552,18 +1555,18 @@ window.__net=(()=>{
  return{arrived,split,canDeliver,nearest,get together(){return together},ev,tick,mapDots,coBegin,coStarted,seeded,result,render,connect,leave,peers,answer,get room(){return room},get conns(){return conns.map(c=>c.connected)},me}})();
 $('#go').onclick=begin;
 respawn();$('#load').remove();
-// ===== night with meaning, עלמה מרקט, the phone: camera + WhatsApp group, and the power bank mission =====
+// ===== night with meaning, ילו, the phone: camera + WhatsApp group, and the power bank mission =====
 // clock: the 420 s day mapped to hours (evening → night → dawn → day, compressed)
 const CLK = [[0, 17], [130, 20], [190, 22.2], [300, 28], [360, 30.5], [420, 41]];
 function hourNow() { const T = (((st.time + dayOff) % 420) + 420) % 420; for (let i = 1; i < CLK.length; i++) if (T <= CLK[i][0]) { const a = CLK[i - 1], b = CLK[i]; return (a[1] + (b[1] - a[1]) * (T - a[0]) / (b[0] - a[0])) % 24 } return 17 }
 function isNight() { const h = hourNow(); return h >= 21 || h < 5 }
 function nightF() { const h = hourNow(); if (h >= 21 || h < 5) return 1; if (h >= 20) return h - 20; if (h < 6) return 6 - h; return 0 }
 function hhmm() { const h = hourNow(), H = Math.floor(h), Mi = Math.floor((h - H) * 60); return String(H).padStart(2, '0') + ':' + String(Mi).padStart(2, '0') }
-const ALMA = { x: -120, z: -182, oz: 1, h: 0, n: 'עלמה מרקט' };
+const ALMA = { x: -120, z: -182, oz: 1, h: 0, n: 'ילו' };
 function SDOOR() { return job.alma ? ALMA : DOORP }
-const SNAME = () => job.alma ? 'עלמה מרקט' : 'יודה';
+const SNAME = () => job.alma ? 'ילו' : 'יודה';
 
-// ---------- עלמה מרקט: the farthest place on the map, behind a new gap in the north wall ----------
+// ---------- ילו: the farthest place on the map, behind a new gap in the north wall ----------
 const AL = {};
 const shutTex = (w, h, big, small) => tex(w, h, (g, W_, H_) => { g.fillStyle = '#9ea3a6'; g.fillRect(0, 0, W_, H_); for (let y = 0; y < H_; y += 10) { g.fillStyle = '#7d8285'; g.fillRect(0, y, W_, 3); g.fillStyle = '#c3c7c9'; g.fillRect(0, y + 4, W_, 1) } g.direction = 'rtl'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillStyle = 'rgba(160,20,28,.92)'; g.font = `700 ${Math.round(H_ * (small ? .36 : .5))}px Karantina`; g.fillText(big, W_ / 2, H_ * (small ? .36 : .5)); if (small) { g.font = `700 ${Math.round(H_ * .22)}px Karantina`; g.fillText(small, W_ / 2, H_ * .74) } });
 {
@@ -1580,10 +1583,10 @@ const shutTex = (w, h, big, small) => tex(w, h, (g, W_, H_) => { g.fillStyle = '
   [[-146, -180.5, .5, 49], [-94, -180.5, .5, 49], [X, -205.8, 52, .5]].forEach(([x, z, w, d]) => M(box(w, 1, d), flat(0x8d877c), scene, { pos: [x, .5, z] }));
   // the building: dark plaster, wood strip, flat roof with a red edge
   M(box(W, H, D), flat(0x2c2a2e), scene, { pos: [X, H / 2, Z], recv: true });
-  M(box(W + .8, .7, D + .8), flat(0xa81b1f), scene, { pos: [X, H + .25, Z] });
+  M(box(W + .8, .7, D + .8), flat(0xf5c400), scene, { pos: [X, H + .25, Z] });
   M(box(W + .02, .9, .1), flat(0x6d4a2b), scene, { pos: [X, 4.25, ZF + .04] });
   // sign: warm letters, a moon, "פתוח רק בלילה"
-  const signT = tex(1024, 256, (g, w, h) => { g.fillStyle = '#141216'; g.fillRect(0, 0, w, h); g.fillStyle = '#F3E03B'; g.beginPath(); g.arc(96, 128, 62, 0, 7); g.fill(); g.fillStyle = '#141216'; g.beginPath(); g.arc(122, 108, 56, 0, 7); g.fill(); g.direction = 'rtl'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.font = '700 150px Karantina'; g.fillStyle = '#fff4dc'; g.fillText('עלמה מרקט', w / 2 + 50, 104); g.font = '700 60px Karantina'; g.fillStyle = '#FD1D1D'; g.fillText('פתוח רק בלילה', w / 2 + 50, 206) });
+  const signT = tex(1024, 256, (g, w, h) => { g.fillStyle = '#f5c400'; g.fillRect(0, 0, w, h); g.fillStyle = '#141216'; g.fillRect(0, h - 14, w, 14); g.beginPath(); g.arc(120, 118, 58, 0, 7); g.fill(); g.fillStyle = '#f5c400'; g.beginPath(); g.arc(144, 100, 52, 0, 7); g.fill(); g.direction = 'rtl'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.font = '700 196px Karantina'; g.fillStyle = '#141216'; g.fillText('ילו', w / 2 + 40, 100); g.font = '700 56px Karantina'; g.fillStyle = '#a8121b'; g.fillText('פתוח רק בלילה', w / 2 + 40, 208) });
   AL.signM = lit(0xffffff, { map: signT, emissive: 0xffffff, emissiveMap: signT, emissiveIntensity: .1 });
   M(box(20, 5, .3), AL.signM, scene, { pos: [X, 5.6, ZF + .2], rot: [0, Math.PI, 0] });
   // glass front + door; a rolling shutter that comes down by day
@@ -1610,10 +1613,141 @@ const shutTex = (w, h, big, small) => tex(w, h, (g, W_, H_) => { g.fillStyle = '
 // Yuda: shutters come down at night (unless your current errand is there)
 {
   const x = blockC(1), z = blockC(2), w = 38, d = 24;
-  const shT = shutTex(1024, 125, 'סגור בלילה', 'עלמה מרקט פתוח עכשיו');
+  const shT = shutTex(1024, 125, 'סגור בלילה', 'ילו פתוח עכשיו');
   AL.yuda = [-1, 1].map(s => M(box(w * .84, 3.9, .25), lit(0xffffff, { map: shT }), scene, { pos: [x, 2.2, z + s * (d / 2 + .25)], rot: [0, s > 0 ? Math.PI : 0, 0] }));
   AL.yuda.forEach(m => m.visible = false);
 }
+
+// ---------- ענתות 33: a house at the far south-east corner, across the map from ילו ----------
+const ANT = { x: 136, z: 183.4, t: 'לענתות 33' };
+const HS = {};
+{
+  const X = 136, ZF = 186, W = 12, D = 9, H1 = 3.3, Z = ZF + D / 2;
+  // lot behind a gap in the south wall: low walls round it so it is a dead end
+  wall(124, 180, 4, 52); wall(150, 180, 4, 52); wall(137, 206, 30, 4);
+  [[124.5, 180, .5, 50], [149.5, 180, .5, 50], [137, 205.6, 26, .5]].forEach(([x, z, w, d]) => M(box(w, 1.1, d), flat(0xd6c4a0), scene, { pos: [x, .55, z] }));
+  // ground: paved path from the gap to the gate, a garden inside the fence
+  M(box(5, .045, 30), flat(0xb9b0a0), scene, { pos: [X, .06, 166], cast: false, recv: true });
+  M(box(24, .04, 23), flat(0x5f7a3c), scene, { pos: [X, .05, 193.5], cast: false, recv: true });
+  M(box(2.6, .05, 5), flat(0xcfc6b4), scene, { pos: [X, .07, 183.6], cast: false, recv: true });
+  // street sign at the gap
+  M(new THREE.CylinderGeometry(.07, .07, 3.2, 8), flat(0x8d9094), scene, { pos: [127.4, 1.6, 156.5] }); solid(127.4, 156.5, .3);
+  const stT = tex(512, 160, (g, w, h) => { g.fillStyle = '#f4f1e8'; g.fillRect(0, 0, w, h); g.fillStyle = '#1f4e9c'; g.fillRect(8, 8, w - 16, h - 16); g.fillStyle = '#f4f1e8'; g.fillRect(18, 18, w - 36, h - 36); g.direction = 'rtl'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillStyle = '#1f4e9c'; g.font = '700 96px Karantina'; g.fillText('רח׳ ענתות', w / 2, h / 2 + 2) });
+  M(box(2.2, .7, .06), lit(0xffffff, { map: stT }), scene, { pos: [127.4, 3, 156.5] });
+  // stone fence with a gate gap, gate posts, a mailbox
+  [[129.5, 181, 9, .5], [144.5, 181, 9, .5]].forEach(([x, z, w, d]) => { M(box(w, 1.2, .5), flat(0xd6c4a0), scene, { pos: [x, .6, z] }); M(box(w + .1, .12, .6), flat(0xe8dcc4), scene, { pos: [x, 1.24, z] }); wall(x, z, w, .6) });
+  [134.1, 138.9].forEach(x => { M(box(.7, 1.6, .7), flat(0xc9b690), scene, { pos: [x, .8, 181] }); solid(x, 181, .5) });
+  M(box(.5, .4, .35), flat(0xa8121b), scene, { pos: [134.1, 1.8, 181] });
+  const nT = tex(320, 220, (g, w, h) => { g.fillStyle = '#f7f3ea'; g.fillRect(0, 0, w, h); g.strokeStyle = '#1f4e9c'; g.lineWidth = 12; g.strokeRect(14, 14, w - 28, h - 28); g.direction = 'rtl'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillStyle = '#1f4e9c'; g.font = '700 70px Karantina'; g.fillText('ענתות', w / 2, 76); g.font = '700 96px Karantina'; g.fillText('33', w / 2, 154) });
+  M(box(1.5, 1.03, .05), lit(0xffffff, { map: nT, emissive: 0xffffff, emissiveMap: nT, emissiveIntensity: .15 }), scene, { pos: [141.2, .68, 180.7] });
+  // the house: cream plaster, two floors, flat roof with a parapet and a solar water heater
+  const plaster = flat(0xe9dcc2);
+  M(box(W, H1 * 2, D), plaster, scene, { pos: [X, H1, Z], recv: true }); wall(X, Z, W, D);
+  M(box(W + .3, .25, D + .3), flat(0xcdbd9f), scene, { pos: [X, H1, Z] });
+  M(box(W + .3, .7, D + .3), plaster, scene, { pos: [X, H1 * 2 + .35, Z] });
+  M(box(W - .6, .2, D - .6), flat(0x6d6a66), scene, { pos: [X, H1 * 2 + .62, Z] });
+  M(new THREE.CylinderGeometry(.45, .45, 2.2, 14), flat(0xf2f2ee), scene, { pos: [X + 3, H1 * 2 + 1.45, Z + 2], rot: [0, 0, Math.PI / 2] });
+  [-.7, .7].forEach(o => M(box(1.2, .06, 1.9), flat(0x22314f), scene, { pos: [X + 3 + o * 1.1, H1 * 2 + 1.1, Z + .4], rot: [-.55, 0, 0] }));
+  M(box(.1, 1.4, .1), flat(0x8d9094), scene, { pos: [X - 4, H1 * 2 + 1.3, Z + 3] });
+  // windows: glow at night, grey rolling shutters half down
+  HS.winM = lit(0x2a3a48, { emissive: 0xffc77a, emissiveIntensity: .05, roughness: .2 });
+  const shM = flat(0xa3a7aa);
+  [[-3.8, 1.7], [3.8, 1.7], [-3.8, 5], [0, 5], [3.8, 5]].forEach(([dx, y]) => { M(box(1.9, 1.5, .1), HS.winM, scene, { pos: [X + dx, y, ZF - .04], cast: false }); M(box(2.1, .55, .14), shM, scene, { pos: [X + dx, y + .55, ZF - .08], cast: false }); M(box(2.3, .12, .3), flat(0xcdbd9f), scene, { pos: [X + dx, y - .82, ZF - .12] }) });
+  // the door, a porch roof and a porch lamp
+  M(box(1.5, 2.4, .12), flat(0x5a3a22), scene, { pos: [X, 1.2, ZF - .05] });
+  M(box(.08, .08, .08), flat(0xd9b83a), scene, { pos: [X - .5, 1.2, ZF - .14] });
+  M(box(3.4, .14, 1.4), flat(0xcdbd9f), scene, { pos: [X, 2.85, ZF - .7] });
+  HS.lampM = new THREE.MeshBasicMaterial({ color: 0x5a4a30 }); M(box(.32, .4, .2), HS.lampM, scene, { pos: [X + 1.1, 2.35, ZF - .14], cast: false });
+  HS.pool = new THREE.MeshBasicMaterial({ color: 0xffd9a0, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending });
+  M(new THREE.CircleGeometry(4.5, 28), HS.pool, scene, { pos: [X, .1, ZF - 2.4], rot: [-Math.PI / 2, 0, 0], cast: false });
+  // garden: a palm, a lemon tree, a plastic chair by the door
+  M(new THREE.CylinderGeometry(.2, .3, 6, 8), flat(0x7a5a3a), scene, { pos: [129, 3, 192] }); solid(129, 192, .5);
+  for (let k = 0; k < 7; k++) { const a = k / 7 * Math.PI * 2, f = M(box(.5, .06, 2.6), flat(0x3f6b2a), scene, { pos: [129 + Math.sin(a) * 1.1, 5.8, 192 + Math.cos(a) * 1.1] }); f.rotation.order = 'YXZ'; f.rotation.set(-.45, a, 0) }
+  M(new THREE.CylinderGeometry(.14, .18, 1.4, 8), flat(0x6d4a2b), scene, { pos: [144, .7, 190] }); M(new THREE.SphereGeometry(1.3, 12, 9), flat(0x3e6b2c), scene, { pos: [144, 2, 190] }); solid(144, 190, .9);
+  for (let k = 0; k < 7; k++) M(new THREE.SphereGeometry(.12, 6, 4), flat(0xf3d23b), scene, { pos: [144 + Math.sin(k * 2.4) * 1.15, 2 + Math.cos(k * 1.7) * .7, 190 + Math.cos(k * 2.4) * 1.15] });
+  M(box(.6, .5, .6), flat(0xf4f1ea), scene, { pos: [133.4, .3, 184.8] });
+  // the guy who ordered: waits at the door at night
+  HS.guy = makePerson({ shirt: 0x2e7a3c, pants: 0x2a2c34, hair: 0x15100e }); HS.guy.root.position.set(X + 1.3, .08, ZF - 1.1); scene.add(HS.guy.root); HS.guy.root.visible = false;
+}
+// inside ילו: its own look. Same shelves (the products stay where missions expect them), everything else changes:
+// dark floor, yellow-black walls, black ceiling, cool light, yellow signs with its own names, its own promos,
+// and a coffee / slush / hot dog bar where Yuda has the fruit crates.
+const SKIN = { mats: [], hide: [], show: [], swaps: [] };
+{
+  const recol = { 0xd9141e: 0xf5c400, 0x45484e: 0x161618, 0x2c3036: 0x161618, 0x7a5230: 0x1c1c1e, 0xa8743f: 0x2c2c2e, 0xe9e7e1: 0x1a1a1c };
+  const seen = new Set(), signs = [], promos = [];
+  shop.traverse(o => {
+    if (!o.isMesh && !o.isInstancedMesh) return;
+    const m = o.material, gp = o.geometry && o.geometry.parameters || {};
+    if (m && !Array.isArray(m) && m.color && !seen.has(m)) { const h = m.color.getHex(); if (recol[h] !== undefined && !m.map) { seen.add(m); SKIN.mats.push([m, h, recol[h]]) } }
+    if (o.geometry && o.geometry.type === 'PlaneGeometry') {
+      if (Math.abs(gp.width - 2.3) < .01 && Math.abs(gp.height - .9) < .01) signs.push(o);
+      else if (Math.abs(gp.width - .78) < .01 && Math.abs(gp.height - 1.15) < .01) promos.push(o);
+      else if (Math.abs(gp.width - .62) < .01 && Math.abs(gp.height - .31) < .01) SKIN.hide.push(o);
+      else if (Math.abs(gp.width - SHOPW * 2) < .01 && Math.abs(gp.height - SHOPD * 2) < .01 && o.position.y < .5 && m.map) SKIN.floor = o;
+      else if (Math.abs(gp.height - 1.5) < .01 && gp.width > 2.9 && gp.width < 3.5 || Math.abs(gp.width - 8) < .01 && Math.abs(gp.height - 1.2) < .01) SKIN.hide.push(o);
+    }
+    if (o.geometry && m && m.map && !o.isInstancedMesh) { o.geometry.computeBoundingBox(); const bb = o.geometry.boundingBox; if (Math.abs(bb.max.y - bb.min.y - SHOPH) < .05 && bb.max.x - bb.min.x > 30) SKIN.wall = m }
+    if (m && !Array.isArray(m) && m.color && m.color.getHex() === 0x8f6236) SKIN.hide.push(o);
+    if (o.isInstancedMesh && o.geometry.type === 'SphereGeometry' && gp.radius === 1) SKIN.hide.push(o);
+    if (o.geometry && o.geometry.type === 'BoxGeometry' && Math.abs(gp.width - 1.3) < .01 && Math.abs(gp.height - .86) < .01) SKIN.hide.push(o);
+  });
+  shop.children.forEach(o => { if (o.isHemisphereLight) SKIN.hemi = o });
+  // signs: same places, ילו style and names (4 aisles x 2, fridge, bakery, then the produce sign becomes the coffee bar)
+  const names = [['חטיפים', 'מתוק ומלוח'], ['חטיפים', 'מתוק ומלוח'], ['שתייה', 'אקסל, קולה, מים'], ['שתייה', 'אקסל, קולה, מים'], ['מזווה', 'לבישול בשלוש בלילה'], ['מזווה', 'לבישול בשלוש בלילה'], ['לבית', 'ניקיון ועוד'], ['לבית', 'ניקיון ועוד'], ['מקרר', 'חלב, ביצים, חומוס'], ['מאפה', 'פיתות ולחם'], ['קפה', 'ברד ונקניקיות']];
+  const ySign = (a, b) => tex(512, 200, (g, W_, H_) => { g.fillStyle = '#f5c400'; g.fillRect(0, 0, W_, H_); g.fillStyle = '#141216'; g.fillRect(0, 0, 26, H_); g.fillRect(W_ - 26, 0, 26, H_); g.direction = 'rtl'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.font = '700 104px Karantina'; g.fillText(a, W_ / 2, H_ * .36); g.font = '700 46px Karantina'; g.fillStyle = '#5a4a00'; g.fillText(b, W_ / 2, H_ * .76) });
+  signs.forEach((o, i) => { const n = names[i] || ['ילו', '']; SKIN.swaps.push([o.material, 'map', o.material.map, ySign(n[0], n[1])]) });
+  const pr = tex(256, 380, (g, W_, H_) => { g.fillStyle = '#141216'; g.fillRect(0, 0, W_, H_); g.fillStyle = '#f5c400'; g.fillRect(0, 0, W_, 120); g.direction = 'rtl'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillStyle = '#141216'; g.font = '700 84px Karantina'; g.fillText('לילה!', W_ / 2, 62); g.fillStyle = '#fff'; g.font = '700 66px Karantina'; g.fillText('2 אקסל', W_ / 2, 178); g.fillStyle = '#f5c400'; g.font = '700 96px Karantina'; g.fillText('₪15', W_ / 2, 268); g.fillStyle = '#fff'; g.font = '700 34px Karantina'; g.fillText('עד 05:00', W_ / 2, 338) });
+  promos.forEach(o => SKIN.swaps.push([o.material, 'map', o.material.map, pr]));
+  // floor and walls
+  const fl = tex(512, 512, (g, W_, H_) => { g.fillStyle = '#3a3b3e'; g.fillRect(0, 0, W_, H_); for (let i = 0; i < 2; i++) for (let j = 0; j < 2; j++) { g.fillStyle = (i + j) % 2 ? '#323336' : '#3e3f43'; g.fillRect(i * W_ / 2 + 3, j * H_ / 2 + 3, W_ / 2 - 6, H_ / 2 - 6) } for (let k = 0; k < 700; k++) { g.fillStyle = `rgba(255,255,255,${Math.random() * .04})`; g.fillRect(Math.random() * W_, Math.random() * H_, 2, 2) } });
+  fl.wrapS = fl.wrapT = THREE.RepeatWrapping; fl.repeat.set(SHOPW * .5, SHOPD * .5);
+  if (SKIN.floor) SKIN.swaps.push([SKIN.floor.material, 'map', SKIN.floor.material.map, fl]);
+  const wt = tex(1024, 256, (g, W_, H_) => { g.fillStyle = '#f4f2ec'; g.fillRect(0, 0, W_, H_); g.fillStyle = '#f5c400'; g.fillRect(0, H_ * .52, W_, H_ * .48); g.fillStyle = '#141216'; g.fillRect(0, H_ * .5, W_, H_ * .04); g.direction = 'rtl'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.font = '700 92px Karantina'; g.fillText('ילו', W_ * .25, H_ * .76); g.fillText('ילו', W_ * .75, H_ * .76); g.font = '700 40px Karantina'; g.fillText('פתוח כל הלילה', W_ * .5, H_ * .76) });
+  wt.wrapS = THREE.RepeatWrapping; wt.repeat.x = 3;
+  if (SKIN.wall) SKIN.swaps.push([SKIN.wall, 'map', SKIN.wall.map, wt]);
+  // the coffee bar on the left wall (where the fruit crates are; that strip already has a collision wall)
+  const Y = new THREE.Group(); shop.add(Y); Y.visible = false; SKIN.show.push(Y);
+  const PX = -SHOPW + 1;
+  M(box(1.25, .95, 12.4), flat(0x161618), Y, { pos: [PX - .1, .475, 2.4], cast: false });
+  M(box(.04, .3, 12.4), flat(0xf5c400), Y, { pos: [PX + .53, .7, 2.4], cast: false });
+  M(box(1.35, .06, 12.6), flat(0xb9a07a), Y, { pos: [PX - .1, .98, 2.4], cast: false });
+  // espresso machine and cups
+  M(box(.7, .55, .9), flat(0xb8bcc0), Y, { pos: [PX - .2, 1.29, -2.6] }); M(box(.72, .12, .92), flat(0x141414), Y, { pos: [PX - .2, 1.6, -2.6] });
+  [-.25, .25].forEach(o => M(new THREE.CylinderGeometry(.05, .05, .12, 8), flat(0x141414), Y, { pos: [PX + .2, 1.2, -2.6 + o] }));
+  for (let k = 0; k < 3; k++) M(new THREE.CylinderGeometry(.06, .045, .34, 10), flat(0xf4f1ea), Y, { pos: [PX - .2, 1.18, -1.8 + k * .16] });
+  // slush machine: two coloured tanks that turn
+  M(box(.7, .4, 1), flat(0x202022), Y, { pos: [PX - .2, 1.21, .2] });
+  SKIN.slush = [0x2a7fe0, 0xe0262e].map((c, i) => { const t = M(new THREE.CylinderGeometry(.24, .24, .62, 16), lit(c, { emissive: c, emissiveIntensity: .35, roughness: .15, transparent: true, opacity: .85 }), Y, { pos: [PX - .2, 1.72, -.05 + i * .5] }); M(new THREE.CylinderGeometry(.25, .25, .06, 16), flat(0x141414), Y, { pos: [PX - .2, 2.06, -.05 + i * .5] }); return t });
+  // hot dog roller behind glass
+  M(box(.7, .16, 1.1), flat(0x9aa0a5), Y, { pos: [PX - .2, 1.09, 2.6] });
+  SKIN.dogs = []; for (let k = 0; k < 6; k++) SKIN.dogs.push(M(new THREE.CylinderGeometry(.035, .035, .62, 8), flat(0xa0502a), Y, { pos: [PX - .2, 1.2, 2.17 + k * .17], rot: [0, 0, Math.PI / 2] }));
+  M(box(.04, .4, 1.1), new THREE.MeshPhysicalMaterial({ color: 0xcfe8ff, transparent: true, opacity: .25, roughness: .05 }), Y, { pos: [PX + .17, 1.32, 2.6], cast: false });
+  // microwave, napkins, a small sandwich fridge at the end
+  M(box(.55, .36, .7), flat(0xe6e6e6), Y, { pos: [PX - .25, 1.19, 4.6] }); M(box(.02, .26, .44), flat(0x141414), Y, { pos: [PX + .03, 1.19, 4.55] });
+  M(box(.22, .14, .22), flat(0xf4f1ea), Y, { pos: [PX + .1, 1.08, 5.4] });
+  M(box(1.1, 1.9, 1.6), flat(0x161618), Y, { pos: [PX - .15, .95, 7.6] });
+  M(box(.03, 1.5, 1.3), new THREE.MeshBasicMaterial({ color: 0xeaf6ff, transparent: true, opacity: .55 }), Y, { pos: [PX + .43, 1.05, 7.6], cast: false });
+  // wall graphic above the bar
+  const cg = tex(1024, 256, (g, W_, H_) => { g.fillStyle = '#141216'; g.fillRect(0, 0, W_, H_); g.fillStyle = '#f5c400'; g.fillRect(0, H_ - 18, W_, 18); g.direction = 'rtl'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.font = '700 132px Karantina'; g.fillText('קפה · ברד · נקניקייה', W_ / 2, 108); g.font = '700 50px Karantina'; g.fillStyle = '#fff'; g.fillText('גם בשלוש בלילה', W_ / 2, 206) });
+  M(new THREE.PlaneGeometry(7.5, 1.85), new THREE.MeshBasicMaterial({ map: cg }), Y, { pos: [-SHOPW + .03, 2.75, 2.4], rot: [0, Math.PI / 2, 0], cast: false });
+  // big sign on the back wall above the fridges
+  const t = tex(1024, 224, (g, w, h) => { g.fillStyle = '#f5c400'; g.fillRect(0, 0, w, h); g.direction = 'rtl'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillStyle = '#141216'; g.font = '700 170px Karantina'; g.fillText('ילו', w / 2 + 150, 106); g.font = '700 70px Karantina'; g.fillText('כל הלילה', w / 2 - 210, 112) });
+  M(box(7, 1.5, .08), lit(0xffffff, { map: t, emissive: 0xffffff, emissiveMap: t, emissiveIntensity: .25 }), Y, { pos: [1, 3.55, SHOPD - .12], cast: false });
+  // black and yellow mat at the entrance
+  const mt = tex(256, 64, (g, W_, H_) => { g.fillStyle = '#141216'; g.fillRect(0, 0, W_, H_); g.fillStyle = '#f5c400'; for (let x = -64; x < W_; x += 40) { g.beginPath(); g.moveTo(x, H_); g.lineTo(x + 20, H_); g.lineTo(x + 84, 0); g.lineTo(x + 64, 0); g.fill() } });
+  M(new THREE.PlaneGeometry(3.2, .9), new THREE.MeshBasicMaterial({ map: mt }), Y, { pos: [9, .015, -11.2], rot: [-Math.PI / 2, 0, 0], cast: false });
+}
+function storeSkin(on) {
+  on = !!on; if (SKIN.on === on) return; SKIN.on = on;
+  SKIN.mats.forEach(([m, a, b]) => m.color.setHex(on ? b : a));
+  SKIN.swaps.forEach(([m, k, a, b]) => { m[k] = on ? b : a; m.needsUpdate = true });
+  SKIN.hide.forEach(o => o.visible = !on); SKIN.show.forEach(o => o.visible = on);
+  if (SKIN.hemi) { SKIN.hemi.color.setHex(on ? 0xeef4ff : 0xfff5e6); SKIN.hemi.intensity = on ? 2.3 : 2 }
+  shop.background.setHex(on ? 0x050507 : 0x10141a);
+}
+SKIN.on = true; storeSkin(false);
+SKIN.tick = dt => { if (!SKIN.on || mode !== 'store') return; SKIN.slush.forEach((s, i) => s.rotation.y += dt * (i ? 1.2 : -1.4)); SKIN.dogs.forEach(d => d.rotation.x += dt * 2) };
 
 // ---------- the phone ----------
 const PHOTO_KEY = 'chamshush.photos.v1';
@@ -1633,12 +1767,12 @@ function waToast(n, t) { const e = ui('#waT'); e.innerHTML = `<b style="color:${
 function updBadge() { const b = document.querySelector('#mTabs button[data-t="w"]'); if (b) b.dataset.n = PH.unread > 0 ? PH.unread : '' }
 const BANTER = {
   day: [['פוליק', 'מישהו ראה את הקלפים שלי? היו פה ליד הספה'], ['גרעין', 'קניתי גרעינים. מי בא לזולה'], ['קשיו', 'מישהו יודע לכוון גיטרה? המיתר השלישי מת'], ['טוסט', 'יש מדורה הערב או מה'], ['זיפ', 'השביעסט חיפש מישהו לחימשוש. לא אני. בהצלחה 😂'], ['פוליק', 'מי חייב לי שקל? כולם.'], ['גרעין', 'ביודה יש במבה חדשה בטעם תות. לא מומלץ'], ['טוסט', 'מי לקח לי את המקל של המרשמלו'], ['זיפ', 'ראיתי את הרכז רוכב על האופניים של מישהו פה 👀']],
-  night: [['קשיו', 'מישהו ער?'], ['טוסט', 'המדורה בזולה דולקת, בואו'], ['גרעין', 'עלמה מרקט פתוח! מי בא לקנות במבה בשתיים בלילה'], ['זיפ', 'שמיכה ישן מתשע. הקלטתי אותו נוחר 😂'], ['שמיכה', 'zzz'], ['פוליק', 'הכלב של השכנים שוב משוחרר. תיזהרו באופניים'], ['קשיו', 'ניגנתי ליד המדורה ובובי נרדם. זה מחמאה?'], ['טוסט', 'בעלמה מרקט יש חתול שחור ליד הספסל. הוא מסתכל עליי']],
+  night: [['קשיו', 'מישהו ער?'], ['טוסט', 'המדורה בזולה דולקת, בואו'], ['גרעין', 'ילו פתוח! מי בא לקנות במבה בשתיים בלילה'], ['זיפ', 'שמיכה ישן מתשע. הקלטתי אותו נוחר 😂'], ['שמיכה', 'zzz'], ['פוליק', 'הכלב של השכנים שוב משוחרר. תיזהרו באופניים'], ['קשיו', 'ניגנתי ליד המדורה ובובי נרדם. זה מחמאה?'], ['טוסט', 'בילו יש חתול שחור ליד הספסל. הוא מסתכל עליי'], ['גרעין', 'בענתות 33 עושים לילה לבן. מי שמביא אקסלים מוזמן'], ['זיפ', 'ניסיתי לרכוב לענתות עם אקסל ביד. עכשיו האופניים שלי דביקות']],
   re: ['חחחח', 'אחי', 'בדיוק', 'לא נכון', 'תשאלו את טוסט', 'אני בא', 'ממש', '😂😂', 'מי אמר?']
 };
 const QUICK = [
   { t: 'מי בזולה עכשיו?', r: () => [['טוסט', 'אני ובובי'], ['פוליק', 'אני בדרך']] },
-  { t: 'יש משהו לאכול?', r: () => [['גרעין', 'גרעינים'], isNight() ? ['קשיו', 'יודה סגור. עלמה מרקט פתוח, אבל הוא בסוף העולם'] : ['קשיו', 'תקנה ביודה, יש שם במבה']] },
+  { t: 'יש משהו לאכול?', r: () => [['גרעין', 'גרעינים'], isNight() ? ['קשיו', 'יודה סגור. ילו פתוח, אבל הוא בסוף העולם'] : ['קשיו', 'תקנה ביודה, יש שם במבה']] },
   { t: 'מה קורה חבר׳ה?', r: () => [['זיפ', 'השביעסט מחפש אותך 😂'], ['פוליק', 'הוא סתם, אל תקשיב לו']] },
   { t: 'מי בא לחימשוש ביחד?', r: () => [['פוליק', 'תפתח את הלשונית חברים ותשלח קישור'], ['טוסט', 'אני בפנים']] },
 ];
@@ -1719,11 +1853,26 @@ const missPower = { id: 'power', n: 'מטען נייד', d: 'לשכנע בקבו
       save.loan = { who: P.who, t: save.playT, due: P.used.includes('lie') ? 150 : 360, dep: P.dep || 0, lie: P.used.includes('lie'), nag: 0 }; persist();
       endOut(stars, [['סוללה', Math.max(1, Math.ceil(job.bat)) + '%'], ['המטען של', P.who], ['שכנוע', honest ? 'ישר והוגן' : 'עם לחץ או שקר']], FR[P.who].weak ? `עשרים אחוז? טוב, יספיק להיום. עכשיו תחזיר לטוסט, ושלא אשמע שהוא מחפש אותך.` : `סוף סוף. עכשיו תחזיר ל${P.who}, ושלא אשמע שהוא מחפש אותך.`) } },
   clean() { PH.power = null; clearGoal() } };
-const missAlma = { id: 'alma', n: 'משמרת לילה', d: 'רק בלילה: קניות בעלמה מרקט', night: 1, limit: 230, pay: [0, 20, 35, 55],
-  say() { shopSet(['eggs', ...shuf(['milk', 'pita', 'bamba', 'cola', 'hummus']).slice(0, 3)], 60); return ['חמשוש, יש לנו שמירת לילה במחנה וכולם גוועים.', `יודה סגור בלילה. סע לעלמה מרקט, הכי רחוק שיש, ותביא ${said()}.`, 'הנה שישים שקל. ומי שחוזר בלי ביצים, עושה את המשמרת הבאה.'] }, start() { job.almaForce = true; shopStart() } };
-MIS.push(missAlma, missPower);
-{ const s0 = missShop.say; missShop.say = function () { const L = s0.call(this); if (isNight()) { L[0] = L[0].replace('מיודה', 'מעלמה מרקט'); L.splice(1, 0, 'יודה סגור בלילה. עלמה מרקט פתוח, אבל הוא בסוף העולם. תזדרז.') } return L } }
-{ const s0 = missCamp.say; missCamp.say = function () { const L = s0.call(this); if (isNight()) L.splice(1, 0, 'ויודה סגור, אז זה עלמה מרקט. כן, הרחוק.'); return L } }
+// אקסלים לענתות: night only. Buy a six-pack of XL at ילו, ride it across the whole map to ענתות 33.
+// Every crash or hard landing bursts a can; the last stretch is sand.
+function xlBurst(why) { if (job.broken >= job.eggs) return; job.broken++; window.PH && PH.ev('egg'); pop('אקסל התפוצץ! ' + why, '#FD1D1D', 70); noise_(.22); tone(300, .2, 'sawtooth', .05, 90); st.shake = .2; renderEggs() }
+const missXL = { id: 'xl', n: 'אקסלים לענתות', d: 'רק בלילה: מילו עד ענתות 33 בלי לנער', night: 1, limit: 160, pay: [0, 25, 40, 60],
+  dest: ANT, arriveT: '<b>E</b> לדפוק בדלת בענתות 33',
+  say() { shopSet(['xl'], 40); return ['חמשוש, החבר׳ה בענתות 33 עושים לילה לבן לפני המחנה, ונגמרה להם האנרגיה.', 'ילו פתוח רק בלילה. תביא משם שישיית אקסל, ותיסע עד ענתות. זה בדיוק בצד השני של המפה.', 'ואל תקפוץ איתם. אקסל מנוער נפתח כמו מזרקה.'] },
+  start() { job.almaForce = true; shopStart() },
+  afterShop() { const n = job.cart.filter(c => c.k === 'xl').length; job.eggs = n ? 6 : 0; job.broken = 0; job.xlAir = 0; document.documentElement.classList.add('xl'); if (n) { pop('שישיית אקסל. בלי קפיצות!', '#F3E03B', 54); setNote('אקסלים לענתות', [['לקנות שישייה בילו', true], ['להביא לענתות 33', false]], 'כל מכה או נחיתה = פחית') } else pop('שכחת את האקסלים!', '#FD1D1D', 60) },
+  xtick(dt) { if (job.eggs <= 0 || mode !== 'ride') return; if (st.air) job.xlAir += dt; else { if (job.xlAir > .5) xlBurst('נחיתה קשה'); job.xlAir = 0 }
+    if (job.broken >= job.eggs) endOut(0, [['אקסלים שלמים', '0 / 6']], 'כל השישייה התפוצצה? הבאת לענתות פחיות ריקות ואופניים דביקות.') },
+  arrive() { const got = job.eggs > 0, ok = got ? job.eggs - job.broken : 0, left = job.limit - job.time; let stars = !got ? 0 : ok >= 6 ? 3 : ok >= 4 ? 2 : 1; if (left <= 0 && stars > 1) stars--;
+    job.state = 'end'; HS.wave = 1.2; tone(392, .12, 'square', .04); tone(523, .14, 'square', .04, null, .14);
+    endOut(stars, [['זמן', fmtT(job.time) + (left <= 0 ? ' (מאוחר)' : '')], ['אקסלים שלמים', `${ok} / 6`], ['עודף', '₪' + job.wallet]],
+      !got ? 'נסעת עד ענתות בלי אקסלים? בשביל מה בכלל נסעת?' : stars === 3 ? 'הם אומרים שהגעת עם שישייה שלמה ובזמן. עכשיו אף אחד בענתות לא יירדם עד המחנה.' : ok >= 4 ? 'כמה פחיות התפוצצו, אבל החבר׳ה בענתות שורדים. לא רע.' : 'הגעת עם מה שנשאר. בענתות שותים את זה מהשקית.') },
+  clean() { document.documentElement.classList.remove('xl'); job.xlAir = 0 } };
+const missAlma = { id: 'alma', n: 'משמרת לילה', d: 'רק בלילה: קניות בילו', night: 1, limit: 230, pay: [0, 20, 35, 55],
+  say() { shopSet(['eggs', ...shuf(['milk', 'pita', 'bamba', 'cola', 'hummus']).slice(0, 3)], 60); return ['חמשוש, יש לנו שמירת לילה במחנה וכולם גוועים.', `יודה סגור בלילה. סע לילו, הכי רחוק שיש, ותביא ${said()}.`, 'הנה שישים שקל. ומי שחוזר בלי ביצים, עושה את המשמרת הבאה.'] }, start() { job.almaForce = true; shopStart() } };
+MIS.push(missAlma, missPower, missXL);
+{ const s0 = missShop.say; missShop.say = function () { const L = s0.call(this); if (isNight()) { L[0] = L[0].replace('מיודה', 'מילו'); L.splice(1, 0, 'יודה סגור בלילה. ילו פתוח, אבל הוא בסוף העולם. תזדרז.') } return L } }
+{ const s0 = missCamp.say; missCamp.say = function () { const L = s0.call(this); if (isNight()) L.splice(1, 0, 'ויודה סגור, אז זה ילו. כן, הרחוק.'); return L } }
 
 // loan: give the power bank back, trust grows or drops
 const LOANR = new THREE.Mesh(new THREE.TorusGeometry(2.2, .14, 8, 40), new THREE.MeshBasicMaterial({ color: 0x7cff9a, transparent: true, opacity: .8 })); LOANR.rotation.x = Math.PI / 2; LOANR.visible = false; scene.add(LOANR);
@@ -1739,8 +1888,12 @@ function loanTick(dt) { const L = save.loan; LOANR.visible = false; if (!L || !F
 PH.tick = dt => { if (!st.started) return; save.playT += dt; const nf = nightF(), open = isNight();
   AL.signM.emissiveIntensity = .08 + nf * .95; AL.glassM.emissiveIntensity = open ? .9 : .05; AL.vendM.emissiveIntensity = .05 + nf * .8; AL.pool.opacity = nf * .38; AL.bulb.color.setHex(nf > .3 ? 0xfff0c8 : 0x5a4a30); AL.eyeM.opacity = nf * (Math.sin(st.time * .7) > -.9 ? 1 : 0);
   AL.shutter.visible = !open;
+  HS.winM.emissiveIntensity = .05 + nf * .85; HS.pool.opacity = nf * .34; HS.lampM.color.setHex(nf > .3 ? 0xfff0c8 : 0x5a4a30); HS.guy.root.visible = open;
+  if (HS.guy.root.visible) { const a = HS.guy.arms[1]; if (HS.wave > 0) { HS.wave -= dt; a && (a.up.rotation.x = -2.6 + Math.sin(st.time * 12) * .3) } else if (a) a.up.rotation.x = 0 }
+  if (job.m && job.m.xtick && job.state === 'toBoss') job.m.xtick(dt);
+  SKIN.tick(dt);
   const yudaGoal = goalP && Math.hypot(goalP.x - DOORP.x, goalP.z - DOORP.z) < 1, yshut = open && !yudaGoal && !(job.state === 'inStore' && !job.alma); AL.yuda.forEach(m => m.visible = yshut);
-  if (PH.wasNight !== null && PH.wasNight !== open) { if (open) { waSay('גרעין', 'עלמה מרקט פתח! מי בא לקנות במבה בשתיים בלילה', 600); } else waSay('טוסט', 'בוקר. יודה פתוח. עלמה מרקט נסגר. מישהו ישן בכלל?', 600) } PH.wasNight = open;
+  if (PH.wasNight !== null && PH.wasNight !== open) { if (open) { waSay('גרעין', 'ילו פתח! מי בא לקנות במבה בשתיים בלילה', 600); } else waSay('טוסט', 'בוקר. יודה פתוח. ילו נסגר. מישהו ישן בכלל?', 600) } PH.wasNight = open;
   const now = performance.now(); while (PH.q.length && PH.q[0].at <= now) { const m = PH.q.shift(); waPost(m.n, m.t, m.o) }
   if (mode === 'ride' && !menuOpen && !PH.photo) { PH.waTimer -= dt; if (PH.waTimer <= 0) { PH.waTimer = 75 + Math.random() * 80; if (!(job.m && job.m.id === 'power' && job.state === 'out')) waBanter() } }
   if (PH.photo) for (const k in keys) keys[k] = false;
@@ -1769,7 +1922,8 @@ ui('#menu').addEventListener('click', e => { const b = e.target.closest('[data-w
   if (p === 'open') return PH.photoOn(); if (p === 'back') { PH.view = null; return renderMenu() } const [k, id] = p.split(':'); if (k === 'view') { PH.view = +id; return renderMenu() } if (k === 'del') { savePhotos(photos().filter(q => q.id !== +id)); PH.view = null; return renderMenu() } if (k === 'send') { waSendPhoto(+id); PH.view = null; menuTab = 'w'; return renderMenu() } }, true);
 ui('#phX').addEventListener('click', () => PH.photoOff()); ui('#phS').addEventListener('click', () => PH.shoot()); ui('#phSf').addEventListener('click', () => { if (PH.photo) { PH.photo.selfie = !PH.photo.selfie; tone(900, .04, 'square', .03) } }); ui('#phFb').addEventListener('click', () => PH.photo && PH.filt());
 if (!save.wa.length) { save.wa.push({ n: 'טוסט', t: 'ברוך הבא לקבוצה 🔥', tm: '17:02' }, { n: 'זיפ', t: 'עכשיו גם אתה תקבל את כל הבדיחות שלי', tm: '17:03' }); persist() }
+PH.skin = storeSkin;
 
-window.__g={PH,ALMA,isNight,hourNow,pressE,DK:DHK,DHP,dhE,enterDahari,leaveDahari,mode:()=>mode,TR:()=>TR,goal:()=>goalP,HOT,remount,DOORP,POST,FIELD,ring,fmt:fmtT,flyTg:()=>job.tg,R,scam,film:{T:0,seats:SEATS,logo:LOGO_SRC,start(){gsap.ticker.remove(gsap.updateRoot);gsap.ticker.lagSmoothing(0);this.T=gsap.ticker.time+1;job.next=1e9},keys(k){Object.keys(keys).forEach(q=>keys[q]=false);Object.assign(keys,k||{})},adv(dt){this.T+=dt;gsap.updateRoot(this.T);if(mode==='ride'){const n=Math.max(1,Math.min(8,Math.ceil(dt/FIX)));for(let i=0;i<n;i++)update(dt/n);pose(dt);worldTick(dt)}else if(mode==='dahari')dhTick(dt);else storeTick(dt)},draw(){sun.shadow.needsUpdate=true;drawFrame()},cam(px,py,pz,tx,ty,tz,fov,roll=0){cam.x=px;cam.y=py;cam.z=pz;cam.tx=tx;cam.ty=ty;cam.tz=tz;st.fov=fov;st.shake=0;const lean0=st.lean;st.lean=0;applyCam();st.lean=lean0;if(roll)camera.rotation.z+=roll},seat(i){FT.busy=0;sitDown(SEATS[i])},store(){mode='store';job.state='inStore';job.list=[{k:'eggs',n:'ביצים',got:null}];job.cart=[];job.wrong=[];setMap()},gdb(){gdbGame(1,()=>{})},wear:applyWear,noDust(){pts.visible=false},bossStage,result(s){showResult(s,[['זמן','1:12'],['ביצים שלמות','3 / 3']])}},HOOPS,ballDown,ballUp,RIV,FX,GD,burgerKey,nextMission,dq,DQT,dayKey,setDayKey(k){dqNow=k;dqCheckDay()},renderDaily,SHIRTS,SOC,BB,KEEP,FT2:()=>FT,TR:()=>TR,spawnTrash,fKey,footFree,walls,solids,TB,HL,PT,BK2,BZ,WC,bossPos,hotNow,SD,decline,giveClothes,SHIRTS,SCARVES,arrowDot(){arrow.updateMatrixWorld(true);const a=new THREE.Vector3(0,0,1).applyQuaternion(arrow.children[0].getWorldQuaternion(new THREE.Quaternion())),d=new THREE.Vector3(goalP.x-st.x,0,goalP.z-st.z).normalize();return +a.dot(d).toFixed(2)},FT,BK,SEATS,zE,parkBike,zPrompt,CREW,nearBoard,drawBoard,setDay(t){dayOff=t-st.time;dayTick(true)},WK,fireConfetti,worldTick,MIS,save,DOG,RIV,ROUTE,toggleMenu,menuOpen:()=>menuOpen,play(n,set){Object.keys(keys).forEach(k=>keys[k]=false);Object.assign(keys,set||{});for(let i=0;i<n;i++){update(FIX);if(i%4===0)rideJob(FIX*4)}pose(FIX*n);worldTick(FIX*n);for(let i=0;i<20;i++)updateCam(1/60);drawMap();drawGoal();sun.shadow.needsUpdate=true;drawFrame()},job,K,STOCK,SKU,mode:()=>mode,answer,ring,enterStore,take,toCheckout,pressE,storeStep(n,set){Object.keys(keys).forEach(k=>keys[k]=false);Object.assign(keys,set||{});for(let i=0;i<n;i++)storeTick(1/60);storeCam(1);R.render(shop,scam)},shotShop(x,z,h){K.x=x;K.z=z;K.h=h;K.v=0;storeTick(.016);storeCam(1);R.render(shop,scam)},renderShop(){R.render(shop,scam)},rideJob,st,keys,walls,ramps,starG,begin,render(){drawFrame()},step(n,set){Object.keys(keys).forEach(k=>keys[k]=false);Object.assign(keys,set||{});for(let i=0;i<n;i++){update(FIX)}pose(FIX*n);worldTick(FIX*n);for(let i=0;i<30;i++)updateCam(1/60);drawMap();sun.shadow.needsUpdate=true;drawFrame();return{x:+st.x.toFixed(2),z:+st.z.toFixed(2),y:+st.y.toFixed(2),v:+st.v.toFixed(2),h:+st.h.toFixed(2),air:st.air,got:st.got,airT:+st.airT.toFixed(2)}},tp(x,z,h,v=0){Object.assign(st,{steer:0,lean:0,x,z,h,v,y:groundH(x,z),vy:0,air:false,_rise:0,_py:groundH(x,z),shake:0});for(let i=0;i<60;i++)updateCam(1/60)},info:()=>R.info.render};
+window.__g={PH,ALMA,ANT,HS,STOCK,take,toCheckout,storeSkin,SKIN,shopS:shop,isNight,hourNow,pressE,DK:DHK,DHP,dhE,enterDahari,leaveDahari,mode:()=>mode,TR:()=>TR,goal:()=>goalP,HOT,remount,DOORP,POST,FIELD,ring,fmt:fmtT,flyTg:()=>job.tg,R,scam,film:{T:0,seats:SEATS,logo:LOGO_SRC,start(){gsap.ticker.remove(gsap.updateRoot);gsap.ticker.lagSmoothing(0);this.T=gsap.ticker.time+1;job.next=1e9},keys(k){Object.keys(keys).forEach(q=>keys[q]=false);Object.assign(keys,k||{})},adv(dt){this.T+=dt;gsap.updateRoot(this.T);if(mode==='ride'){const n=Math.max(1,Math.min(8,Math.ceil(dt/FIX)));for(let i=0;i<n;i++)update(dt/n);pose(dt);worldTick(dt)}else if(mode==='dahari')dhTick(dt);else storeTick(dt)},draw(){sun.shadow.needsUpdate=true;drawFrame()},cam(px,py,pz,tx,ty,tz,fov,roll=0){cam.x=px;cam.y=py;cam.z=pz;cam.tx=tx;cam.ty=ty;cam.tz=tz;st.fov=fov;st.shake=0;const lean0=st.lean;st.lean=0;applyCam();st.lean=lean0;if(roll)camera.rotation.z+=roll},seat(i){FT.busy=0;sitDown(SEATS[i])},store(){mode='store';job.state='inStore';job.list=[{k:'eggs',n:'ביצים',got:null}];job.cart=[];job.wrong=[];setMap()},gdb(){gdbGame(1,()=>{})},wear:applyWear,noDust(){pts.visible=false},bossStage,result(s){showResult(s,[['זמן','1:12'],['ביצים שלמות','3 / 3']])}},HOOPS,ballDown,ballUp,RIV,FX,GD,burgerKey,nextMission,dq,DQT,dayKey,setDayKey(k){dqNow=k;dqCheckDay()},renderDaily,SHIRTS,SOC,BB,KEEP,FT2:()=>FT,TR:()=>TR,spawnTrash,fKey,footFree,walls,solids,TB,HL,PT,BK2,BZ,WC,bossPos,hotNow,SD,decline,giveClothes,SHIRTS,SCARVES,arrowDot(){arrow.updateMatrixWorld(true);const a=new THREE.Vector3(0,0,1).applyQuaternion(arrow.children[0].getWorldQuaternion(new THREE.Quaternion())),d=new THREE.Vector3(goalP.x-st.x,0,goalP.z-st.z).normalize();return +a.dot(d).toFixed(2)},FT,BK,SEATS,zE,parkBike,zPrompt,CREW,nearBoard,drawBoard,setDay(t){dayOff=t-st.time;dayTick(true)},WK,fireConfetti,worldTick,MIS,save,DOG,RIV,ROUTE,toggleMenu,menuOpen:()=>menuOpen,play(n,set){Object.keys(keys).forEach(k=>keys[k]=false);Object.assign(keys,set||{});for(let i=0;i<n;i++){update(FIX);if(i%4===0)rideJob(FIX*4)}pose(FIX*n);worldTick(FIX*n);for(let i=0;i<20;i++)updateCam(1/60);drawMap();drawGoal();sun.shadow.needsUpdate=true;drawFrame()},job,K,STOCK,SKU,mode:()=>mode,answer,ring,enterStore,take,toCheckout,pressE,storeStep(n,set){Object.keys(keys).forEach(k=>keys[k]=false);Object.assign(keys,set||{});for(let i=0;i<n;i++)storeTick(1/60);storeCam(1);R.render(shop,scam)},shotShop(x,z,h){K.x=x;K.z=z;K.h=h;K.v=0;storeTick(.016);storeCam(1);R.render(shop,scam)},renderShop(){R.render(shop,scam)},rideJob,st,keys,walls,ramps,starG,begin,render(){drawFrame()},step(n,set){Object.keys(keys).forEach(k=>keys[k]=false);Object.assign(keys,set||{});for(let i=0;i<n;i++){update(FIX)}pose(FIX*n);worldTick(FIX*n);for(let i=0;i<30;i++)updateCam(1/60);drawMap();sun.shadow.needsUpdate=true;drawFrame();return{x:+st.x.toFixed(2),z:+st.z.toFixed(2),y:+st.y.toFixed(2),v:+st.v.toFixed(2),h:+st.h.toFixed(2),air:st.air,got:st.got,airT:+st.airT.toFixed(2)}},tp(x,z,h,v=0){Object.assign(st,{steer:0,lean:0,x,z,h,v,y:groundH(x,z),vy:0,air:false,_rise:0,_py:groundH(x,z),shake:0});for(let i=0;i<60;i++)updateCam(1/60)},info:()=>R.info.render};
 if(TEST){updateCam(.016);R.render(scene,camera);window.__ready=true}else{requestAnimationFrame(frame);window.__ready=true}
 </script></body></html>
