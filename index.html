@@ -171,30 +171,6 @@ html.touch #phUI,html.touch #waT{zoom:var(--z)}
 
 /* XL cans instead of eggs */
 html.xl #eggs i{width:15px;height:28px;border-radius:3px;background:linear-gradient(#e8eef4 0 16%,#16224f 16% 84%,#e8eef4 84%)}html.xl #eggs i.x{background:#4a4a4a;opacity:.45}
-
-/* פעולת צבא */
-#nacTop{position:fixed;z-index:8;top:10px;left:50%;transform:translateX(-50%);background:#111;color:#fff;border:4px solid #000;box-shadow:5px 5px 0 #a81b1f;padding:2px 16px 6px;font-size:28px;white-space:nowrap;display:none;direction:rtl}
-#nacTop b{color:#F3E03B}#nacTop span{color:#7cff9a}
-#nacP{position:fixed;z-index:8;right:24px;top:50%;transform:translateY(-50%);width:340px;background:#111;color:#fff;border:5px solid #000;box-shadow:7px 7px 0 #a81b1f;padding:8px 16px 14px;display:none;direction:rtl}
-#nacP h3{margin:0;font-size:40px;line-height:1;color:#F3E03B}
-#nacP .nacI{font-size:22px;line-height:1.15;margin:6px 0 4px;opacity:.9}#nacP kbd{background:#F3E03B;color:#111;padding:0 6px;font:inherit;font-size:20px}
-#nacP .nacN{font-size:76px;line-height:1;text-align:center;margin:4px 0}
-#nacP .nacS{font-size:24px;text-align:center;min-height:28px}
-.nacBar{position:relative;height:26px;background:#2a2a2e;border:3px solid #000;margin:4px 0}.nacBar i{position:absolute;inset:0 auto 0 0;background:#F3E03B}.nacBar.hurry i,.nacBar.bad i{background:#FD1D1D}.nacBar b{position:absolute;inset:0;text-align:center;color:#111;font-size:22px;line-height:22px;mix-blend-mode:difference;filter:invert(1)}
-#nacP .nacB{display:flex;gap:10px;margin-top:8px}#nacP .nacB button{flex:1;font:inherit;font-size:28px;background:#F3E03B;color:#111;border:4px solid #000;box-shadow:4px 4px 0 #a81b1f;padding:8px 0 12px;cursor:pointer;touch-action:manipulation;user-select:none}
-#nacP .nacB button:active{transform:translate(3px,3px);box-shadow:1px 1px 0 #a81b1f}
-.nacBal{display:block;position:relative;height:22px;margin:4px 0;background:linear-gradient(90deg,#FD1D1D 0 32%,#2e7a3c 32% 68%,#FD1D1D 68%);border:3px solid #000}.nacBal i{position:absolute;top:-6px;width:10px;height:28px;margin-left:-5px;background:#fff;border:2px solid #000}
-#nacBig{position:fixed;z-index:9;left:50%;top:34%;transform:translate(-50%,-50%);font-size:200px;line-height:1;color:#F3E03B;paint-order:stroke;-webkit-text-stroke:10px #000;pointer-events:none;display:none;direction:ltr;white-space:nowrap}
-#nacV{position:fixed;z-index:12;left:50%;top:50%;transform:translate(-50%,-50%);width:min(560px,92vw);max-height:92vh;overflow:auto;background:#111;color:#fff;border:6px solid #000;box-shadow:9px 9px 0 #a81b1f;padding:10px 22px 18px;display:none;direction:rtl;text-align:center}
-#nacV .nacG{font-size:92px;line-height:1;color:#F3E03B}#nacV .nacG.bad{color:#FD1D1D}#nacV .nacT{font-size:36px;margin-bottom:6px}
-#nacV ul,#nacV ol{list-style:none;margin:6px 0;padding:0;text-align:right}#nacV li{display:flex;justify-content:space-between;font-size:26px;border-bottom:2px dashed #333;padding:2px 0}#nacV li b{color:#F3E03B}
-#nacV ol{counter-reset:n}#nacV ol li::before{counter-increment:n;content:counter(n);color:#888;margin-left:10px;min-width:26px}#nacV ol li span{flex:1}#nacV li.me{color:#7cff9a}#nacV li.home b{color:#FD1D1D}
-#nacV h4{margin:10px 0 2px;font-size:30px;color:#fff;border-top:4px solid #a81b1f;padding-top:6px}
-#nacV button{font:inherit;font-size:32px;background:#F3E03B;color:#111;border:4px solid #000;padding:6px 30px 10px;margin-top:10px;cursor:pointer}
-#nacStart{margin:14px auto 0;background:#111;border:4px solid #000;box-shadow:6px 6px 0 #a81b1f;padding:4px 18px 8px;display:inline-block}#nacStart b{display:block;font-size:40px;color:#F3E03B;line-height:1}#nacStart span{font-size:24px;color:#fff}
-html.touch #nacP{zoom:var(--z);right:auto;left:50%;top:auto;bottom:calc(env(safe-area-inset-bottom) + 160px);transform:translateX(-50%);width:420px}
-html.touch #nacTop,html.touch #nacV{zoom:var(--z)}
-@media (max-height:560px){#nacP .nacN{font-size:52px}#nacP h3{font-size:30px}#nacBig{font-size:130px}}
 .lkrow{display:block!important;padding:6px 0 2px}
 .lkh{display:block;font-size:.72em;opacity:.9;margin-bottom:5px}
 .lkl{color:#f3e03b;text-decoration:underline;white-space:nowrap;pointer-events:auto;cursor:pointer}
@@ -399,7 +375,7 @@ const puff=tex(128,128,(g,W,H)=>{const q=g.createRadialGradient(64,64,3,64,64,62
 const NP=70,pPos=new Float32Array(NP*3).fill(-999),parts=[];for(let i=0;i<NP;i++)parts.push({x:0,y:-999,z:0,vx:0,vy:0,vz:0,l:0});const pGeo=new THREE.BufferGeometry();pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3));const pMat=new THREE.PointsMaterial({map:puff,color:0xe9cfa4,size:1.5,transparent:true,depthWrite:false,opacity:.3});const pts=new THREE.Points(pGeo,pMat);pts.frustumCulled=false;scene.add(pts);let pi=0;
 function dust(x,y,z,n=1,force=1){for(let k=0;k<n;k++){const p=parts[pi++%NP];p.x=x+r(-.2,.2);p.y=y+.15;p.z=z+r(-.2,.2);p.vx=r(-1,1)*force;p.vy=r(.4,1.6)*force;p.vz=r(-1,1)*force;p.l=1}}
 // minimap
-const mc=$('#map').getContext('2d'),MS=380/462;const mx=x=>190-(x-60)*MS,my=z=>190-(z-42)*MS;const mapBase=document.createElement('canvas');mapBase.width=mapBase.height=380;{const g=mapBase.getContext('2d');g.fillStyle='#2b1d17';g.fillRect(0,0,380,380);g.fillStyle='#b08a52';g.fillRect(mx(118),my(238),116*MS,92*MS);g.fillStyle='#7c1420';g.fillRect(mx(276),my(-2),120*MS,116*MS);g.fillStyle='#161012';g.fillRect(mx(228),my(-80),44*MS,26*MS);g.fillRect(mx(241),my(-10),80*MS,8*MS);g.fillStyle='#3f7a3a';g.fillRect(mx(272),my(-50),32*MS,62*MS);g.fillStyle='#17131a';g.fillRect(mx(270),my(-21),28*MS,16*MS);g.fillStyle='#d4cdbf';g.fillRect(mx(190),my(-54),40*MS,12*MS);g.fillStyle='#d4cdbf';g.fillRect(mx(60)-2,my(186),4,40*MS);g.fillStyle='#FD1D1D';g.fillRect(mx(60)-9,my(192)-7,18,14);g.fillStyle='#F3E03B';g.beginPath();g.moveTo(mx(60),my(192)-5);g.lineTo(mx(60)+6,my(192)+5);g.lineTo(mx(60)-6,my(192)+5);g.closePath();g.fill();PLAN.forEach((row,j)=>[...row].forEach((c,i)=>{g.fillStyle={A:'#4a3a31',P:'#3f6b34',K:'#6b6865',S:'#a8121b',C:'#2d6a58',T:'#8C6B45',D:'#e8862e',G:'#f3b81c'}[c];const x=blockC(i),z=blockC(j);g.fillRect(mx(x)-24*MS-0,my(z)-24*MS,48*MS,48*MS)}));g.fillStyle='#d4cdbf';ROADS.forEach(v=>{g.fillRect(mx(v)-6*MS,my(EDGE),12*MS,(EDGE*2)*MS);g.fillRect(mx(EDGE),my(v)-6*MS,(EDGE*2)*MS,12*MS)});g.direction='rtl';g.textAlign='center';g.textBaseline='middle';g.font='700 30px Karantina';g.lineWidth=7;g.strokeStyle='#000';g.fillStyle='#fff';[['ילו',-120,-168],['ענתות 33',136,174],['דיונות',236,70],['זולה',60,212],['יודה',-30,30],['סודוך',30,90],['GDB',90,30],['שבט',216,-60]].forEach(([q,a,b])=>{g.strokeText(q,mx(a),my(b));g.fillText(q,mx(a),my(b))})}
+const mc=$('#map').getContext('2d'),MS=380/462;const mx=x=>190-(x-60)*MS,my=z=>190-(z-42)*MS;const mapBase=document.createElement('canvas');mapBase.width=mapBase.height=380;{const g=mapBase.getContext('2d');g.fillStyle='#2b1d17';g.fillRect(0,0,380,380);g.fillStyle='#b08a52';g.fillRect(mx(118),my(238),116*MS,92*MS);g.fillStyle='#7c1420';g.fillRect(mx(276),my(-2),120*MS,116*MS);g.fillStyle='#161012';g.fillRect(mx(228),my(-80),44*MS,26*MS);g.fillRect(mx(241),my(-10),80*MS,8*MS);g.fillStyle='#3f7a3a';g.fillRect(mx(272),my(-50),32*MS,62*MS);g.fillStyle='#17131a';g.fillRect(mx(270),my(-21),28*MS,16*MS);g.fillStyle='#d4cdbf';g.fillRect(mx(190),my(-54),40*MS,12*MS);g.fillStyle='#d4cdbf';g.fillRect(mx(60)-2,my(186),4,40*MS);g.fillStyle='#FD1D1D';g.fillRect(mx(60)-9,my(192)-7,18,14);g.fillStyle='#F3E03B';g.beginPath();g.moveTo(mx(60),my(192)-5);g.lineTo(mx(60)+6,my(192)+5);g.lineTo(mx(60)-6,my(192)+5);g.closePath();g.fill();PLAN.forEach((row,j)=>[...row].forEach((c,i)=>{g.fillStyle={A:'#4a3a31',P:'#3f6b34',K:'#6b6865',S:'#a8121b',C:'#2d6a58',T:'#8C6B45',D:'#e8862e',G:'#f3b81c'}[c];const x=blockC(i),z=blockC(j);g.fillRect(mx(x)-24*MS-0,my(z)-24*MS,48*MS,48*MS)}));g.fillStyle='#d4cdbf';ROADS.forEach(v=>{g.fillRect(mx(v)-6*MS,my(EDGE),12*MS,(EDGE*2)*MS);g.fillRect(mx(EDGE),my(v)-6*MS,(EDGE*2)*MS,12*MS)});g.direction='rtl';g.textAlign='center';g.textBaseline='middle';g.font='700 30px Karantina';g.lineWidth=7;g.strokeStyle='#000';g.fillStyle='#fff';[['ילו',-120,-168],['ענתות 33',136,174],['זולה',60,212],['יודה',-30,30],['סודוך',30,90],['GDB',90,30],['שבט',216,-60]].forEach(([q,a,b])=>{g.strokeText(q,mx(a),my(b));g.fillText(q,mx(a),my(b))})}
 function drawMap(){mc.drawImage(mapBase,0,0);starG.forEach(s=>{if(s.userData.got)return;mc.drawImage(LOGO,mx(s.position.x)-10,my(s.position.z)-8,20,16)});mc.save();mc.translate(mx(st.x),my(st.z));mc.rotate(-st.h);mc.fillStyle='#FD1D1D';mc.strokeStyle='#fff';mc.lineWidth=3;mc.beginPath();mc.moveTo(0,-14);mc.lineTo(9,10);mc.lineTo(0,5);mc.lineTo(-9,10);mc.closePath();mc.fill();mc.stroke();mc.restore();window.__net&&__net.mapDots(mc,mx,my);window.PH&&PH.map(mc,mx,my);window.NAC&&NAC.map(mc,mx,my)}
 // sound: wind and freewheel follow the speed, everything else is short hits
 let ac=null,wind=null,windF=null,muted=false,mg=null;
@@ -1024,7 +1000,7 @@ const tintInst=(geo,list,cols,o={})=>{const m=inst(geo,flat(0xffffff),list,o),c=
  const pz=new THREE.Mesh(new THREE.CircleGeometry(15,40),lit(0xffffff,{map:(()=>{const q=ck.clone();q.repeat.set(5,5);q.needsUpdate=true;return q})()}));pz.rotation.x=-Math.PI/2;pz.position.set(205,.1,-60);pz.receiveShadow=true;scene.add(pz)}
 // world wall opens at the gate
 // the red fence: one instanced panel with cut-out bars
-{const t=tex(256,256,(g,W,H)=>{g.clearRect(0,0,W,H);g.fillStyle='#a81b1f';g.fillRect(0,10,W,16);g.fillRect(0,H-26,W,16);for(let i=0;i<9;i++){const x=8+i*(W-16)/8.4;g.fillRect(x,0,10,H);g.beginPath();g.moveTo(x-5,10);g.lineTo(x+5,-8);g.lineTo(x+15,10);g.fill()}});const mat=new THREE.MeshLambertMaterial({map:t,alphaTest:.5,side:THREE.DoubleSide}),P=[],Pt=[],add=(x,z,ry)=>{P.push([x,1.5,z,ry]);};for(let x=TB.x0+1.5;x<TB.x1;x+=3){add(x,TB.z0,0);if(Math.abs(x-216)>5)add(x,TB.z1,0)}for(let z=TB.z0+1.5;z<TB.z1;z+=3){add(TB.x1,z,Math.PI/2);if(Math.abs(z-TB.gz)>6.9)add(TB.x0,z,Math.PI/2)}inst(new THREE.PlaneGeometry(3,3),mat,P,{cast:true});for(let x=TB.x0;x<=TB.x1;x+=3){Pt.push([x,1.65,TB.z0,0]);if(Math.abs(x-216)>5.9)Pt.push([x,1.65,TB.z1,0])}for(let z=TB.z0;z<=TB.z1;z+=3){Pt.push([TB.x1,1.65,z,0]);if(Math.abs(z-TB.gz)>7)Pt.push([TB.x0,1.65,z,0])}inst(box(.16,3.3,.16),blk,Pt);
+{const t=tex(256,256,(g,W,H)=>{g.clearRect(0,0,W,H);g.fillStyle='#a81b1f';g.fillRect(0,10,W,16);g.fillRect(0,H-26,W,16);for(let i=0;i<9;i++){const x=8+i*(W-16)/8.4;g.fillRect(x,0,10,H);g.beginPath();g.moveTo(x-5,10);g.lineTo(x+5,-8);g.lineTo(x+15,10);g.fill()}});const mat=new THREE.MeshLambertMaterial({map:t,alphaTest:.5,side:THREE.DoubleSide}),P=[],Pt=[],add=(x,z,ry)=>{P.push([x,1.5,z,ry]);};for(let x=TB.x0+1.5;x<TB.x1;x+=3){add(x,TB.z0,0);add(x,TB.z1,0)}for(let z=TB.z0+1.5;z<TB.z1;z+=3){add(TB.x1,z,Math.PI/2);if(Math.abs(z-TB.gz)>6.9)add(TB.x0,z,Math.PI/2)}inst(new THREE.PlaneGeometry(3,3),mat,P,{cast:true});for(let x=TB.x0;x<=TB.x1;x+=3){Pt.push([x,1.65,TB.z0,0],[x,1.65,TB.z1,0])}for(let z=TB.z0;z<=TB.z1;z+=3){Pt.push([TB.x1,1.65,z,0]);if(Math.abs(z-TB.gz)>7)Pt.push([TB.x0,1.65,z,0])}inst(box(.16,3.3,.16),blk,Pt);
  wall((TB.x0+TB.x1)/2,TB.z0-.4,TB.x1-TB.x0+2,.8);wall(182.5,TB.z1+.4,55,.8);wall(249.5,TB.z1+.4,55,.8);wall(TB.x1+.4,(TB.z0+TB.z1)/2,.8,TB.z1-TB.z0+2);wall(TB.x0-.4,(TB.z0+TB.gz-7)/2,.8,TB.gz-7-TB.z0);wall(TB.x0-.4,(TB.gz+7+TB.z1)/2,.8,TB.z1-TB.gz-7)}
 // the gate
 {const x=TB.x0,z=TB.gz,sg=tex(1536,420,(g,W,H)=>{g.fillStyle='#1b1518';g.fillRect(0,0,W,H);g.fillStyle='#a81b1f';g.fillRect(0,H-70,W,70);g.direction='rtl';g.textAlign='center';g.textBaseline='middle';g.fillStyle='#fff';g.font='700 246px Karantina';g.fillText('שבט הנשיא',W/2+40,150);g.fillStyle='#F3E03B';g.font='700 62px Karantina';g.fillText('מחנאות מעל שפיות',W/2,H-34);g.drawImage(LOGO,44,36,270,221);g.drawImage(LOGO,W-314,36,270,221)});[-7.4,7.4].forEach(s=>{B3(2.1,9,2.1,x,4.5,z+s,blk);B3(2.4,.6,2.4,x,9.2,z+s,redW);solid(x,z+s,1.3)});M(box(1.1,3.7,17),[new THREE.MeshBasicMaterial({map:sg}),new THREE.MeshBasicMaterial({map:sg}),blk,blk,blk,blk],scene,{pos:[x,7.2,z]});[-9.3,9.3].forEach(s=>{for(let i=0;i<6;i++)B3(.1,2.8,.1,x+1+i*.5,1.5,z+s+Math.sign(s)*i*.05,redW);B3(3,.14,.2,x+2.2,2.8,z+s,blk);B3(3,.14,.2,x+2.2,.5,z+s,blk)})}
@@ -1962,225 +1938,6 @@ ui('#phX').addEventListener('click', () => PH.photoOff()); ui('#phS').addEventLi
 if (!save.wa.length) { save.wa.push({ n: 'טוסט', t: 'ברוך הבא לקבוצה 🔥', tm: '17:02' }, { n: 'זיפ', t: 'עכשיו גם אתה תקבל את כל הבדיחות שלי', tm: '17:03' }); persist() }
 PH.skin = storeSkin;
 
-// ===== פעולת צבא (NAC): a live event. Everyone at the zula, then called to the dunes south of the tribe,
-// three black-shirt שביעסטים run push-ups (NA down, C up), crawls under wire, a plank with a friend on your back,
-// and a one-minute trash bag. Really bad = sent home. Synced to the real clock so everyone does it together. =====
-const NAC = (() => {
-  const Qs = new URLSearchParams(location.search);
-  const AT = (() => { const q = Qs.get('nac'); if (q === 'now') return Date.now() + 12000; if (q && /^\d{1,2}:\d{2}$/.test(q)) { const [h, m] = q.split(':').map(Number), d = new Date(); d.setHours(h, m, 0, 0); return +d } const d = new Date(); d.setHours(20, 0, 0, 0); return +d })();   // every evening at 20:00 (the player's clock; the tribe is in Israel)
-  // timeline in seconds from the start: gather at the zula, the call, four stations, the verdict
-  const ST = [['push', 'שכיבות סמיכה', 45], ['crawl', 'זחילות', 45], ['plank', 'פלאנק עם חבר', 40], ['trash', 'שקית זבל', 60]];
-  const INTRO = 12, OUTRO = 7, T_CALL = 120, T_ST = 300;
-  const PH_ = []; { let t = T_ST; ST.forEach(([id, n, a]) => { PH_.push({ id, n, a, t0: t, t1: t + INTRO + a + OUTRO }); t += INTRO + a + OUTRO }); PH_.push({ id: 'verdict', n: 'השורה התחתונה', t0: t, t1: t + 60 }) }
-  const T_END = PH_[PH_.length - 1].t1;
-  const N = { solo: false, t0: AT, on: false, ph: null, sub: '', score: {}, slot: 0, here: false, home: false, said: {}, last: '' };
-  window.NAC = N;
-
-  // ---------- the dunes south of the tribe, through a new south gate ----------
-  const DN = { x: 236, z: 44 }, GATE = { x: 216, z: -3 };
-  {
-    [[200, 70, 3.2, 9], [270, 78, 3.6, 10], [250, 100, 4.2, 12], [212, 98, 3.4, 10], [276, 30, 2.6, 8], [196, 30, 2.4, 7], [232, 104, 3, 9]].forEach(([x, z, a, s]) => hills.push({ x, z, a, s }));
-    const sand = tex(512, 512, (g, W, H) => { g.fillStyle = '#fff'; g.fillRect(0, 0, W, H); for (let i = 0; i < 5000; i++) { const v = 205 + Math.random() * 50 | 0; g.fillStyle = `rgb(${v},${v - 4},${v - 12})`; g.fillRect(Math.random() * W, Math.random() * H, 1 + Math.random() * 2, 1 + Math.random()) } g.strokeStyle = 'rgba(120,88,50,.13)'; g.lineWidth = 3; for (let i = 0; i < 40; i++) { const y = Math.random() * H; g.beginPath(); g.moveTo(0, y); g.bezierCurveTo(W * .3, y + 10, W * .6, y - 10, W, y); g.stroke() } });
-    sand.wrapS = sand.wrapT = THREE.RepeatWrapping; sand.repeat.set(7, 8);
-    const pg = new THREE.PlaneGeometry(96, 112, 48, 56); pg.rotateX(-Math.PI / 2); const P = pg.attributes.position, col = new Float32Array(P.count * 3), c = new THREE.Color();
-    for (let i = 0; i < P.count; i++) { const px = P.getX(i) + 236, pz = P.getZ(i) + 54, e = hEval(px, pz); P.setY(i, e + .04); const n = Math.sin(px * .31) * Math.cos(pz * .27) * .04; c.setRGB(.74 + e * .018 + n, .55 + e * .016 + n, .33 + e * .012 + n); col.set([c.r, c.g, c.b], i * 3) }
-    pg.setAttribute('color', new THREE.BufferAttribute(col, 3)); pg.computeVertexNormals();
-    const m = new THREE.Mesh(pg, lit(0xffffff, { map: sand, vertexColors: true, flatShading: true })); m.position.set(236, 0, 54); m.receiveShadow = true; scene.add(m);
-    // keep everyone in: low walls round the dunes (the tribe fence is the north side)
-    wall(189, 54, 2, 112); wall(283, 54, 2, 112); wall(236, 110, 96, 2); wall(280, -1.5, 8, 1);
-    // path from the gate, sandbags, a flag, a tent
-    M(box(10, .05, 10), flat(0xb9a07a), scene, { pos: [GATE.x, .06, 4], cast: false, recv: true });
-    const bagM = flat(0x9b8a5e); for (let i = 0; i < 9; i++) { const a = i / 8 * Math.PI; M(box(1.1, .45, .6), bagM, scene, { pos: [DN.x - 14 + Math.cos(a) * 2.4, .25 + (i % 2) * .4, 22 + Math.sin(a) * 1.2], rot: [0, a, 0] }) } solid(DN.x - 14, 22.5, 2.6);
-    M(new THREE.CylinderGeometry(.08, .1, 9, 8), flat(0x2a2a2e), scene, { pos: [DN.x + 14, 4.5, 22] }); solid(DN.x + 14, 22, .4);
-    const flagT = tex(512, 320, (g, W, H) => { g.fillStyle = '#111'; g.fillRect(0, 0, W, H); g.fillStyle = '#a81b1f'; g.fillRect(0, H - 60, W, 60); g.direction = 'ltr'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillStyle = '#F3E03B'; g.font = '700 190px Karantina'; g.fillText('NAC', W / 2, 128); g.direction = 'rtl'; g.fillStyle = '#fff'; g.font = '700 46px Karantina'; g.fillText('פעולת צבא', W / 2, H - 30) });
-    N.flag = M(new THREE.PlaneGeometry(3.2, 2), new THREE.MeshBasicMaterial({ map: flagT, side: THREE.DoubleSide }), scene, { pos: [DN.x + 15.6, 7.8, 22], cast: false });
-    const tent = new THREE.Mesh(new THREE.ConeGeometry(3.4, 3, 4), flat(0x4b5320)); tent.position.set(DN.x + 26, 1.5, 26); tent.rotation.y = Math.PI / 4; tent.castShadow = true; scene.add(tent); solid(DN.x + 26, 26, 2.6);
-    // crawl lanes: four lanes of low wire on posts, 24 m long, heading south
-    N.lanes = [0, 1, 2, 3].map(i => ({ x: 256 + i * 3, z0: 30, z1: 54 }));
-    const postM = flat(0x3a3a3e), wireM = new THREE.MeshBasicMaterial({ color: 0x8a8d90 });
-    N.lanes.forEach(L => { for (let z = L.z0; z <= L.z1; z += 3) [-1.1, 1.1].forEach(o => M(box(.08, .9, .08), postM, scene, { pos: [L.x + o, .45, z], cast: false })); [-1.1, 0, 1.1].forEach(o => M(box(.02, .02, L.z1 - L.z0), wireM, scene, { pos: [L.x + o, .78, (L.z0 + L.z1) / 2], cast: false })); for (let z = L.z0; z < L.z1; z += 1.5) M(box(2.2, .02, .02), wireM, scene, { pos: [L.x, .78, z], cast: false }) });
-    const signT = tex(768, 256, (g, W, H) => { g.fillStyle = '#111'; g.fillRect(0, 0, W, H); g.fillStyle = '#a81b1f'; g.fillRect(0, 0, 22, H); g.fillRect(W - 22, 0, 22, H); g.direction = 'rtl'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillStyle = '#F3E03B'; g.font = '700 120px Karantina'; g.fillText('הדיונות', W / 2, 96); g.fillStyle = '#fff'; g.font = '700 54px Karantina'; g.fillText('שטח אימונים · NAC', W / 2, 196) });
-    M(box(4.6, 1.5, .1), lit(0xffffff, { map: signT }), scene, { pos: [GATE.x, 3.2, .6], rot: [0, Math.PI, 0] }); [-2.4, 2.4].forEach(o => { M(box(.15, 3.9, .15), postM, scene, { pos: [GATE.x + o, 1.95, .6] }); solid(GATE.x + o, .6, .3) });
-  }
-  // the three שביעסטים in black
-  const SH = [-3, 0, 3].map((o, i) => { const p = makePerson({ shirt: 0x121214, pants: 0x1d1f24, hair: [0x120a08, 0x241510, 0x0e0a08][i], leg: .44, th: .58, tw: .2, r: .24, er: .06, arm: .28, scarf: true }); p.root.scale.setScalar(1.25); p.root.position.set(DN.x + o, .05, 30); scene.add(p.root); solid(DN.x + o, 30, .7); p.arms.forEach(a => { a.up.rotation.x = .35; a.lo.rotation.x = -.6 }); return p });
-  // the friend that lies on your back in the plank
-  const BUD = makePerson({ shirt: 0x2e6ca8, pants: 0x2a2c34, hair: 0x241510, leg: .3, r: .25, tw: .17 }); BUD.root.scale.setScalar(1.32); BUD.root.visible = false; scene.add(BUD.root);
-  // trash for the bag station
-  const TR = { items: [], g: new THREE.Group() }; scene.add(TR.g);
-  const trashGeo = [new THREE.CylinderGeometry(.09, .09, .26, 8), new THREE.BoxGeometry(.3, .08, .22), new THREE.CylinderGeometry(.07, .1, .38, 8)], trashCol = [0xc8211f, 0xe8e4d8, 0x2e7a3c, 0x3aa0ff, 0xf3e03b];
-  const BAG = M(new THREE.SphereGeometry(.3, 10, 8), flat(0x141414), scene, { pos: [0, -9, 0] }); BAG.scale.set(1, 1.2, 1);
-
-  // ---------- the event channel: everyone tonight on one light topic, for the count and the board ----------
-  const NET = { conns: [], people: new Map(), seq: 0, ok: false };
-  const myName = () => { let n = ''; try { n = localStorage.getItem('chamshush.name') || '' } catch (e) { } return String(n).replace(/[\u0000-\u001f<>]/g, '').trim().slice(0, 12) || ('חמשוש ' + (window.__net ? __net.me.slice(0, 3) : '')) };
-  const TOP = 'nachanasi/chm1/nacev/' + new Date(AT).toISOString().slice(0, 10);
-  function netStart() {
-    if (NET.started) return; NET.started = true;
-    const SRC = ['https://unpkg.com/mqtt@5.3.5/dist/mqtt.min.js', 'https://cdn.jsdelivr.net/npm/mqtt@5.3.5/dist/mqtt.min.js'];
-    const load = () => window.mqtt ? Promise.resolve() : SRC.reduce((p, src) => p.catch(() => new Promise((res, rej) => { const sc = document.createElement('script'); sc.src = src; sc.async = true; sc.onload = () => window.mqtt ? res() : rej(); sc.onerror = rej; document.head.appendChild(sc) })), Promise.reject());
-    load().then(() => { ['wss://broker.emqx.io:8084/mqtt', 'wss://broker.hivemq.com:8884/mqtt'].forEach(u => { let c; try { c = mqtt.connect(u, { clean: true, connectTimeout: 8000, reconnectPeriod: 4000, keepalive: 30 }) } catch (e) { return } NET.conns.push(c); c.on('connect', () => { NET.ok = true; c.subscribe(TOP) }); c.on('message', (t, b) => onNet(b)); c.on('error', () => { }) }) }).catch(() => { });
-    setInterval(netSend, 4000);
-  }
-  const num = (v, a, b) => typeof v === 'number' && isFinite(v) ? Math.max(a, Math.min(b, v)) : 0;
-  function onNet(b) { let m; try { m = JSON.parse(b.toString()) } catch (e) { return } if (!m || typeof m.i !== 'string' || m.i.length > 8) return; const me = window.__net ? __net.me : 'x'; if (m.i === me) return; const p = NET.people.get(m.i) || {}; if (m.q <= (p.q || 0)) return; NET.people.set(m.i, { q: m.q, n: String(m.n || '').replace(/[\u0000-\u001f<>]/g, '').slice(0, 12) || 'חמשוש', ph: String(m.ph || '').slice(0, 8), s: num(m.s, 0, 100), c: num(m.c, 0, 999), home: !!m.h, done: !!m.d, t: performance.now() }) }
-  function netSend() { if (!N.on && !N.done) return; const s = JSON.stringify({ i: window.__net ? __net.me : 'x', q: ++NET.seq, n: myName(), ph: N.ph ? N.ph.id : '', s: Math.round(total() * 100), c: N.score.push ? N.score.push.n || 0 : 0, h: N.home ? 1 : 0, d: N.done ? 1 : 0 }); NET.conns.forEach(c => { if (c.connected) c.publish(TOP, s) }) }
-  const people = () => { const now = performance.now(), L = []; NET.people.forEach((p, id) => { if (now - p.t < 20000) L.push(p); else if (now - p.t > 600000) NET.people.delete(id) }); return L };
-
-  // ---------- UI ----------
-  document.body.insertAdjacentHTML('beforeend', `<div id="nacTop"></div><div id="nacP"><h3></h3><p class="nacI"></p><div class="nacN"></div><div class="nacBar"><i></i><b></b></div><div class="nacS"></div><div class="nacB"></div></div><div id="nacBig"></div><div id="nacV"></div>`);
-  const $n = s => document.getElementById(s), elTop = $n('nacTop'), elP = $n('nacP'), elBig = $n('nacBig'), elV = $n('nacV');
-  const show = (e, v) => { e.style.display = v ? 'block' : 'none' };
-  function panel(title, inst, btns) { elP.querySelector('h3').textContent = title; elP.querySelector('.nacI').innerHTML = inst; elP.querySelector('.nacB').innerHTML = (btns || []).map(([k, t]) => `<button type="button" data-nac="${k}">${t}</button>`).join(''); show(elP, 1) }
-  const setN = (big, sub) => { elP.querySelector('.nacN').innerHTML = big; elP.querySelector('.nacS').textContent = sub || '' };
-  const setBar = (f, txt, cls) => { const b = elP.querySelector('.nacBar'); b.querySelector('i').style.width = Math.max(0, Math.min(1, f)) * 100 + '%'; b.querySelector('b').textContent = txt || ''; b.className = 'nacBar ' + (cls || '') };
-  elP.addEventListener('pointerdown', e => { const b = e.target.closest('[data-nac]'); if (!b) return; e.preventDefault(); act(b.dataset.nac) });
-  let bigT = null; function big(t, col) { elBig.textContent = t; elBig.style.color = col || '#F3E03B'; show(elBig, 1); gsap.killTweensOf(elBig); gsap.fromTo(elBig, { scale: 1.6, opacity: 1 }, { scale: 1, duration: .25, ease: 'back.out(2)' }); clearTimeout(bigT); bigT = setTimeout(() => gsap.to(elBig, { opacity: 0, duration: .3, onComplete: () => show(elBig, 0) }), 650) }
-  const whistle = () => { tone(2900, .16, 'square', .04, 2600); tone(2900, .3, 'square', .04, 2700, .2) };
-  const shSay = (txt, done) => { SH.forEach(p => p.talk = true); typeText(txt, 'השביעסט', () => { SH.forEach(p => p.talk = false); setTimeout(() => { hideSub(); done && done() }, 900) }, .028) };
-  const once = (k, f) => { if (N.said[k]) return; N.said[k] = 1; f() };
-
-  // start screen and countdown chip
-  { const s = document.getElementById('start'); if (s && Date.now() < AT + T_END * 1000) s.insertAdjacentHTML('beforeend', `<div id="nacStart"><b>פעולת צבא · NAC</b><span>${Date.now() < AT ? 'היום ב־' + new Date(AT).toTimeString().slice(0, 5) + ' · כולם בזולה' : 'עכשיו! כולם לדיונות'}</span></div>`) }
-  const clock = s => { s = Math.max(0, Math.ceil(s)); const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), q = s % 60; return (h ? h + ':' + String(m).padStart(2, '0') : m) + ':' + String(q).padStart(2, '0') };
-
-  // ---------- scoring ----------
-  const total = () => { const v = ST.map(([id]) => N.score[id]).filter(x => x && x.f != null).map(x => x.f); return v.length ? v.reduce((a, b) => a + b, 0) / v.length : 0 };
-  const failed = () => ST.filter(([id]) => N.score[id] && N.score[id].f != null && N.score[id].f < .3).length;
-
-  // ---------- positions ----------
-  function slot() { const ids = [window.__net ? __net.me : 'x']; if (window.__net) __net.peers.forEach((p, id) => ids.push(id)); ids.sort(); const i = ids.indexOf(window.__net ? __net.me : 'x'); return Math.max(0, i) }
-  const spot = i => ({ x: DN.x - 6 + (i % 5) * 3, z: 40 + Math.floor(i / 5) * 3 });
-  function toFoot() { if (st.onFoot) return; st.v = 0; st.air = false; try { dropBike() } catch (e) { } }
-  function place(x, z, h) { toFoot(); st.x = x; st.z = z; st.y = groundH(x, z); st.h = h; st.v = 0; FT.vx = FT.vz = 0; FT.yaw = h; st._py = st.y }
-  function toSpot() { N.slot = slot(); const s = spot(N.slot); place(s.x, s.z, Math.PI) }
-  const atDunes = () => st.z > 2 && st.x > 190 && st.x < 282 && st.z < 108;
-
-  // ---------- timeline ----------
-  const now = () => (Date.now() - N.t0) / 1000;
-  function phaseAt(t) { if (t < 0) return { id: 'pre' }; if (t < T_CALL) return { id: 'gather' }; if (t < T_ST) return { id: 'call' }; for (const p of PH_) if (t < p.t1) return p; return { id: 'end' } }
-  const canJoin = () => st.started && mode === 'ride' && (job.state === 'idle' || job.state === 'nac') && !menuOpen;
-  function startSolo() { if (N.on && !N.solo) return; N.solo = true; N.t0 = Date.now() - T_CALL * 1000; N.score = {}; N.said = {}; N.home = false; N.done = false; N.here = false; begin() }
-  function begin() { N.on = true; netStart(); job.next = 1e9 }
-  function finish() { N.on = false; N.ph = null; N.ctl = null; job.cine = false; show(elP, 0); clearGoal(); unpose(); if (job.state === 'nac') job.state = 'idle'; job.next = job.ringT + 45; N.solo = false; N.t0 = AT; if (!N.done) { N.done = true; netSend() } }
-
-  // controls: the station swallows the movement keys
-  N.key = (e, v) => { if (!N.ctl || !N.on) return false; const c = e.code; const mv = ['KeyW', 'KeyA', 'KeyS', 'KeyD', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Space', 'ShiftLeft', 'ShiftRight', 'KeyF', 'KeyE'].includes(c); if (!mv) return false; e.preventDefault && e.preventDefault(); keys[c] = false; if (!v || e.repeat) return true; const map = { KeyS: 'down', ArrowDown: 'down', KeyW: 'up', ArrowUp: 'up', KeyA: 'l', ArrowLeft: 'l', KeyD: 'r', ArrowRight: 'r', Space: 'jump' }; if (map[c]) act(map[c]); return true };
-  function act(a) {
-    const S = N.cur; if (!S || !S.live) return;
-    if (N.ctl === 'push') { if (a === 'down' && S.pos !== 'down') { S.pos = 'down'; S.tDown = performance.now(); big('NA'); tone(330, .08, 'square', .04) } else if (a === 'up' && S.pos === 'down') { if (performance.now() - S.tDown < 160) return; S.pos = 'up'; S.n++; big('NAC!', '#fff'); tone(520, .08, 'square', .04); tone(780, .1, 'square', .04, null, .08); setTimeout(() => S.live && big('C'), 0); setTimeout(() => S.live && big('NAC!'), 180) } }
-    if (N.ctl === 'crawl') { if (S.stun > 0) return; if (a === 'jump' || a === 'up') { S.stun = 1.3; big('ראש למטה!', '#FD1D1D'); tone(200, .2, 'sawtooth', .05); return } if (a !== 'l' && a !== 'r') return; if (a === S.lastK) { S.slip++; pop('שמאל, ימין!', '#fff', 46); tone(220, .06, 'square', .03); S.lastK = null; return } S.lastK = a; S.d = Math.min(S.len, S.d + .62); S.arm = a === 'l' ? 1 : -1; noise_(.03) }
-    if (N.ctl === 'plank') { if (a === 'l') S.v -= .9; if (a === 'r') S.v += .9 }
-  }
-
-  // ---------- stations ----------
-  function stationStart(p) {
-    const id = p.id; N.cur = { id, live: false, n: 0, pos: 'up', d: 0, len: 24, stun: 0, slip: 0, b: 0, v: 0, held: 0, fall: 0, got: 0 };
-    hideAll(); job.state = 'nac';
-    if (id === 'push') { toSpot(); panel('שכיבות סמיכה', 'למטה: <kbd>S</kbd> או <kbd>↓</kbd> = <b>NA</b> · למעלה: <kbd>W</kbd> או <kbd>↑</kbd> = <b>C</b>', [['down', 'למטה · NA'], ['up', 'למעלה · C']]); setN('0', 'המטרה: 20') }
-    if (id === 'crawl') { const L = N.lanes[slot() % 4]; N.cur.L = L; place(L.x, L.z0 - 1, 0); panel('זחילות', 'לסירוגין: <kbd>A</kbd> ואז <kbd>D</kbd> (או ← →). לא להרים את הראש!', [['l', 'שמאל'], ['r', 'ימין']]); setN('0 / 24 מ׳', '') }
-    if (id === 'plank') { toSpot(); const ps = window.__net ? [...__net.peers.values()].map(q => q.n).filter(Boolean) : []; N.cur.bud = ps.length ? ps[Math.random() * ps.length | 0] : ['טוסט', 'גרעין', 'קשיו', 'שמיכה', 'פוליק', 'זיפ'][Math.random() * 6 | 0]; panel('פלאנק עם ' + N.cur.bud + ' על הגב', 'לאזן: <kbd>A</kbd> / <kbd>D</kbd> (או ← →). להחזיק בירוק 30 שניות', [['l', '← שמאל'], ['r', 'ימין →']]); setN('0 / 30', '') }
-    if (id === 'trash') { toSpot(); spawnTrash(); panel('שקית זבל', 'ללכת על הזבל כדי להרים. 12 פריטים בפחות מדקה', []); setN('0 / 12', '') }
-    N.ctl = id === 'trash' ? null : id;
-  }
-  function stationLive() { const S = N.cur; S.live = true; whistle(); big('!צא', '#fff') }
-  function stationEnd() {
-    const S = N.cur; if (!S || S.ended) return; S.ended = true; S.live = false; N.ctl = null; let f = 0, txt = '';
-    if (S.id === 'push') { f = Math.min(1, S.n / 20); txt = S.n + ' שכיבות'; N.score.push = { f, n: S.n } }
-    if (S.id === 'crawl') { const done = S.d >= S.len; f = done ? Math.min(1, Math.max(.45, 1 - (S.time - 18) / 40)) : S.d / S.len * .4; txt = done ? 'הגעת ב־' + S.time.toFixed(1) + ' שנ׳' : 'הגעת ל־' + S.d.toFixed(0) + ' מ׳'; N.score.crawl = { f } }
-    if (S.id === 'plank') { f = Math.min(1, S.held / 30); txt = S.held.toFixed(0) + ' שניות · ' + S.fall + ' נפילות'; N.score.plank = { f }; BUD.root.visible = false }
-    if (S.id === 'trash') { f = Math.min(1, S.got / 12); txt = S.got + ' / 12 בשקית'; N.score.trash = { f }; TR.items.forEach(t => TR.g.remove(t.m)); TR.items = []; BAG.position.y = -9 }
-    unpose(); setN(f >= .85 ? 'מצוין' : f >= .55 ? 'עבר' : f >= .3 ? 'בקושי' : 'נכשל', txt); setBar(f, Math.round(f * 100) + '%', f < .3 ? 'bad' : ''); elP.querySelector('.nacB').innerHTML = '';
-    tone(f >= .55 ? 660 : 200, .2, f >= .55 ? 'triangle' : 'sawtooth', .05); netSend();
-    if (!N.quiet) shSay(f >= .85 ? pick(['יפה. אל תתרגל לזה.', 'ככה עושים את זה!', 'הנה מישהו שמחנאות זורמת לו בדם.']) : f >= .55 ? pick(['עברת. בקושי, אבל עברת.', 'סביר. רק סביר.', 'ראיתי גרועים יותר. היום.']) : pick(['מה זה היה?!', 'אמא שלך עושה את זה יותר טוב.', 'אני לא מאמין למה שראיתי.']))
-  }
-  const pick = a => a[Math.random() * a.length | 0];
-  function spawnTrash() { TR.items.forEach(t => TR.g.remove(t.m)); TR.items = []; for (let i = 0; i < 18; i++) { const a = Math.random() * 6.28, r = 5 + Math.random() * 18, x = DN.x + Math.cos(a) * r, z = Math.min(100, Math.max(36, 58 + Math.sin(a) * r)); const m = new THREE.Mesh(trashGeo[i % 3], flat(trashCol[i % 5])); m.position.set(x, groundH(x, z) + .1, z); m.rotation.set(Math.PI / 2 * (i % 2), Math.random() * 6, 0); m.castShadow = true; TR.g.add(m); TR.items.push({ m, x, z }) } }
-  function hideAll() { show(elV, 0) }
-  // poses: lie the player down for push-ups, crawl and plank
-  function unpose() { FOOT.root.rotation.order = 'XYZ'; FOOT.root.rotation.x = 0; BUD.root.visible = false }
-  function posePlayer(kind, dt) {
-    const p = FOOT, S = N.cur; p.root.rotation.order = 'YXZ'; p.root.rotation.y = st.h;
-    const lie = (tilt, y) => { p.root.rotation.x = tilt; p.root.position.set(st.x, st.y + y, st.z) };
-    p.legs.forEach(l => { l.up.rotation.x = 0; l.lo.rotation.x = 0 }); p.torso.rotation.x = 0; p.body.rotation.x = 0; p.body.rotation.z = 0; p.head.rotation.x = -.9;
-    if (kind === 'push') { const dn = S.pos === 'down'; S.k = damp(S.k || 0, dn ? 1 : 0, 18, dt); lie(lerp(1.28, 1.48, S.k), .02); p.arms.forEach(a => { a.up.rotation.x = lerp(-1.3, -.55, S.k); a.lo.rotation.x = lerp(-.05, -1.35, S.k); a.up.rotation.z = 0 }) }
-    if (kind === 'crawl') { lie(1.5, .02); S.ph = (S.ph || 0) + dt * 6 * (S.armT > 0 ? 1 : 0); const s = Math.sin(S.ph); p.arms.forEach((a, i) => { a.up.rotation.x = -2.3 + (i ? s : -s) * .6; a.lo.rotation.x = -.9 }); p.legs.forEach((l, i) => { l.up.rotation.x = (i ? -s : s) * .35 - .25; l.lo.rotation.x = .9 + (i ? s : -s) * .3 }) }
-    if (kind === 'plank') { lie(1.36 + S.b * .05, .02); p.root.rotation.z = S.b * .25; p.arms.forEach(a => { a.up.rotation.x = -1.45; a.lo.rotation.x = -1.4 }); const fx = Math.sin(st.h), fz = Math.cos(st.h); BUD.root.visible = !(S.fallT > 0); BUD.root.rotation.order = 'YXZ'; BUD.root.rotation.set(1.52, st.h, S.b * .55); const sx = Math.cos(st.h) * S.b * .35, sz = -Math.sin(st.h) * S.b * .35; BUD.root.position.set(st.x + fx * .25 + sx, st.y + .5 + Math.abs(S.b) * .06, st.z + fz * .25 + sz); BUD.arms.forEach((a, i) => { a.up.rotation.x = -2.9 + Math.sin(st.time * 2.4 + i) * .15; a.lo.rotation.x = -.2 }); BUD.legs.forEach(l => { l.up.rotation.x = 0; l.lo.rotation.x = .15 }); BUD.head.rotation.x = -.5 }
-  }
-  const sideCam = (back, side, h) => { const fx = Math.sin(st.h), fz = Math.cos(st.h), rx = Math.cos(st.h), rz = -Math.sin(st.h); job.cineAt = { x: st.x - fx * back + rx * side, y: st.y + h, z: st.z - fz * back + rz * side, tx: st.x + fx * .8, ty: st.y + .5, tz: st.z + fz * .8 }; job.cine = true };
-
-  // ---------- per frame ----------
-  N.tick = dt => {
-    if (!st.started) return;
-    const t = now(), sync = !N.solo;
-    // shvi'astim idle: look at the formation, gesture when talking
-    SH.forEach((p, i) => { faceTick(p, dt); p.root.rotation.y = Math.atan2(st.x - p.root.position.x, st.z - p.root.position.z) * (Math.hypot(st.x - DN.x, st.z - 40) < 40 ? 1 : 0); const k = p.talk ? Math.sin(st.time * 7 + i) : 0; p.arms[1].up.rotation.x = p.talk ? -1.2 + k * .4 : .35; p.arms[1].lo.rotation.x = p.talk ? -.3 : -.6 });
-    N.flag.rotation.y = Math.sin(st.time * 1.3) * .12;
-    // event window: chip before, then join
-    if (sync && !N.on) {
-      if (t < -7200 || t > T_END) { show(elTop, 0); return }
-      if (t < 0) { elTop.innerHTML = `<b>פעולת צבא</b> בעוד ${clock(-t)} · בזולה`; show(elTop, 1); once('pre10', () => { if (t > -600) { waSay && waSay('גרעין', 'עוד עשר דקות פעולת צבא בזולה. שמעתי שהשביעסטים לבשו שחור. זה לא סימן טוב', 300) } }); return }
-      if (canJoin()) begin(); else { elTop.innerHTML = `<b>פעולת צבא</b> התחילה · תסיים ובוא לדיונות`; show(elTop, 1); return }
-    }
-    if (!N.on) return;
-    const ph = phaseAt(t), was = N.ph && N.ph.id;
-    N.ph = ph;
-    const ppl = people().length + 1;
-    // top chip
-    const left = ph.t1 ? ph.t1 - t : ph.id === 'gather' ? T_CALL - t : ph.id === 'call' ? T_ST - t : 0;
-    elTop.innerHTML = `<b>פעולת צבא</b> ${ph.n || (ph.id === 'gather' ? 'התכנסות בזולה' : ph.id === 'call' ? 'לדיונות!' : '')} · ${clock(left)} · <span>${ppl} באיוונט</span>`; show(elTop, 1);
-    if (ph.id === 'end') { finish(); return }
-    if (ph.id === 'gather') { once('g', () => { pop('פעולת צבא מתחילה! כולם לזולה', '#F3E03B', 64); whistle(); if (Math.hypot(st.x - 60, st.z - 190) > 30 && job.state === 'idle') setGoal(60, 186, 'לזולה') }); return }
-    if (ph.id === 'call') {
-      once('c', () => { whistle(); clearGoal(); shSay('חמשושים! זה לא תרגיל. לדיונות ליד השבט, דרך השער הדרומי. מי שמאחר עושה עשרים נוספות!') });
-      if (!N.here) { const inC = st.x > 156 && st.x < 276 && st.z > -118 && st.z < -2; const g = atDunes() ? DN : inC ? GATE : { x: 150, z: -60 }; if (!goalP || goalP.x !== g.x || goalP.z !== g.z) setGoal(g.x, g.z, atDunes() ? 'לשורה' : inC ? 'לשער הדרומי' : 'לשבט'); if (atDunes() && Math.hypot(st.x - DN.x, st.z - 40) < 9) { N.here = true; clearGoal(); toSpot(); job.state = 'nac'; pop('בשורה!', '#F3E03B', 60); if (N.solo) N.t0 = Date.now() - (T_ST - 4) * 1000 } }
-      else { N.ctl = 'wait'; st.v = 0; FT.vx = FT.vz = 0; prompt_('ממתינים לשביעסטים · ' + clock(T_ST - t)) }
-      return
-    }
-    // stations and verdict: pull in anyone not here yet
-    if (!N.here) { if (!canJoin()) return; N.here = true; clearGoal(); blackFade(() => toSpot(), 'לשורה!') }
-    if (ph.id !== was && N.cur && !N.cur.ended && N.cur.id !== ph.id) { N.quiet = true; stationEnd(); N.quiet = false }
-    if (ph.id !== was && ph.id !== 'verdict') { stationStart(ph); once('i' + ph.id, () => shSay({ push: 'שכיבות סמיכה! כשיורדים צועקים NA, כשעולים צועקים C. ביחד זה NAC. אני רוצה לשמוע את זה עד הזולה!', crawl: 'זחילות! מתחת לתיל, ראש למטה. שמאל, ימין, שמאל, ימין. מי שמרים את הראש נתקע.', plank: 'פלאנק! ועל הגב של כל אחד, חבר. אם הוא נופל, שניכם עושים סיבוב נוסף.', trash: 'שקית זבל. דקה. מי שמביא חצי שקית, ישן עם הזבל.' }[ph.id])) }
-    if (ph.id === 'verdict') { if (was !== 'verdict') verdict(); return }
-    const S = N.cur, tt = t - ph.t0;
-    if (!S) return;
-    if (tt >= INTRO && tt < INTRO + ph.a && !S.live && !S.ended) stationLive();
-    if (tt >= INTRO + ph.a && !S.ended) stationEnd();
-    if (!S.live) { prompt_(S.ended ? '' : 'מתחילים בעוד ' + Math.ceil(INTRO - tt)); if (!S.ended && (S.id === 'push' || S.id === 'plank' || S.id === 'crawl')) { posePlayer(S.id, dt); sideCam(S.id === 'crawl' ? 3.2 : 1.2, S.id === 'crawl' ? 2.2 : 4.4, 1.4) } else job.cine = false; if (S.id === 'trash' && !S.ended) { st.v = 0; FT.vx = FT.vz = 0 } return }
-    prompt_('');
-    const aLeft = INTRO + ph.a - tt; setBar(aLeft / ph.a, clock(aLeft), aLeft < 8 ? 'hurry' : '');
-    if (S.id === 'push') { posePlayer('push', dt); sideCam(1.2, 4.4, 1.4); setN(String(S.n), 'המטרה: 20'); if (tt > INTRO + 12) once('pm', () => shSay(pick(['לא שומע אתכם!', 'יותר נמוך! האף נוגע בחול!', 'NA! C! NA! C!']))) }
-    if (S.id === 'crawl') { S.time = tt - INTRO; S.stun = Math.max(0, S.stun - dt); S.armT = Math.max(0, (S.armT || 0) - dt); if (S.arm) { S.armT = .25; S.arm = 0 } const L = S.L; st.x = L.x; st.z = L.z0 - 1 + S.d; st.y = groundH(st.x, st.z); st.h = 0; posePlayer('crawl', dt); sideCam(3.2, 2.2, 1.6); setN(S.d.toFixed(0) + ' / 24 מ׳', S.stun > 0 ? 'נתקעת בתיל!' : ''); if (S.d >= S.len) { big('!הגעת', '#fff'); stationEnd() } }
-    if (S.id === 'plank') {
-      const T_ = tt - INTRO; if (S.fallT > 0) { S.fallT -= dt; if (S.fallT <= 0) { S.b = 0; S.v = 0 } } else {
-        S.v += (Math.random() - .5) * dt * (2.6 + T_ * .07) + Math.sign(S.b) * dt * .9; S.v *= Math.pow(.25, dt); S.b += S.v * dt; if (Math.abs(S.b) < .35) S.held += dt;
-        if (Math.abs(S.b) > 1) { S.fall++; S.fallT = 2; big(S.bud + ' נפל!', '#FD1D1D'); tone(150, .3, 'sawtooth', .06, 60); noise_(.2); st.shake = .12 } }
-      posePlayer('plank', dt); sideCam(1.2, 4.4, 1.5); setN(S.held.toFixed(0) + ' / 30', Math.abs(S.b) < .35 ? 'בירוק' : 'מאזנים!'); elP.querySelector('.nacS').innerHTML = `<span class="nacBal"><i style="left:${50 + Math.max(-1, Math.min(1, S.b)) * 46}%"></i></span>`; if (S.held >= 30) { big('!החזקת', '#fff'); stationEnd() }
-      if (T_ > 14) once('pk' + S.bud, () => waSay && waSay(S.bud, pick(['אני מרגיש כמו מלך פה למעלה', 'אפשר לקבל כרית?', 'אל תזוז, אני כמעט נרדם']), 200))
-    }
-    if (S.id === 'trash') { job.cine = false; for (let i = TR.items.length - 1; i >= 0; i--) { const q = TR.items[i]; q.m.rotation.y += dt; if (Math.hypot(q.x - st.x, q.z - st.z) < 1.5) { TR.g.remove(q.m); TR.items.splice(i, 1); S.got++; tone(880 + S.got * 40, .06, 'triangle', .04); pop('+1', '#F3E03B', 40) } } const fx = Math.sin(st.h), fz = Math.cos(st.h); BAG.position.set(st.x - fx * .35, st.y + .7, st.z - fz * .35); BAG.scale.setScalar(.6 + Math.min(1, S.got / 12) * .7); setN(S.got + ' / 12', ''); if (S.got >= 12) { big('!שקית מלאה', '#fff'); stationEnd() } }
-  };
-
-  function verdict() {
-    N.ctl = null; job.cine = false; show(elP, 0); prompt_(''); const f = total(), bad = f < .3 || failed() >= 2;
-    const pay = bad ? 0 : f >= .85 ? 60 : f >= .55 ? 30 : 10;
-    N.home = bad; save.nac = Object.assign({ best: 0 }, save.nac || {}); if (f > save.nac.best) save.nac.best = Math.round(f * 100); save.nac.last = Math.round(f * 100); persist(); if (pay) addMoney(pay); netSend();
-    const rows = ST.map(([id, n]) => `<li><span>${n}</span><b>${N.score[id] && N.score[id].f != null ? Math.round(N.score[id].f * 100) + '%' : '—'}</b></li>`).join('');
-    const board = () => { const L = people().filter(p => p.s > 0 || p.done).map(p => ({ n: p.n, s: p.s, h: p.home })).concat([{ n: myName() + ' (אתה)', s: Math.round(f * 100), h: bad, me: 1 }]).sort((a, b) => b.s - a.s); const homeN = L.filter(x => x.h).length; return `<h4>הלוח של הערב · ${L.length} לוחמים${homeN ? ' · ' + homeN + ' נשלחו הביתה' : ''}</h4><ol>${L.slice(0, 10).map(x => `<li class="${x.me ? 'me' : ''}${x.h ? ' home' : ''}"><span>${x.n.replace(/[<>&]/g, '')}</span><b>${x.h ? 'הביתה' : x.s + '%'}</b></li>`).join('')}</ol>` };
-    elV.innerHTML = `<div class="nacG ${bad ? 'bad' : ''}">${bad ? 'הביתה!' : f >= .85 ? 'לוחם NAC' : f >= .55 ? 'עברת' : 'בקושי עברת'}</div><div class="nacT">${Math.round(f * 100)}%${pay ? ' · ₪' + pay : ''}</div><ul class="nacR">${rows}</ul><div class="nacL"></div><button type="button" data-nacv="x">להמשיך</button>`;
-    const fill = () => { const l = elV.querySelector('.nacL'); if (l) l.innerHTML = board() }; fill(); const iv = setInterval(() => { if (elV.style.display === 'none') return clearInterval(iv); fill() }, 3000);
-    show(elV, 1); freeMouse();
-    if (bad) { shSay('חמשוש. אני מצטער. אתה הולך הביתה. אמא שלך כבר בדרך עם הפיג׳מה.', () => blackFade(() => { place(60, 181, Math.PI); try { remount(true) } catch (e) { } pop('נשלחת הביתה. שנה הבאה תתאמן.', '#FD1D1D', 54) }, 'הביתה')) }
-    else { whistle(); fireConfetti && fireConfetti(); crowd && crowd(); shSay(f >= .85 ? 'לוחם NAC. מגיעה לך חולצה שחורה. אבל לא תקבל, כי נגמרו.' : 'עברת. השבט גאה בך. בערך.') }
-  }
-  elV.addEventListener('click', e => { if (e.target.closest('[data-nacv]')) { show(elV, 0); if (!N.solo && now() < T_END) return; finish() } });
-  // practice any time: E next to the shvi'astim
-  HOT.push({ x: DN.x, z: 33, r: 4.5, get t() { return N.on ? '' : '<b>E</b> פעולת צבא (אימון)' }, fn() { if (N.on) return; if (now() > -1800 && now() < T_END) { pop('הפעולה האמיתית מתחילה ב־' + new Date(AT).toTimeString().slice(0, 5), '#F3E03B', 52); return } N.here = false; startSolo() } });
-  N.map = (g, mx_, my_) => { if (!N.on && (now() < -7200 || now() > T_END)) return; g.fillStyle = '#111'; g.strokeStyle = '#F3E03B'; g.lineWidth = 3; g.beginPath(); g.arc(mx_(DN.x), my_(40), 9, 0, 7); g.fill(); g.stroke() };
-  N.TR = TR; N.AT = AT; N.T_END = T_END; N.startSolo = startSolo; N.phaseAt = phaseAt; N.total = total; N.act = act; N.people = people; N.DN = DN;
-  return N;
-})();
-
 /* ===== real clothes: what you earn here lands in the tribe locker.
    Game and locker share the origin asseoy.github.io, so they share localStorage.
    The game only appends to an inbox; the locker empties it into its own save. ===== */
@@ -2274,6 +2031,6 @@ const LKR = (() => {
   return { row, give, card, closet, preload, settle, INBOX, BASE };
 })();
 
-window.__g={LKR,giveClothes,dqPay,showResult,save,job,MIS,NAC,PH,ALMA,ANT,HS,STOCK,take,toCheckout,storeSkin,SKIN,shopS:shop,camera,camO:cam,camKv:()=>camK,updateCam,isNight,hourNow,pressE,DK:DHK,DHP,dhE,enterDahari,leaveDahari,mode:()=>mode,TR:()=>TR,goal:()=>goalP,HOT,remount,DOORP,POST,FIELD,ring,fmt:fmtT,flyTg:()=>job.tg,R,scam,film:{T:0,seats:SEATS,logo:LOGO_SRC,start(){gsap.ticker.remove(gsap.updateRoot);gsap.ticker.lagSmoothing(0);this.T=gsap.ticker.time+1;job.next=1e9},keys(k){Object.keys(keys).forEach(q=>keys[q]=false);Object.assign(keys,k||{})},adv(dt){this.T+=dt;gsap.updateRoot(this.T);if(mode==='ride'){const n=Math.max(1,Math.min(8,Math.ceil(dt/FIX)));for(let i=0;i<n;i++)update(dt/n);pose(dt);worldTick(dt)}else if(mode==='dahari')dhTick(dt);else storeTick(dt)},draw(){sun.shadow.needsUpdate=true;drawFrame()},cam(px,py,pz,tx,ty,tz,fov,roll=0){cam.x=px;cam.y=py;cam.z=pz;cam.tx=tx;cam.ty=ty;cam.tz=tz;st.fov=fov;st.shake=0;const lean0=st.lean;st.lean=0;applyCam();st.lean=lean0;if(roll)camera.rotation.z+=roll},seat(i){FT.busy=0;sitDown(SEATS[i])},store(){mode='store';job.state='inStore';job.list=[{k:'eggs',n:'ביצים',got:null}];job.cart=[];job.wrong=[];setMap()},gdb(){gdbGame(1,()=>{})},wear:applyWear,noDust(){pts.visible=false},bossStage,result(s){showResult(s,[['זמן','1:12'],['ביצים שלמות','3 / 3']])}},HOOPS,ballDown,ballUp,RIV,FX,GD,burgerKey,nextMission,dq,DQT,dayKey,setDayKey(k){dqNow=k;dqCheckDay()},renderDaily,SHIRTS,SOC,BB,KEEP,FT2:()=>FT,TR:()=>TR,spawnTrash,fKey,footFree,walls,solids,TB,HL,PT,BK2,BZ,WC,bossPos,hotNow,SD,decline,giveClothes,SHIRTS,SCARVES,arrowDot(){arrow.updateMatrixWorld(true);const a=new THREE.Vector3(0,0,1).applyQuaternion(arrow.children[0].getWorldQuaternion(new THREE.Quaternion())),d=new THREE.Vector3(goalP.x-st.x,0,goalP.z-st.z).normalize();return +a.dot(d).toFixed(2)},FT,BK,SEATS,zE,parkBike,zPrompt,CREW,nearBoard,drawBoard,setDay(t){dayOff=t-st.time;dayTick(true)},WK,fireConfetti,worldTick,MIS,save,DOG,RIV,ROUTE,toggleMenu,menuOpen:()=>menuOpen,play(n,set){Object.keys(keys).forEach(k=>keys[k]=false);Object.assign(keys,set||{});for(let i=0;i<n;i++){update(FIX);if(i%4===0)rideJob(FIX*4)}pose(FIX*n);worldTick(FIX*n);for(let i=0;i<20;i++)updateCam(1/60);drawMap();drawGoal();sun.shadow.needsUpdate=true;drawFrame()},job,K,STOCK,SKU,mode:()=>mode,answer,ring,enterStore,take,toCheckout,pressE,storeStep(n,set){Object.keys(keys).forEach(k=>keys[k]=false);Object.assign(keys,set||{});for(let i=0;i<n;i++)storeTick(1/60);storeCam(1);R.render(shop,scam)},shotShop(x,z,h){K.x=x;K.z=z;K.h=h;K.v=0;storeTick(.016);storeCam(1);R.render(shop,scam)},renderShop(){R.render(shop,scam)},rideJob,st,keys,walls,ramps,starG,begin,render(){drawFrame()},step(n,set){Object.keys(keys).forEach(k=>keys[k]=false);Object.assign(keys,set||{});for(let i=0;i<n;i++){update(FIX)}pose(FIX*n);worldTick(FIX*n);for(let i=0;i<30;i++)updateCam(1/60);drawMap();sun.shadow.needsUpdate=true;drawFrame();return{x:+st.x.toFixed(2),z:+st.z.toFixed(2),y:+st.y.toFixed(2),v:+st.v.toFixed(2),h:+st.h.toFixed(2),air:st.air,got:st.got,airT:+st.airT.toFixed(2)}},tp(x,z,h,v=0){Object.assign(st,{steer:0,lean:0,x,z,h,v,y:groundH(x,z),vy:0,air:false,_rise:0,_py:groundH(x,z),shake:0});for(let i=0;i<60;i++)updateCam(1/60)},info:()=>R.info.render};
+window.__g={LKR,giveClothes,dqPay,showResult,save,job,MIS,PH,ALMA,ANT,HS,STOCK,take,toCheckout,storeSkin,SKIN,shopS:shop,camera,camO:cam,camKv:()=>camK,updateCam,isNight,hourNow,pressE,DK:DHK,DHP,dhE,enterDahari,leaveDahari,mode:()=>mode,TR:()=>TR,goal:()=>goalP,HOT,remount,DOORP,POST,FIELD,ring,fmt:fmtT,flyTg:()=>job.tg,R,scam,film:{T:0,seats:SEATS,logo:LOGO_SRC,start(){gsap.ticker.remove(gsap.updateRoot);gsap.ticker.lagSmoothing(0);this.T=gsap.ticker.time+1;job.next=1e9},keys(k){Object.keys(keys).forEach(q=>keys[q]=false);Object.assign(keys,k||{})},adv(dt){this.T+=dt;gsap.updateRoot(this.T);if(mode==='ride'){const n=Math.max(1,Math.min(8,Math.ceil(dt/FIX)));for(let i=0;i<n;i++)update(dt/n);pose(dt);worldTick(dt)}else if(mode==='dahari')dhTick(dt);else storeTick(dt)},draw(){sun.shadow.needsUpdate=true;drawFrame()},cam(px,py,pz,tx,ty,tz,fov,roll=0){cam.x=px;cam.y=py;cam.z=pz;cam.tx=tx;cam.ty=ty;cam.tz=tz;st.fov=fov;st.shake=0;const lean0=st.lean;st.lean=0;applyCam();st.lean=lean0;if(roll)camera.rotation.z+=roll},seat(i){FT.busy=0;sitDown(SEATS[i])},store(){mode='store';job.state='inStore';job.list=[{k:'eggs',n:'ביצים',got:null}];job.cart=[];job.wrong=[];setMap()},gdb(){gdbGame(1,()=>{})},wear:applyWear,noDust(){pts.visible=false},bossStage,result(s){showResult(s,[['זמן','1:12'],['ביצים שלמות','3 / 3']])}},HOOPS,ballDown,ballUp,RIV,FX,GD,burgerKey,nextMission,dq,DQT,dayKey,setDayKey(k){dqNow=k;dqCheckDay()},renderDaily,SHIRTS,SOC,BB,KEEP,FT2:()=>FT,TR:()=>TR,spawnTrash,fKey,footFree,walls,solids,TB,HL,PT,BK2,BZ,WC,bossPos,hotNow,SD,decline,giveClothes,SHIRTS,SCARVES,arrowDot(){arrow.updateMatrixWorld(true);const a=new THREE.Vector3(0,0,1).applyQuaternion(arrow.children[0].getWorldQuaternion(new THREE.Quaternion())),d=new THREE.Vector3(goalP.x-st.x,0,goalP.z-st.z).normalize();return +a.dot(d).toFixed(2)},FT,BK,SEATS,zE,parkBike,zPrompt,CREW,nearBoard,drawBoard,setDay(t){dayOff=t-st.time;dayTick(true)},WK,fireConfetti,worldTick,MIS,save,DOG,RIV,ROUTE,toggleMenu,menuOpen:()=>menuOpen,play(n,set){Object.keys(keys).forEach(k=>keys[k]=false);Object.assign(keys,set||{});for(let i=0;i<n;i++){update(FIX);if(i%4===0)rideJob(FIX*4)}pose(FIX*n);worldTick(FIX*n);for(let i=0;i<20;i++)updateCam(1/60);drawMap();drawGoal();sun.shadow.needsUpdate=true;drawFrame()},job,K,STOCK,SKU,mode:()=>mode,answer,ring,enterStore,take,toCheckout,pressE,storeStep(n,set){Object.keys(keys).forEach(k=>keys[k]=false);Object.assign(keys,set||{});for(let i=0;i<n;i++)storeTick(1/60);storeCam(1);R.render(shop,scam)},shotShop(x,z,h){K.x=x;K.z=z;K.h=h;K.v=0;storeTick(.016);storeCam(1);R.render(shop,scam)},renderShop(){R.render(shop,scam)},rideJob,st,keys,walls,ramps,starG,begin,render(){drawFrame()},step(n,set){Object.keys(keys).forEach(k=>keys[k]=false);Object.assign(keys,set||{});for(let i=0;i<n;i++){update(FIX)}pose(FIX*n);worldTick(FIX*n);for(let i=0;i<30;i++)updateCam(1/60);drawMap();sun.shadow.needsUpdate=true;drawFrame();return{x:+st.x.toFixed(2),z:+st.z.toFixed(2),y:+st.y.toFixed(2),v:+st.v.toFixed(2),h:+st.h.toFixed(2),air:st.air,got:st.got,airT:+st.airT.toFixed(2)}},tp(x,z,h,v=0){Object.assign(st,{steer:0,lean:0,x,z,h,v,y:groundH(x,z),vy:0,air:false,_rise:0,_py:groundH(x,z),shake:0});for(let i=0;i<60;i++)updateCam(1/60)},info:()=>R.info.render};
 if(TEST){updateCam(.016);R.render(scene,camera);window.__ready=true}else{requestAnimationFrame(frame);window.__ready=true}
 </script></body></html>
