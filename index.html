@@ -2031,6 +2031,25 @@ const LKR = (() => {
   return { row, give, card, closet, preload, settle, INBOX, BASE };
 })();
 
+/* the real tribe walls: murals photographed at the tribe, straightened and hung on the compound's walls.
+   Textures live next to the page in murals/. Visual only: the walls behind them already collide. */
+(() => {
+  const L = new THREE.TextureLoader(), ry = { n: 0, s: Math.PI, w: -Math.PI / 2, e: Math.PI / 2 };
+  const M = [
+    ['naclemp', 184.23, 4.6, -93, 15.6, 6.5, 'e'],        // inside the big hall, on the west wall: you see it when you ride in
+    ['mishpacha', 187.6, 4.2, -79.77, 6.8, 5.45, 'n'],    // hall front, the free corner left of the big sign
+    ['achi', 183.77, 5.0, -93, 22, 7.45, 'w'],            // hall west wall, along the avenue
+    ['jinga', 228.23, 5.05, -93, 17.5, 7.5, 'e'],         // hall east wall, facing the pitch
+    ['lynx', 206, 4.95, -106.23, 10, 7.4, 's'],           // hall back wall, facing the north rooms
+    ['bruchim', 164.345, 1.7, -14, 7.4, 3.27, 'w'],       // first room by the gate
+  ];
+  M.forEach(([n, x, y, z, w, h, f]) => {
+    const t = L.load('murals/' + n + '.webp'); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8;
+    const m = new THREE.MeshLambertMaterial({ map: t, emissive: 0xffffff, emissiveMap: t, emissiveIntensity: .16 });
+    const p = new THREE.Mesh(new THREE.PlaneGeometry(w, h), m); p.position.set(x, y, z); p.rotation.y = ry[f]; p.receiveShadow = true; scene.add(p);
+  });
+})();
+
 window.__g={LKR,giveClothes,dqPay,showResult,save,job,MIS,PH,ALMA,ANT,HS,STOCK,take,toCheckout,storeSkin,SKIN,shopS:shop,camera,camO:cam,camKv:()=>camK,updateCam,isNight,hourNow,pressE,DK:DHK,DHP,dhE,enterDahari,leaveDahari,mode:()=>mode,TR:()=>TR,goal:()=>goalP,HOT,remount,DOORP,POST,FIELD,ring,fmt:fmtT,flyTg:()=>job.tg,R,scam,film:{T:0,seats:SEATS,logo:LOGO_SRC,start(){gsap.ticker.remove(gsap.updateRoot);gsap.ticker.lagSmoothing(0);this.T=gsap.ticker.time+1;job.next=1e9},keys(k){Object.keys(keys).forEach(q=>keys[q]=false);Object.assign(keys,k||{})},adv(dt){this.T+=dt;gsap.updateRoot(this.T);if(mode==='ride'){const n=Math.max(1,Math.min(8,Math.ceil(dt/FIX)));for(let i=0;i<n;i++)update(dt/n);pose(dt);worldTick(dt)}else if(mode==='dahari')dhTick(dt);else storeTick(dt)},draw(){sun.shadow.needsUpdate=true;drawFrame()},cam(px,py,pz,tx,ty,tz,fov,roll=0){cam.x=px;cam.y=py;cam.z=pz;cam.tx=tx;cam.ty=ty;cam.tz=tz;st.fov=fov;st.shake=0;const lean0=st.lean;st.lean=0;applyCam();st.lean=lean0;if(roll)camera.rotation.z+=roll},seat(i){FT.busy=0;sitDown(SEATS[i])},store(){mode='store';job.state='inStore';job.list=[{k:'eggs',n:'ביצים',got:null}];job.cart=[];job.wrong=[];setMap()},gdb(){gdbGame(1,()=>{})},wear:applyWear,noDust(){pts.visible=false},bossStage,result(s){showResult(s,[['זמן','1:12'],['ביצים שלמות','3 / 3']])}},HOOPS,ballDown,ballUp,RIV,FX,GD,burgerKey,nextMission,dq,DQT,dayKey,setDayKey(k){dqNow=k;dqCheckDay()},renderDaily,SHIRTS,SOC,BB,KEEP,FT2:()=>FT,TR:()=>TR,spawnTrash,fKey,footFree,walls,solids,TB,HL,PT,BK2,BZ,WC,bossPos,hotNow,SD,decline,giveClothes,SHIRTS,SCARVES,arrowDot(){arrow.updateMatrixWorld(true);const a=new THREE.Vector3(0,0,1).applyQuaternion(arrow.children[0].getWorldQuaternion(new THREE.Quaternion())),d=new THREE.Vector3(goalP.x-st.x,0,goalP.z-st.z).normalize();return +a.dot(d).toFixed(2)},FT,BK,SEATS,zE,parkBike,zPrompt,CREW,nearBoard,drawBoard,setDay(t){dayOff=t-st.time;dayTick(true)},WK,fireConfetti,worldTick,MIS,save,DOG,RIV,ROUTE,toggleMenu,menuOpen:()=>menuOpen,play(n,set){Object.keys(keys).forEach(k=>keys[k]=false);Object.assign(keys,set||{});for(let i=0;i<n;i++){update(FIX);if(i%4===0)rideJob(FIX*4)}pose(FIX*n);worldTick(FIX*n);for(let i=0;i<20;i++)updateCam(1/60);drawMap();drawGoal();sun.shadow.needsUpdate=true;drawFrame()},job,K,STOCK,SKU,mode:()=>mode,answer,ring,enterStore,take,toCheckout,pressE,storeStep(n,set){Object.keys(keys).forEach(k=>keys[k]=false);Object.assign(keys,set||{});for(let i=0;i<n;i++)storeTick(1/60);storeCam(1);R.render(shop,scam)},shotShop(x,z,h){K.x=x;K.z=z;K.h=h;K.v=0;storeTick(.016);storeCam(1);R.render(shop,scam)},renderShop(){R.render(shop,scam)},rideJob,st,keys,walls,ramps,starG,begin,render(){drawFrame()},step(n,set){Object.keys(keys).forEach(k=>keys[k]=false);Object.assign(keys,set||{});for(let i=0;i<n;i++){update(FIX)}pose(FIX*n);worldTick(FIX*n);for(let i=0;i<30;i++)updateCam(1/60);drawMap();sun.shadow.needsUpdate=true;drawFrame();return{x:+st.x.toFixed(2),z:+st.z.toFixed(2),y:+st.y.toFixed(2),v:+st.v.toFixed(2),h:+st.h.toFixed(2),air:st.air,got:st.got,airT:+st.airT.toFixed(2)}},tp(x,z,h,v=0){Object.assign(st,{steer:0,lean:0,x,z,h,v,y:groundH(x,z),vy:0,air:false,_rise:0,_py:groundH(x,z),shake:0});for(let i=0;i<60;i++)updateCam(1/60)},info:()=>R.info.render};
 if(TEST){updateCam(.016);R.render(scene,camera);window.__ready=true}else{requestAnimationFrame(frame);window.__ready=true}
 </script></body></html>
