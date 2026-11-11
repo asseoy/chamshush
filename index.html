@@ -185,6 +185,38 @@ html.xl #eggs i{width:15px;height:28px;border-radius:3px;background:linear-gradi
 @media(max-height:760px){.lkc{width:76px}.lkc img{height:42px}.lkc b{height:28px;font-size:12px}.lkh{margin-bottom:3px}.lkcs{margin-bottom:3px}}
 @media(max-height:560px){.lkcs{gap:4px}.lkc{width:auto;flex:1 1 44%;border-top-width:3px}.lkc img{display:none}.lkc b{height:auto;white-space:nowrap;text-overflow:ellipsis}.lkc i{display:none}.lkrow{padding:2px 0}.lkh{font-size:.62em;margin-bottom:2px}}
 #resBtns{position:sticky;bottom:0;z-index:2;background:#f1efeb;padding-top:6px}
+/* רדיו הנשיא */
+#rd{position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:60;display:flex;flex-direction:column;align-items:center;gap:6px;font-family:Karantina,Impact,sans-serif;direction:rtl;pointer-events:none}
+#rd>*{pointer-events:auto}
+html:not(.go) #rd{display:none}
+#rdBtn{background:#000;color:#F3E03B;border:2px solid #a81b1f;font:700 22px/1 Karantina,Impact,sans-serif;padding:5px 14px 2px;cursor:pointer;display:flex;gap:8px;align-items:center}
+#rdBtn i{font-style:normal;font-size:15px;color:#000;background:#F3E03B;padding:1px 5px 0}
+#rdBtn.on{background:#a81b1f;color:#fff;border-color:#000}
+#rdMini{display:flex;gap:8px;align-items:stretch;background:#000;border:2px solid #a81b1f;padding:5px}
+#rdMini[hidden],#rdPanel[hidden]{display:none}
+#rdVid{width:192px;height:108px;background:#111;flex:none}
+#rdVid iframe{width:192px;height:108px;display:block}
+.rdM{display:flex;flex-direction:column;justify-content:space-between;max-width:200px}
+.rdM b{color:#fff;font-size:22px;line-height:1;font-weight:700;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+.rdM span{display:flex;gap:4px;direction:ltr}
+.rdM button{background:#1b1518;color:#fff;border:1px solid #444;font-size:17px;width:34px;height:30px;cursor:pointer;padding:0}
+.rdM button:hover{border-color:#F3E03B}
+#rdPanel{width:min(440px,92vw);max-height:min(560px,74vh);display:flex;flex-direction:column;background:#000;border:3px solid #a81b1f;box-shadow:6px 6px 0 #000}
+.rdH{display:flex;align-items:baseline;gap:10px;padding:8px 12px 4px;background:#a81b1f}
+.rdH h3{margin:0;font-size:34px;line-height:1;color:#fff;font-weight:700}
+.rdH span{color:#f6d8d8;font-size:17px;flex:1}
+.rdH button{background:#000;color:#fff;border:0;font-size:18px;width:32px;height:30px;cursor:pointer}
+.rdT{display:flex;gap:6px;padding:8px 10px}
+.rdT button{flex:1;background:#1b1518;color:#fff;border:2px solid #333;font:700 20px/1 Karantina,Impact,sans-serif;padding:6px 0 3px;cursor:pointer}
+.rdT button.on,.rdT button:last-child{background:#F3E03B;color:#000;border-color:#000}
+#rdList{list-style:none;margin:0;padding:0 6px 8px;overflow:auto;flex:1}
+#rdList button{width:100%;text-align:right;background:none;border:0;border-bottom:1px solid #222;color:#e8e2da;padding:6px 8px;cursor:pointer;display:flex;flex-direction:column;font-family:inherit}
+#rdList button b{font-size:21px;line-height:1.05;font-weight:400}
+#rdList button small{font-family:Arial,sans-serif;font-size:12px;color:#8d867e;margin-top:2px}
+#rdList button:hover{background:#1b1518}
+#rdList button.on{background:#a81b1f;color:#fff}#rdList button.on small{color:#f6d8d8}
+@media (max-width:700px){#rd{top:6px}#rdBtn{font-size:18px;padding:4px 10px 1px}#rdVid,#rdVid iframe{width:160px;height:90px}.rdM b{font-size:18px}}
+@media (max-height:500px){#rd{top:4px}#rdVid,#rdVid iframe{width:128px;height:72px}.rdM{max-width:150px}.rdM b{font-size:16px;-webkit-line-clamp:2}.rdM button{width:28px;height:24px;font-size:14px}#rdPanel{max-height:86vh}}
 
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
@@ -385,7 +417,7 @@ const SFX={tick(){tone(2300,.012,'square',.012)},hop(){tone(240,.14,'sine',.12,6
 // state and physics
 const SP={acc:8.2,sprint:13.5,max:11.5,maxS:17.5,brake:21,coast:1.05,grav:21,jump:6.6};
 const st={x:60,z:181,y:0,vy:0,h:0,v:0,lean:0,steer:0,pitch:0,air:false,airT:0,spin:0,crank:0,wheel:0,squash:0,shake:0,fov:58,got:0,tickA:0,hitCD:0,wob:0,started:false,time:0,yelling:0};
-const keys={};const on=(e,v)=>{if(e.target&&e.target.tagName==='INPUT')return;if(window.NAC&&NAC.key(e,v))return;if(window.PH&&PH.photo&&PH.key(e,v))return;const c=e.code;if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(c))e.preventDefault();keys[c]=v;if(v&&c==='KeyM'&&mg){muted=!muted;mg.gain.value=muted?0:1}if(v&&c==='KeyR'&&st.started&&mode==='ride'&&!menuOpen&&!job.cine&&!['end','report','go'].includes(job.state))respawn();if(v&&c==='Enter'&&!e.repeat){if(ui('#dqDone').style.visibility==='visible')ui('#dqOk').click();else if(getComputedStyle(ui('#result')).visibility==='visible')ui('#resA').click()}if(v&&c==='KeyE'&&!e.repeat&&!menuOpen){if(job.state==='ring'||!ballDown())pressE()}if(!v&&c==='KeyE')ballUp();if(v&&c==='KeyQ'&&!e.repeat&&!menuOpen&&job.state==='ring')decline(false);if(v&&job.burgerOn&&!e.repeat&&/^(Digit|Numpad)[1-6]$/.test(c))burgerKey(+c.slice(-1)-1);if(v&&c==='KeyF'&&!e.repeat&&mode==='ride')fKey();if(v&&c==='Space'&&!e.repeat&&mode==='ride'&&!menuOpen)st.jq=true;if(v&&c==='Tab'){e.preventDefault();if(!e.repeat)toggleMenu()}if(v&&c==='Escape'&&menuOpen)toggleMenu();if(v&&c==='KeyH'&&!e.repeat){if(mode==='ride'&&!menuOpen&&!st.onFoot){const D=save.daily;D.bell=D.bell||[];const i=WK.findIndex((w,k)=>!D.bell.includes(k)&&Math.hypot(w.x-st.x,w.z-st.z)<9);if(i>=0){D.bell.push(i);dq('bell');WK[i].dodge=1.6;WK[i].stop=0}}if(st.onFoot||mode!=='ride')return;if(job.state==='out'&&job.m&&job.m.bell)job.m.bell();tone(2100,.09,'sine',.07);tone(2100,.13,'sine',.06,null,.14)}};addEventListener('keydown',e=>on(e,true));addEventListener('keyup',e=>on(e,false));addEventListener('blur',()=>{for(const k in keys)keys[k]=false});
+const keys={};const on=(e,v)=>{if(e.target&&e.target.tagName==='INPUT')return;if(window.RADIO&&RADIO.key(e,v))return;if(window.NAC&&NAC.key(e,v))return;if(window.PH&&PH.photo&&PH.key(e,v))return;const c=e.code;if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].includes(c))e.preventDefault();keys[c]=v;if(v&&c==='KeyM'&&mg){muted=!muted;mg.gain.value=muted?0:1}if(v&&c==='KeyR'&&st.started&&mode==='ride'&&!menuOpen&&!job.cine&&!['end','report','go'].includes(job.state))respawn();if(v&&c==='Enter'&&!e.repeat){if(ui('#dqDone').style.visibility==='visible')ui('#dqOk').click();else if(getComputedStyle(ui('#result')).visibility==='visible')ui('#resA').click()}if(v&&c==='KeyE'&&!e.repeat&&!menuOpen){if(job.state==='ring'||!ballDown())pressE()}if(!v&&c==='KeyE')ballUp();if(v&&c==='KeyQ'&&!e.repeat&&!menuOpen&&job.state==='ring')decline(false);if(v&&job.burgerOn&&!e.repeat&&/^(Digit|Numpad)[1-6]$/.test(c))burgerKey(+c.slice(-1)-1);if(v&&c==='KeyF'&&!e.repeat&&mode==='ride')fKey();if(v&&c==='Space'&&!e.repeat&&mode==='ride'&&!menuOpen)st.jq=true;if(v&&c==='Tab'){e.preventDefault();if(!e.repeat)toggleMenu()}if(v&&c==='Escape'&&menuOpen)toggleMenu();if(v&&c==='KeyH'&&!e.repeat){if(mode==='ride'&&!menuOpen&&!st.onFoot){const D=save.daily;D.bell=D.bell||[];const i=WK.findIndex((w,k)=>!D.bell.includes(k)&&Math.hypot(w.x-st.x,w.z-st.z)<9);if(i>=0){D.bell.push(i);dq('bell');WK[i].dodge=1.6;WK[i].stop=0}}if(st.onFoot||mode!=='ride')return;if(job.state==='out'&&job.m&&job.m.bell)job.m.bell();tone(2100,.09,'sine',.07);tone(2100,.13,'sine',.06,null,.14)}};addEventListener('keydown',e=>on(e,true));addEventListener('keyup',e=>on(e,false));addEventListener('blur',()=>{for(const k in keys)keys[k]=false});
 const kF=()=>keys.KeyW||keys.ArrowUp,kB=()=>keys.KeyS||keys.ArrowDown,kL=()=>keys.KeyA||keys.ArrowLeft,kR=()=>keys.KeyD||keys.ArrowRight,kS=()=>keys.ShiftLeft||keys.ShiftRight;
 function respawn(){if(st.onFoot)remount(true);Object.assign(st,{x:60,z:181,y:groundH(60,181),vy:0,h:0,v:0,lean:0,steer:0,air:false,airT:0,spin:0,shake:0,wob:0})}
 let popTl=null;function pop(s,col='#F3E03B',big=88){const e=$('#pop');e.textContent=s;e.style.color=col;e.style.fontSize=big+'px';popTl&&popTl.kill();popTl=gsap.timeline().fromTo(e,{autoAlpha:0,scale:2.3,rotation:-6,xPercent:0},{autoAlpha:1,scale:1,rotation:-2,duration:.13,ease:'power4.in'}).to(e,{autoAlpha:0,y:-18,duration:.22,delay:.85}).set(e,{y:0})}
@@ -2049,6 +2081,61 @@ const LKR = (() => {
     const p = new THREE.Mesh(new THREE.PlaneGeometry(w, h), m); p.position.set(x, y, z); p.rotation.y = ry[f]; p.receiveShadow = true; scene.add(p);
   });
 })();
+
+/* רדיו הנשיא: the tribe's jingles and songs (the same YouTube list as the tribe site) while you ride.
+   J or the button opens the list; the YouTube player stays visible in a small box while it plays. */
+const RADIO = (() => {
+  const LIST = [["NLv15OAh0T4", "שכבת ירדן חמישיות", "חמישיות"], ["555IA1GIUIY", "נשיא קוד", "ג׳ינגל חנוכה 67"], ["mkSQvYFaTbM", "קוזינות במדבר", "ג׳ינגל 88 · שכבת כפיר"], ["aVOrvan1gWY", "ג’ינגל פעילים 2022–23", "שיאן שמיניות"], ["0UDZLA4e_j4", "שיר המרכז – נדב קמיל", "נדב קמיל"], ["m_8QqDVAdyg", "זה לא הסוף", "פסטיבל אביב 2012 · שניר"], ["V8APn9g3AMM", "ג’ינגל פעילים 2020–21", "פעילים"], ["lJ2cQzwd-Zg", "ג’ינגל פעילים 2013–14", "פעילים"], ["bTnIb3hxO5k", "בחורה מהנשיא", "פסטיבל אביב 2008 · לוטן"], ["R5oGkxelx2M", "בשירים של הנשיא", "פסטיבל אביב 2006 · שכבת סיני"], ["sOKO6HHATAU", "נשיא קוד", "חנוכה 2016 · תורן, תבור"], ["VVaq5R6OBU8", "פסטיבל אביב 2004 – שכבת עוצמה הארנב המתוסכל", "פסטיבל אביב 2004 · שכבת עוצמה"], ["9t0U4Dom3bA", "חלוץ 2016", ""], ["KOqie3f3wi0", "נשיאפיקציה – 67 רותם סייפן", "ג׳ינגל 67 · רותם"], ["iCGvR85b0cQ", "ג’ינגל חנוכה 2013", "רמון ותמיר"], ["Gz1RYfr0Upw", "חנוכה 2011 – שכבת שוהם ושכבת איתן", "שכבת שהם ושכבת איתן"], ["cHbph_I2d6g", "תורן – מאסטר אוף בלוגובס – 2005 [רותם, סיני, לביא]", "תורן 2005 · רותם, סיני, לביא"], ["LYMIrROr9jI", "מחנה קיץ 2008", "לוטן"], ["rBcoQYz5M5Y", "זה לא הסוף", "שכבת שניר"], ["lx_Qg9M3fk0", "ג’ינגל 67 2023", "רותם · 2023"], ["5ylgJMABmkY", "ג’ינגל פתיחת שנה שיאן חמישיות 2019–20", "חמישיות שיאן"], ["lMHcMpgZ6RI", "ג׳ינגל חנוכה 2015 ארד", "ארד שביעיות, תורן שישיות"], ["V1oc13ZhBEE", "פסטיבל אביב 2023 – שיאן שמיניות: מחנאות", "פסטיבל אביב 2023 · שיאן שמיניות"], ["xY1fLgqb1h8", "טראנשיא מסוכן", "2017"], ["JhtMLaGnbyg", "שום דבר לא כבד מדי", ""], ["vABLyRDHyzk", "מחנה קיץ 2008", "לוטן"], ["jO5B8wkx8tM", "אין הנהגה בלי הנשיא", ""], ["RRmUVuqhef0", "שירת הסטיקר – פסטיבל אביב 2015", "פסטיבל אביב 2015 · שכבת רמון"], ["hvxr-_N42iE", "ג׳ינגל מחסן מערכת", "מחנה קיץ 2014"], ["0gnIyfr5o6I", "ג’ינגל פעילים 2019–2020 (מיאו)", "ג׳ינגל פעילים 2020"], ["PtsDAr5e-Pw", "ג’ינגל השעיה – מלכי בדפיקות שבט הנשיא", "ג׳ינגל השעיה · רותם"], ["J3vt5_rAm5o", "ההנהגה בלהבות 88 שיאן", "שיאן 88"], ["9g8T8dMloH0", "צופים מהצד – דיס חברי שכב”ג", "צופים מהצד"], ["q8d_tHd5AKw", "יוטיוב אמן", "צוות המרכזים הצעירים"], ["ylIzQb6C-g0", "ג׳ינגל חנוכה 2015 תמיר", "שכבת תמיר שמיניסטים"], ["Flq6Ydm9M8k", "תמיד שרים שירים – פסטיבל אביב 2014", "פסטיבל אביב 2014 · שוהם"], ["Q4O3sSt0HxU", "ג’ינגל פעילים 2017–18", "תורן, תבור, גלעד"], ["SWNH6eAU6as", "נשיאגרפיה אלימה / violent na-cgraphy", "violent na-cgraphy"], ["RMCqGGHttHM", "לא תשכחו את השם – חלוץ 2021", "ג׳ינגל חלוץ 2021"], ["8_vww3nZaUU", "אנחנו שוב זוכים", ""], ["3sQJ1j3k3ac", "בסלון של לוציפר", ""], ["Wg78Sbba2OE", "מי מזיע לידי", "הראפ"], ["raBwWeRtt4Q", "עכשיו אני מצהיר", ""], ["FQho0Fnp93g", "חמיאל", "ג׳ינגל חנוכה · שכבת שוהם"], ["hs11o2M8VCI", "שיאן באתגר – nac against the malshin", "גדוד שיאן · טיול אתגר"], ["ithTaX6iMfM", "ג’ינגל הדרכה 2015–16", ""], ["BMgtw-p4wVU", "אם לא נמות – פתיחת שנה 2018–19", "2018-19"], ["hMss5Ipwwuk", "ג’ינגל פעילים 2019–2020 (מיאו)", ""], ["j71wZpmZoBE", "ג׳ינגל הדרכה 2018-19", ""], ["e7yr2vhiak0", "השיר שלי", ""], ["wiFyRKiMyfM", "סהר במדבר – חנוכה 88", "חנוכה 88"], ["HmfLxDIKiaA", "סהר באתגר", ""], ["QwwPTrDldGg", "ג׳ינגל ו׳ 2021-22", ""], ["MseGlJhLR84", "בשירים של הנשיא", "פסטיבל אביב 2006 · סיני"], ["o3HZC3bGGlw", "Harlem Shake", ""], ["lvOOtBmw1qc", "הדרכה סופי 2021–2022", "כפיר, שיאן, עוז"], ["sfkq3mdPw5Q", "ג’ינגל חנוכה 2013", "רמון, תמיר"], ["mY5tGJyao-Y", "הנשיא אימפריה 2003 מוקדש לצ’יקו", "מוקדש לצ׳יקו"], ["A-NVl5he4Hw", "שוברים ת’מוסכמות – פסטיבל אביב 2025", "פסטיבל אביב 2025 · סהר שמיניות"], ["hr8octBH6S8", "מחנה קיץ 2017", "ארד, תורן, תבור"], ["RUOFZKDBjL0", "שכבת לביא בפסטיבל אביב 2007", "פסטיבל אביב 2007 · לביא"], ["wsye8vAP2lg", "לנו אין מעצורים", "פסטיבל אביב 2016 · תמיר"], ["Pw3GOiuyD4I", "ג׳ינגל מחנה קיץ 2000", ""], ["9jhN3LiEInc", "נכבוש את השמיים", "פסטיבל אביב 2017 · ארד"], ["K2lA2PTOjj0", "שוברים ת’מוסכמות – פסטיבל אביב 2025", "פסטיבל אביב 2025"], ["pMFHp0FG4d0", "פעילים 2025 – שאנטי", "ג׳ינגל פעילים 2025"], ["GFVGu7I0n1I", "אתגר בלי הנשיא", "ראם חמישיות 2026"], ["RQuwQ8j40po", "גיהנום בדרום – 67 2022", "טיול חנוכה · עוז, סהר"]];
+  const $ = s => document.querySelector(s);
+  const ui = document.createElement('div'); ui.id = 'rd';
+  ui.innerHTML = `<button id="rdBtn" type="button" aria-label="רדיו הנשיא: ג׳ינגלים">ג׳ינגלים<i>J</i></button>
+   <div id="rdMini" hidden><div id="rdVid"><div id="rdYT"></div></div><div class="rdM"><b id="rdNow"></b><span><button data-r="prev" aria-label="הקודם">⏮</button><button data-r="play" id="rdPP" aria-label="עצירה">⏸</button><button data-r="next" aria-label="הבא">⏭</button><button data-r="list" aria-label="רשימה">☰</button><button data-r="stop" aria-label="כיבוי">✕</button></span></div></div>
+   <div id="rdPanel" hidden><div class="rdH"><h3>רדיו הנשיא</h3><span>${LIST.length} ג׳ינגלים ושירים של השבט</span><button data-r="close" aria-label="סגירה">✕</button></div>
+    <div class="rdT"><button data-r="shuffle" id="rdSh">ערבוב: כבוי</button><button data-r="all">לנגן הכל</button></div>
+    <ol id="rdList">${LIST.map((x, i) => `<li><button data-i="${i}"><b>${x[1]}</b>${x[2] ? `<small>${x[2]}</small>` : ''}</button></li>`).join('')}</ol></div>`;
+  document.body.appendChild(ui);
+  let yt = null, ready = false, cur = -1, shuffle = false, apiP = null, playing = false;
+  const api = () => { if (window.YT && YT.Player) return Promise.resolve(); if (apiP) return apiP;
+    return apiP = new Promise(res => { const prev = window.onYouTubeIframeAPIReady; window.onYouTubeIframeAPIReady = () => { if (prev) try { prev() } catch (e) {} res() };
+      const sc = document.createElement('script'); sc.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(sc) }) };
+  const paint = () => { $('#rdNow').textContent = cur >= 0 ? LIST[cur][1] : ''; $('#rdPP').textContent = playing ? '⏸' : '▶';
+    ui.querySelectorAll('#rdList button').forEach(b => b.classList.toggle('on', +b.dataset.i === cur)); $('#rdBtn').classList.toggle('on', cur >= 0) };
+  const nextIdx = d => shuffle ? (LIST.length > 1 ? (cur + 1 + Math.floor(Math.random() * (LIST.length - 1))) % LIST.length : 0) : (cur + d + LIST.length) % LIST.length;
+  function play(i) {
+    cur = i; $('#rdMini').hidden = false; paint();
+    api().then(() => {
+      if (!yt) { yt = new YT.Player('rdYT', { width: 192, height: 108, videoId: LIST[i][0], playerVars: { autoplay: 1, playsinline: 1, rel: 0, modestbranding: 1 },
+        events: { onReady: e => { ready = true; e.target.playVideo() }, onStateChange: e => { playing = e.data === 1; if (e.data === 0) play(nextIdx(1)); paint() },
+          onError: () => setTimeout(() => play(nextIdx(1)), 800) } }) }   // a removed or blocked video skips to the next one
+      else if (ready) yt.loadVideoById(LIST[i][0]);
+    });
+  }
+  const panel = on => { $('#rdPanel').hidden = !on; if (on) { const b = ui.querySelector(`#rdList button[data-i="${Math.max(0, cur)}"]`); b && b.scrollIntoView({ block: 'center' }) } };
+  ui.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return; e.stopPropagation();
+    if (b.id === 'rdBtn') return panel($('#rdPanel').hidden);
+    if (b.dataset.i != null) { play(+b.dataset.i); panel(false); return }
+    const r = b.dataset.r;
+    if (r === 'close') panel(false);
+    else if (r === 'list') panel(true);
+    else if (r === 'next') play(nextIdx(1));
+    else if (r === 'prev') play(nextIdx(-1));
+    else if (r === 'play') { if (!yt || !ready) return; playing ? yt.pauseVideo() : yt.playVideo() }
+    else if (r === 'stop') { if (yt && ready) yt.stopVideo(); cur = -1; playing = false; $('#rdMini').hidden = true; paint() }
+    else if (r === 'shuffle') { shuffle = !shuffle; b.textContent = 'ערבוב: ' + (shuffle ? 'פועל' : 'כבוי'); b.classList.toggle('on', shuffle) }
+    else if (r === 'all') { shuffle = true; const s = $('#rdSh'); s.textContent = 'ערבוב: פועל'; s.classList.add('on'); play(Math.floor(Math.random() * LIST.length)); panel(false) }
+  });
+  ['pointerdown', 'touchstart', 'mousedown', 'wheel'].forEach(ev => ui.addEventListener(ev, e => e.stopPropagation(), { passive: true }));
+  return {
+    key(e, v) {            // J toggles the list; while the list is open the game ignores keys, Escape closes it
+      if (e.code === 'KeyJ') { if (v && !e.repeat) panel($('#rdPanel').hidden); return true }
+      if (!$('#rdPanel').hidden) { if (v && e.code === 'Escape') panel(false); return true }
+      return false;
+    },
+    get open() { return !$('#rdPanel').hidden }, play, LIST
+  };
+})();
+window.RADIO = RADIO;
 
 window.__g={LKR,giveClothes,dqPay,showResult,save,job,MIS,PH,ALMA,ANT,HS,STOCK,take,toCheckout,storeSkin,SKIN,shopS:shop,camera,camO:cam,camKv:()=>camK,updateCam,isNight,hourNow,pressE,DK:DHK,DHP,dhE,enterDahari,leaveDahari,mode:()=>mode,TR:()=>TR,goal:()=>goalP,HOT,remount,DOORP,POST,FIELD,ring,fmt:fmtT,flyTg:()=>job.tg,R,scam,film:{T:0,seats:SEATS,logo:LOGO_SRC,start(){gsap.ticker.remove(gsap.updateRoot);gsap.ticker.lagSmoothing(0);this.T=gsap.ticker.time+1;job.next=1e9},keys(k){Object.keys(keys).forEach(q=>keys[q]=false);Object.assign(keys,k||{})},adv(dt){this.T+=dt;gsap.updateRoot(this.T);if(mode==='ride'){const n=Math.max(1,Math.min(8,Math.ceil(dt/FIX)));for(let i=0;i<n;i++)update(dt/n);pose(dt);worldTick(dt)}else if(mode==='dahari')dhTick(dt);else storeTick(dt)},draw(){sun.shadow.needsUpdate=true;drawFrame()},cam(px,py,pz,tx,ty,tz,fov,roll=0){cam.x=px;cam.y=py;cam.z=pz;cam.tx=tx;cam.ty=ty;cam.tz=tz;st.fov=fov;st.shake=0;const lean0=st.lean;st.lean=0;applyCam();st.lean=lean0;if(roll)camera.rotation.z+=roll},seat(i){FT.busy=0;sitDown(SEATS[i])},store(){mode='store';job.state='inStore';job.list=[{k:'eggs',n:'ביצים',got:null}];job.cart=[];job.wrong=[];setMap()},gdb(){gdbGame(1,()=>{})},wear:applyWear,noDust(){pts.visible=false},bossStage,result(s){showResult(s,[['זמן','1:12'],['ביצים שלמות','3 / 3']])}},HOOPS,ballDown,ballUp,RIV,FX,GD,burgerKey,nextMission,dq,DQT,dayKey,setDayKey(k){dqNow=k;dqCheckDay()},renderDaily,SHIRTS,SOC,BB,KEEP,FT2:()=>FT,TR:()=>TR,spawnTrash,fKey,footFree,walls,solids,TB,HL,PT,BK2,BZ,WC,bossPos,hotNow,SD,decline,giveClothes,SHIRTS,SCARVES,arrowDot(){arrow.updateMatrixWorld(true);const a=new THREE.Vector3(0,0,1).applyQuaternion(arrow.children[0].getWorldQuaternion(new THREE.Quaternion())),d=new THREE.Vector3(goalP.x-st.x,0,goalP.z-st.z).normalize();return +a.dot(d).toFixed(2)},FT,BK,SEATS,zE,parkBike,zPrompt,CREW,nearBoard,drawBoard,setDay(t){dayOff=t-st.time;dayTick(true)},WK,fireConfetti,worldTick,MIS,save,DOG,RIV,ROUTE,toggleMenu,menuOpen:()=>menuOpen,play(n,set){Object.keys(keys).forEach(k=>keys[k]=false);Object.assign(keys,set||{});for(let i=0;i<n;i++){update(FIX);if(i%4===0)rideJob(FIX*4)}pose(FIX*n);worldTick(FIX*n);for(let i=0;i<20;i++)updateCam(1/60);drawMap();drawGoal();sun.shadow.needsUpdate=true;drawFrame()},job,K,STOCK,SKU,mode:()=>mode,answer,ring,enterStore,take,toCheckout,pressE,storeStep(n,set){Object.keys(keys).forEach(k=>keys[k]=false);Object.assign(keys,set||{});for(let i=0;i<n;i++)storeTick(1/60);storeCam(1);R.render(shop,scam)},shotShop(x,z,h){K.x=x;K.z=z;K.h=h;K.v=0;storeTick(.016);storeCam(1);R.render(shop,scam)},renderShop(){R.render(shop,scam)},rideJob,st,keys,walls,ramps,starG,begin,render(){drawFrame()},step(n,set){Object.keys(keys).forEach(k=>keys[k]=false);Object.assign(keys,set||{});for(let i=0;i<n;i++){update(FIX)}pose(FIX*n);worldTick(FIX*n);for(let i=0;i<30;i++)updateCam(1/60);drawMap();sun.shadow.needsUpdate=true;drawFrame();return{x:+st.x.toFixed(2),z:+st.z.toFixed(2),y:+st.y.toFixed(2),v:+st.v.toFixed(2),h:+st.h.toFixed(2),air:st.air,got:st.got,airT:+st.airT.toFixed(2)}},tp(x,z,h,v=0){Object.assign(st,{steer:0,lean:0,x,z,h,v,y:groundH(x,z),vy:0,air:false,_rise:0,_py:groundH(x,z),shake:0});for(let i=0;i<60;i++)updateCam(1/60)},info:()=>R.info.render};
 if(TEST){updateCam(.016);R.render(scene,camera);window.__ready=true}else{requestAnimationFrame(frame);window.__ready=true}
