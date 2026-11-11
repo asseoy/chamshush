@@ -218,6 +218,13 @@ html:not(.go) #rd{display:none}
 @media (max-width:700px){#rd{top:6px}#rdBtn{font-size:18px;padding:4px 10px 1px}#rdVid,#rdVid iframe{width:160px;height:90px}.rdM b{font-size:18px}}
 @media (max-height:500px){#rd{top:4px}#rdVid,#rdVid iframe{width:128px;height:72px}.rdM{max-width:150px}.rdM b{font-size:16px;-webkit-line-clamp:2}.rdM button{width:28px;height:24px;font-size:14px}#rdPanel{max-height:86vh}}
 
+#rdVid{position:relative}
+#rdTap{display:none;position:absolute;left:0;right:0;bottom:-26px;text-align:center;font:700 19px/1 Karantina,Impact,sans-serif;color:#000;background:#F3E03B;padding:4px 0 2px;font-style:normal;pointer-events:none}
+#rdMini.need{flex-direction:column;align-items:center;padding-bottom:32px}
+#rdMini.need #rdVid,#rdMini.need #rdVid iframe{width:320px;height:180px}
+#rdMini.need #rdTap{display:block}
+@media (max-height:500px){#rdMini.need #rdVid,#rdMini.need #rdVid iframe{width:256px;height:144px}}
+
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head><body>
@@ -2089,12 +2096,15 @@ const RADIO = (() => {
   const $ = s => document.querySelector(s);
   const ui = document.createElement('div'); ui.id = 'rd';
   ui.innerHTML = `<button id="rdBtn" type="button" aria-label="רדיו הנשיא: ג׳ינגלים">ג׳ינגלים<i>J</i></button>
-   <div id="rdMini" hidden><div id="rdVid"><div id="rdYT"></div></div><div class="rdM"><b id="rdNow"></b><span><button data-r="prev" aria-label="הקודם">⏮</button><button data-r="play" id="rdPP" aria-label="עצירה">⏸</button><button data-r="next" aria-label="הבא">⏭</button><button data-r="list" aria-label="רשימה">☰</button><button data-r="stop" aria-label="כיבוי">✕</button></span></div></div>
+   <div id="rdMini" hidden><div id="rdVid"><div id="rdYT"></div><em id="rdTap">הקישו על הסרטון כדי להתחיל ▶</em></div><div class="rdM"><b id="rdNow"></b><span><button data-r="prev" aria-label="הקודם">⏮</button><button data-r="play" id="rdPP" aria-label="עצירה">⏸</button><button data-r="next" aria-label="הבא">⏭</button><button data-r="list" aria-label="רשימה">☰</button><button data-r="stop" aria-label="כיבוי">✕</button></span></div></div>
    <div id="rdPanel" hidden><div class="rdH"><h3>רדיו הנשיא</h3><span>${LIST.length} ג׳ינגלים ושירים של השבט</span><button data-r="close" aria-label="סגירה">✕</button></div>
     <div class="rdT"><button data-r="shuffle" id="rdSh">ערבוב: כבוי</button><button data-r="all">לנגן הכל</button></div>
     <ol id="rdList">${LIST.map((x, i) => `<li><button data-i="${i}"><b>${x[1]}</b>${x[2] ? `<small>${x[2]}</small>` : ''}</button></li>`).join('')}</ol></div>`;
   document.body.appendChild(ui);
-  let yt = null, ready = false, cur = -1, shuffle = false, apiP = null, playing = false;
+  let yt = null, ready = false, cur = -1, shuffle = false, apiP = null, playing = false, tapT = 0;
+  // phones (iPhone above all) only start a YouTube video from a tap on the player itself: if nothing plays after a moment,
+  // the box grows and asks for that one tap. After it, the next jingles start on their own.
+  const need = on => $('#rdMini').classList.toggle('need', on);
   const api = () => { if (window.YT && YT.Player) return Promise.resolve(); if (apiP) return apiP;
     return apiP = new Promise(res => { const prev = window.onYouTubeIframeAPIReady; window.onYouTubeIframeAPIReady = () => { if (prev) try { prev() } catch (e) {} res() };
       const sc = document.createElement('script'); sc.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(sc) }) };
@@ -2102,10 +2112,10 @@ const RADIO = (() => {
     ui.querySelectorAll('#rdList button').forEach(b => b.classList.toggle('on', +b.dataset.i === cur)); $('#rdBtn').classList.toggle('on', cur >= 0) };
   const nextIdx = d => shuffle ? (LIST.length > 1 ? (cur + 1 + Math.floor(Math.random() * (LIST.length - 1))) % LIST.length : 0) : (cur + d + LIST.length) % LIST.length;
   function play(i) {
-    cur = i; $('#rdMini').hidden = false; paint();
+    cur = i; $('#rdMini').hidden = false; paint(); clearTimeout(tapT); tapT = setTimeout(() => { if (!playing) need(true) }, 1800);
     api().then(() => {
       if (!yt) { yt = new YT.Player('rdYT', { width: 192, height: 108, videoId: LIST[i][0], playerVars: { autoplay: 1, playsinline: 1, rel: 0, modestbranding: 1 },
-        events: { onReady: e => { ready = true; e.target.playVideo() }, onStateChange: e => { playing = e.data === 1; if (e.data === 0) play(nextIdx(1)); paint() },
+        events: { onReady: e => { ready = true; e.target.unMute(); e.target.playVideo() }, onStateChange: e => { playing = e.data === 1; if (playing || e.data === 3) need(false); if (e.data === 0) play(nextIdx(1)); paint() },
           onError: () => setTimeout(() => play(nextIdx(1)), 800) } }) }   // a removed or blocked video skips to the next one
       else if (ready) yt.loadVideoById(LIST[i][0]);
     });
@@ -2120,8 +2130,8 @@ const RADIO = (() => {
     else if (r === 'list') panel(true);
     else if (r === 'next') play(nextIdx(1));
     else if (r === 'prev') play(nextIdx(-1));
-    else if (r === 'play') { if (!yt || !ready) return; playing ? yt.pauseVideo() : yt.playVideo() }
-    else if (r === 'stop') { if (yt && ready) yt.stopVideo(); cur = -1; playing = false; $('#rdMini').hidden = true; paint() }
+    else if (r === 'play') { if (!yt || !ready) return; if (playing) yt.pauseVideo(); else { yt.playVideo(); clearTimeout(tapT); tapT = setTimeout(() => { if (!playing) need(true) }, 1500) } }
+    else if (r === 'stop') { if (yt && ready) yt.stopVideo(); cur = -1; playing = false; clearTimeout(tapT); need(false); $('#rdMini').hidden = true; paint() }
     else if (r === 'shuffle') { shuffle = !shuffle; b.textContent = 'ערבוב: ' + (shuffle ? 'פועל' : 'כבוי'); b.classList.toggle('on', shuffle) }
     else if (r === 'all') { shuffle = true; const s = $('#rdSh'); s.textContent = 'ערבוב: פועל'; s.classList.add('on'); play(Math.floor(Math.random() * LIST.length)); panel(false) }
   });
